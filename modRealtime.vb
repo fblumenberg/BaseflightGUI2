@@ -116,7 +116,6 @@
             li.Line.Width = 1
         Next
 
-
         myPane.YAxis.Title.FontSpec.FontColor = Color.White
         myPane.XAxis.Title.FontSpec.FontColor = Color.White
 
@@ -124,45 +123,56 @@
         myPane.XAxis.Scale.Max = 300
         myPane.XAxis.Type = ZedGraph.AxisType.Linear
 
-
-
         frmMain.zgMonitor.ScrollGrace = 0
         xScale = frmMain.zgMonitor.GraphPane.XAxis.Scale
         frmMain.zgMonitor.AxisChange()
+    End Sub
 
+    Public indicators As Label()
+    Public Sub initIndicatorLamps()
+        'Build indicator lamps array
+        indicators = New Label(iCheckBoxItems - 1) {}
+        Dim row As Integer = 0
+        Dim col As Integer = 0
+        Dim startx As Integer = 3
+        Dim starty As Integer = 3
+        For i As Integer = 0 To iCheckBoxItems - 1
+            indicators(i) = New Label()
+            indicators(i).AutoSize = False
+            indicators(i).Height = 17
+            indicators(i).Width = 68
+            indicators(i).Location = New Point(startx + col * (indicators(i).Width + 2), starty + row * (indicators(i).Height + 2))
+            indicators(i).Visible = True
+            indicators(i).Text = sBoxNames(i)
+            indicators(i).BackColor = Color.LightGray
+            indicators(i).BorderStyle = BorderStyle.FixedSingle
+            indicators(i).Anchor = AnchorStyles.Right
+            indicators(i).TextAlign = ContentAlignment.TopCenter
+            frmMain.pnIndicator.Controls.Add(indicators(i))
+            col += 1
+            If col = 3 Then
+                col = 0
+                row += 1
+            End If
+        Next
     End Sub
 
     Public Sub askForRealtimeValues()
         MSPquery(MSP_RC)
-        'readCOM()
         MSPquery(MSP_STATUS)
-        'readCOM()
         MSPquery(MSP_RAW_IMU)
-        'readCOM()
         MSPquery(MSP_SERVO)
-        'readCOM()
         MSPquery(MSP_MOTOR)
-        'readCOM()
         MSPquery(MSP_ALTITUDE)
-        'readCOM()
         MSPquery(MSP_BAT)
-        'readCOM()
         MSPquery(MSP_MISC)
-        'readCOM()
         MSPquery(MSP_DEBUG)
-        'readCOM()
-        MSPquery(MSP_TEMP)
-        'readCOM()
+        MSPquery(MSP_TEMPERATURE)
         MSPquery(MSP_SONAR)
-        'readCOM()
         MSPquery(MSP_RC)
-        'readCOM()
         MSPquery(MSP_ATTITUDE)
-        'readCOM()
         MSPquery(MSP_COMP_GPS)
-        'readCOM()
         MSPquery(MSP_RAW_GPS)
-        'readCOM()
     End Sub
 
     Public Sub updateTPRealtime()
@@ -242,7 +252,6 @@
         End If
         frmMain.lblVdbg4.Text = "" & mw_gui.debug4
 
-
         xTimeStamp = xTimeStamp + 1
 
         If xTimeStamp > xScale.Max Then
@@ -265,27 +274,48 @@
         curve_alt.IsVisible = frmMain.chk_alt.Checked
         curve_head.IsVisible = frmMain.chk_head.Checked
 
-        'motorsIndicator1.SetMotorsIndicatorParameters(mw_gui.motors, mw_gui.servos, mw_gui.multiType)
-
         'update indicator lamps
+        If (mw_gui.present And 1) <> 0 Then
+            frmMain.lblSensorACC.BackColor = Color.DarkGray
+        Else
+            frmMain.lblSensorACC.BackColor = Color.LightGray
+        End If
+        If (mw_gui.present And 2) <> 0 Then
+            frmMain.lblSensorBARO.BackColor = Color.DarkGray
+        Else
+            frmMain.lblSensorBARO.BackColor = Color.LightGray
+        End If
+        If (mw_gui.present And 4) <> 0 Then
+            frmMain.lblSensorMAG.BackColor = Color.DarkGray
+        Else
+            frmMain.lblSensorMAG.BackColor = Color.LightGray
+        End If
+        If (mw_gui.present And 8) <> 0 Then
+            frmMain.lblSensorGPS.BackColor = Color.DarkGray
+        Else
+            frmMain.lblSensorGPS.BackColor = Color.LightGray
+        End If
+        If (mw_gui.present And 16) <> 0 Then
+            frmMain.lblSensorSONAR.BackColor = Color.DarkGray
+        Else
+            frmMain.lblSensorSONAR.BackColor = Color.LightGray
+        End If
+        If (mw_gui.present And 32) <> 0 Then
+            frmMain.lblSensorOPTIC.BackColor = Color.DarkGray
+        Else
+            frmMain.lblSensorOPTIC.BackColor = Color.LightGray
+        End If
 
-        ''indNUNCHUK.SetStatus((mw_gui.present & 1) != 0);
-        'indACC.SetStatus((mw_gui.present And 1) <> 0)
-        'indBARO.SetStatus((mw_gui.present And 2) <> 0)
-        'indMAG.SetStatus((mw_gui.present And 4) <> 0)
-        'indGPS.SetStatus((mw_gui.present And 8) <> 0)
-        'indSONAR.SetStatus((mw_gui.present And 16) <> 0)
-
-        'For i As Integer = 0 To iCheckBoxItems - 1
-        '    If (mw_gui.mode And (1 << i)) > 0 Then
-        '        indicators(i).SetStatus(True)
-        '    Else
-        '        indicators(i).SetStatus(False)
-        '    End If
-        'Next
+        For i As Integer = 0 To iCheckBoxItems - 1
+            If (mw_gui.mode And (1 << i)) > 0 Then
+                indicators(i).BackColor = Color.DarkGray
+            Else
+                indicators(i).BackColor = Color.LightGray
+            End If
+        Next
 
         frmMain.lblV_cycletime.Text = [String].Format("{0:0000} µs", mw_gui.cycleTime)
-        frmMain.l_vbatt.Text = [String].Format("{0:0.0} volts", CDbl(mw_gui.vBat) / 10)
+        frmMain.l_vbatt.Text = [String].Format("{0:0.0} volts", CDbl(mw_params.vBat) / 10)
         frmMain.l_powersum.Text = [String].Format("{0:0}", mw_gui.pMeterSum)
 
         frmMain.lblV_i2cerrors.Text = [String].Format("{0:0}", mw_gui.i2cErrors)
@@ -293,13 +323,13 @@
         frmMain.l_Temp.Text = [String].Format("{0:0.0} C°", CDbl(mw_gui.Temp))
         frmMain.l_Sonar.Text = [String].Format("{0:0} cm", CDbl(mw_gui.Sonar))
 
-        updateRealtimeChannels()
+        frmMain.updateRealtimeChannels()
 
         frmMain.ctrlHEADING.SetHeadingIndicatorParameters(mw_gui.heading)
         frmMain.ctrlHORIZON.SetArtificalHorizon(-mw_gui.angy, -mw_gui.angx)
 
         frmMain.ctrlGPS.SetGPSIndicatorParameters(mw_gui.GPS_directionToHome, mw_gui.GPS_distanceToHome, mw_gui.GPS_numSat, Convert.ToBoolean(mw_gui.GPS_fix), True, Convert.ToBoolean(mw_gui.GPS_update))
-
+        frmMain.Motor.SetMotorsIndicatorParameters(mw_gui.motors, mw_gui.servos, mw_gui.multiType)
     End Sub
 
 

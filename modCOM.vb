@@ -56,13 +56,16 @@
     End Sub
 
     Public Sub disconnectCOM()
+        serialPort.Close()
         If isConnected = True Then
             frmMain.cmdConnect.Text = "Connect"
             frmMain.cmdConnect.Image = Global.BaseflightGUI.My.Resources.Resources.Link_Add_32_n_p
             isConnected = False
             frmMain.timerRealtime.Stop()                       ''Stop timer(s), whatever it takes
-            serialPort.Close()
         End If
+        frmMain.setButtonsOffline()
+        frmMain.timerRealtime.Stop()                       ''Stop timer(s), whatever it takes
+        isConnected = False
     End Sub
 
     Public Function connectCOM() As Boolean
@@ -70,22 +73,26 @@
         comError = False
         frmMain.cmdConnect.Image = Global.BaseflightGUI.My.Resources.Resources.Link_Search_32_n_p
         frmMain.cmdConnect.Text = "Connecting"
-        serialPort.PortName = frmMain.cmbCOMPort.Text
-        serialPort.BaudRate = CInt(frmMain.cmbCOMSpeed.Text)
-        Try
-            serialPort.Open()
-            serialPort.ReadExisting()
-        Catch
-            ''WRONG, it seems that the combobox selection pointed to a port which is no longer available
-            MessageBox.Show("Please check that your USB cable is still connected." & vbCrLf & "After you press OK, Serial ports will be re-enumerated", "Error opening COM port", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            serial_ports_enumerate()
-            frmMain.cmdConnect.Text = "Connect"
-            frmMain.cmdConnect.Image = Global.BaseflightGUI.My.Resources.Resources.Link_Add_32_n_p
-            Return False
-        End Try
-
+        If serialPort.IsOpen = False Then
+            serialPort.PortName = frmMain.cmbCOMPort.Text
+            serialPort.BaudRate = CInt(frmMain.cmbCOMSpeed.Text)
+            Try
+                isConnected = True
+                serialPort.Open()
+                serialPort.ReadExisting()
+            Catch
+                ''WRONG, it seems that the combobox selection pointed to a port which is no longer available
+                MessageBox.Show("Please check that your USB cable is still connected." & vbCrLf & "After you press OK, Serial ports will be re-enumerated", "Error opening COM port", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                serial_ports_enumerate()
+                frmMain.cmdConnect.Text = "Connect"
+                frmMain.cmdConnect.Image = Global.BaseflightGUI.My.Resources.Resources.Link_Add_32_n_p
+                Return False
+            End Try
+        End If
         ''We have to do it for a couple of times to ensure that we will have parameters loaded 
         Application.DoEvents()
+        serialPort.Write("Exit" & vbCrLf)
+        serialPort.ReadExisting()
         For i As Integer = 0 To 10
             MSPquery(MSP_BOXNAMES)
             readCOM()
@@ -105,7 +112,6 @@
                 Exit For
             End If
         Next
-
         Return result
     End Function
 
@@ -165,6 +171,65 @@
             'port not opened, (it could happen when U disconnect the usb cable while connected
             lostConnection()
         End If
+    End Sub
+
+    Public Sub readBaseflightBasics()
+        sUID = "???"
+        MSPquery(MSP_RC)
+        readCOM()
+        If comError = True Then Exit Sub
+        frmMain.lblVPacketReceived.Text = serial_packet_count
+        frmMain.lblVPacketError.Text = serial_error_count
+        Application.DoEvents()
+        MSPquery(MSP_BOXNAMES)
+        readCOM()
+        If comError = True Then Exit Sub
+        frmMain.lblVPacketReceived.Text = serial_packet_count
+        frmMain.lblVPacketError.Text = serial_error_count
+        Application.DoEvents()
+        MSPquery(MSP_BOX)
+        readCOM()
+        If comError = True Then Exit Sub
+        frmMain.lblVPacketReceived.Text = serial_packet_count
+        frmMain.lblVPacketError.Text = serial_error_count
+        Application.DoEvents()
+        If cfgBoxWidth = 4 Then
+            If AUX_CHANNELS >= 8 Then
+                boxAUX_CHANNELS = 8
+            Else
+                boxAUX_CHANNELS = AUX_CHANNELS
+            End If
+        Else
+            boxAUX_CHANNELS = 4
+        End If
+        MSPquery(MSP_UID)
+        readCOM()
+        If comError = True Then Exit Sub
+        frmMain.lblVPacketReceived.Text = serial_packet_count
+        frmMain.lblVPacketError.Text = serial_error_count
+        frmMain.lblVUID.Text = sUID
+        Application.DoEvents()
+
+        frmMain.initRCChannel()
+        create_aux_panal()
+        frmMain.initRealtimeChannel()
+        initIndicatorLamps()
+        MSPquery(MSP_IDENT)
+        readCOM()
+        If comError = True Then Exit Sub
+        frmMain.lblVPacketReceived.Text = serial_packet_count
+        frmMain.lblVPacketError.Text = serial_error_count
+        Application.DoEvents()
+        MSPquery(MSP_MOTOR)
+        readCOM()
+        If comError = True Then Exit Sub
+        MSPquery(MSP_SERVO)
+        readCOM()
+        If comError = True Then Exit Sub
+        MSPquery(MSP_FIRMWARE)
+        readCOM()
+        Application.DoEvents()
+        frmMain.Motor.SetMotorsIndicatorParameters(mw_gui.motors, mw_gui.servos, mw_gui.multiType)
     End Sub
 
 End Module

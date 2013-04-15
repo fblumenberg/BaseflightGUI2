@@ -49,7 +49,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
-    <OutputPath>bin\x86\Debug\</OutputPath>
+    <OutputPath>bin\</OutputPath>
     <DocumentationFile>BaseflightGUI.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
     <DebugType>full</DebugType>
@@ -67,9 +67,18 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Naze32.ico</ApplicationIcon>
+    <ApplicationIcon>baseflight2.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CustomControls">
+      <HintPath>..\..\..\..\..\_Atlantis\Atlantis.Source\Include\CustomControls.dll</HintPath>
+    </Reference>
+    <Reference Include="GMap.NET.Core">
+      <HintPath>..\Quellen\gMap\GMap.NET.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="GMap.NET.WindowsForms">
+      <HintPath>..\Quellen\gMap\GMap.NET.WindowsForms.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -80,7 +89,7 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="ZedGraph">
-      <HintPath>..\..\Quellen\zedgraph_dll_v515\zedgraph_dll_v5.1.5\ZedGraph.dll</HintPath>
+      <HintPath>..\Quellen\zedgraph_dll_v515\zedgraph_dll_v5.1.5\ZedGraph.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -123,6 +132,12 @@
     <Compile Include="Controls\BaseflightGUIControls.vb">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\LoadingCircle.Designer.vb">
+      <DependentUpon>LoadingCircle.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\LoadingCircle.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\motors_control.Designer.vb">
       <DependentUpon>motors_control.vb</DependentUpon>
     </Compile>
@@ -144,6 +159,12 @@
     <Compile Include="Controls\throttle_expo_control.vb">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="frmError.Designer.vb">
+      <DependentUpon>frmError.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmError.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmMain.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -151,10 +172,18 @@
       <DependentUpon>frmMain.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="modAUXCHANNEL.vb" />
+    <Compile Include="frmReboot.Designer.vb">
+      <DependentUpon>frmReboot.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmReboot.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="modCLI.vb" />
     <Compile Include="modCOM.vb" />
+    <Compile Include="modFirmwareUpdate.vb" />
     <Compile Include="modMain.vb" />
+    <Compile Include="modMap.vb" />
+    <Compile Include="Class\clsGMapMarkerRect.vb" />
     <Compile Include="modMSP.vb" />
     <Compile Include="modParameter.vb" />
     <Compile Include="modRCControlSettings.vb" />
@@ -179,8 +208,14 @@
     <EmbeddedResource Include="Controls\ProgressBarCtrl.resx">
       <DependentUpon>ProgressBarCtrl.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmError.resx">
+      <DependentUpon>frmError.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmReboot.resx">
+      <DependentUpon>frmReboot.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
@@ -356,6 +391,16 @@
     <None Include="img\y6.bmp" />
     <None Include="img\airplane.bmp" />
     <None Include="img\bicopter.bmp" />
+    <None Include="img\quad.png" />
+    <None Include="img\home.png" />
+    <None Include="img.x32\Home 32 n p.png" />
+    <None Include="img.x32\Web Globe 32 n p.png" />
+    <None Include="img.x32\gps_green_x32.png" />
+    <None Include="img.x32\gps_red_x32.png" />
+    <None Include="img\Rounded Arrow Up Black 48 n p.png" />
+    <None Include="img\Rounded Arrow Up Black 32 n p.png" />
+    <None Include="img.x32\WayPoint_x32.png" />
+    <Content Include="baseflight2.ico" />
     <Content Include="Naze32.ico" />
     <None Include="Resources\gps_background.bmp" />
   </ItemGroup>

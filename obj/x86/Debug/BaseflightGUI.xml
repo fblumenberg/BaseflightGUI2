@@ -51,11 +51,19 @@ BaseflightGUI
 	<summary>
   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
 </summary>
+</member><member name="P:BaseflightGUI.My.Resources.Resources.gps_green_x32">
+	<summary>
+  Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+</summary>
 </member><member name="P:BaseflightGUI.My.Resources.Resources.gps_left_led_green">
 	<summary>
   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
 </summary>
 </member><member name="P:BaseflightGUI.My.Resources.Resources.gps_left_led_red">
+	<summary>
+  Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+</summary>
+</member><member name="P:BaseflightGUI.My.Resources.Resources.gps_red_x32">
 	<summary>
   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
 </summary>
@@ -100,6 +108,14 @@ BaseflightGUI
   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
 </summary>
 </member><member name="P:BaseflightGUI.My.Resources.Resources.hex6x">
+	<summary>
+  Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+</summary>
+</member><member name="P:BaseflightGUI.My.Resources.Resources.home">
+	<summary>
+  Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+</summary>
+</member><member name="P:BaseflightGUI.My.Resources.Resources.Home_32_n_p">
 	<summary>
   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
 </summary>
@@ -163,6 +179,10 @@ BaseflightGUI
 	<summary>
   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
 </summary>
+</member><member name="P:BaseflightGUI.My.Resources.Resources.quadicon">
+	<summary>
+  Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+</summary>
 </member><member name="P:BaseflightGUI.My.Resources.Resources.quadp">
 	<summary>
   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
@@ -180,6 +200,14 @@ BaseflightGUI
   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
 </summary>
 </member><member name="P:BaseflightGUI.My.Resources.Resources.roll">
+	<summary>
+  Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+</summary>
+</member><member name="P:BaseflightGUI.My.Resources.Resources.Rounded_Arrow_Up_Black_32_n_p">
+	<summary>
+  Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+</summary>
+</member><member name="P:BaseflightGUI.My.Resources.Resources.Rounded_Arrow_Up_Black_48_n_p">
 	<summary>
   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
 </summary>
@@ -216,6 +244,14 @@ BaseflightGUI
   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
 </summary>
 </member><member name="P:BaseflightGUI.My.Resources.Resources.vtail">
+	<summary>
+  Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+</summary>
+</member><member name="P:BaseflightGUI.My.Resources.Resources.WayPoint_x32">
+	<summary>
+  Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+</summary>
+</member><member name="P:BaseflightGUI.My.Resources.Resources.Web_Globe_32_n_p">
 	<summary>
   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
 </summary>
@@ -392,6 +428,26 @@ BaseflightGUI
 	<summary>Reads a Long from the specified key of the active section.</summary>
 	<param name="key">The key from which to return the value.</param>
 	<returns>Returns the value of the specified Key, or returns 0 if the specified Key isn't found in the active section of the INI file.</returns>
+</member><member name="M:BaseflightGUI.IniReader.ReadDouble(System.String,System.String,System.Double)">
+	<summary>Reads a Double from the specified key of the specified section.</summary>
+	<param name="section">The section to search in.</param>
+	<param name="key">The key from which to return the value.</param>
+	<param name="defVal">The value to return if the specified key isn't found.</param>
+	<returns>Returns the value of the specified section/key pair, or returns the default value if the specified section/key pair isn't found in the INI file.</returns>
+</member><member name="M:BaseflightGUI.IniReader.ReadDouble(System.String,System.String)">
+	<summary>Reads a Double from the specified key of the specified section.</summary>
+	<param name="section">The section to search in.</param>
+	<param name="key">The key from which to return the value.</param>
+	<returns>Returns the value of the specified section/key pair, or returns 0 if the specified section/key pair isn't found in the INI file.</returns>
+</member><member name="M:BaseflightGUI.IniReader.ReadDouble(System.String,System.Double)">
+	<summary>Reads a Double from the specified key of the active section.</summary>
+	<param name="key">The key from which to return the value.</param>
+	<param name="defVal">The section to search in.</param>
+	<returns>Returns the value of the specified key, or returns the default value if the specified key isn't found in the active section of the INI file.</returns>
+</member><member name="M:BaseflightGUI.IniReader.ReadDouble(System.String)">
+	<summary>Reads a Double from the specified key of the active section.</summary>
+	<param name="key">The key from which to return the value.</param>
+	<returns>Returns the value of the specified Key, or returns 0 if the specified Key isn't found in the active section of the INI file.</returns>
 </member><member name="M:BaseflightGUI.IniReader.ReadByteArray(System.String,System.String)">
 	<summary>Reads a Byte array from the specified key of the specified section.</summary>
 	<param name="section">The section to search in.</param>
@@ -423,6 +479,12 @@ BaseflightGUI
 	<returns>Returns the value of the specified key, or returns false if the specified key isn't found in the active section of the INI file.</returns>
 </member><member name="M:BaseflightGUI.IniReader.Write(System.String,System.String,System.Int32)">
 	<summary>Writes an Integer to the specified key in the specified section.</summary>
+	<param name="section">The section to write in.</param>
+	<param name="key">The key to write to.</param>
+	<param name="value">The value to write.</param>
+	<returns>Returns true if the function succeeds, false otherwise.</returns>
+</member><member name="M:BaseflightGUI.IniReader.Write(System.String,System.String,System.Double)">
+	<summary>Writes an Double to the specified key in the specified section.</summary>
 	<param name="section">The section to write in.</param>
 	<param name="key">The key to write to.</param>
 	<param name="value">The value to write.</param>
@@ -562,6 +624,141 @@ BaseflightGUI
 	<summary>
  Define the values to be displayed on the indicator
 </summary>
+</member><member name="P:BaseflightGUI.MRG.Controls.UI.LoadingCircle.Color">
+	<summary>
+ Gets or sets the lightest color of the circle.
+ </summary>
+	<value>The lightest color of the circle.</value>
+</member><member name="P:BaseflightGUI.MRG.Controls.UI.LoadingCircle.OuterCircleRadius">
+	<summary>
+ Gets or sets the outer circle radius.
+ </summary>
+	<value>The outer circle radius.</value>
+</member><member name="P:BaseflightGUI.MRG.Controls.UI.LoadingCircle.InnerCircleRadius">
+	<summary>
+ Gets or sets the inner circle radius.
+ </summary>
+	<value>The inner circle radius.</value>
+</member><member name="P:BaseflightGUI.MRG.Controls.UI.LoadingCircle.NumberSpoke">
+	<summary>
+ Gets or sets the number of spoke.
+ </summary>
+	<value>The number of spoke.</value>
+</member><member name="P:BaseflightGUI.MRG.Controls.UI.LoadingCircle.Active">
+	<summary>
+ Gets or sets a value indicating whether this <see cref="T:LoadingCircle"/> is active.
+ </summary>
+	<value><c>true</c> if active; otherwise, <c>false</c>.</value>
+</member><member name="P:BaseflightGUI.MRG.Controls.UI.LoadingCircle.SpokeThickness">
+	<summary>
+ Gets or sets the spoke thickness.
+ </summary>
+	<value>The spoke thickness.</value>
+</member><member name="P:BaseflightGUI.MRG.Controls.UI.LoadingCircle.RotationSpeed">
+	<summary>
+ Gets or sets the rotation speed.
+ </summary>
+	<value>The rotation speed.</value>
+</member><member name="P:BaseflightGUI.MRG.Controls.UI.LoadingCircle.StylePreset">
+	<summary>
+ Quickly sets the style to one of these presets, or a custom style if desired
+ </summary>
+	<value>The style preset.</value>
+</member><member name="M:BaseflightGUI.MRG.Controls.UI.LoadingCircle.#ctor">
+	<summary>
+ Initializes a new instance of the <see cref="T:LoadingCircle"/> class.
+ </summary>
+</member><member name="M:BaseflightGUI.MRG.Controls.UI.LoadingCircle.LoadingCircle_Resize(System.Object,System.EventArgs)">
+	<summary>
+ Handles the Resize event of the LoadingCircle control.
+ </summary>
+	<param name="sender">The source of the event.</param>
+	<param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+</member><member name="M:BaseflightGUI.MRG.Controls.UI.LoadingCircle.aTimer_Tick(System.Object,System.EventArgs)">
+	<summary>
+ Handles the Tick event of the aTimer control.
+ </summary>
+	<param name="sender">The source of the event.</param>
+	<param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+</member><member name="M:BaseflightGUI.MRG.Controls.UI.LoadingCircle.OnPaint(System.Windows.Forms.PaintEventArgs)">
+	<summary>
+ Raises the <see cref="E:System.Windows.Forms.Control.Paint"></see> event.
+ </summary>
+	<param name="e">A <see cref="T:System.Windows.Forms.PaintEventArgs"></see> that contains the event data.</param>
+</member><member name="M:BaseflightGUI.MRG.Controls.UI.LoadingCircle.GetPreferredSize(System.Drawing.Size)">
+	<summary>
+ Retrieves the size of a rectangular area into which a control can be fitted.
+ </summary>
+	<param name="proposedSize">The custom-sized area for a control.</param>
+	<returns>
+ An ordered pair of type <see cref="T:System.Drawing.Size"></see> representing the width and height of a rectangle.
+ </returns>
+</member><member name="M:BaseflightGUI.MRG.Controls.UI.LoadingCircle.Darken(System.Drawing.Color,System.Int32)">
+	<summary>
+ Darkens a specified color.
+ </summary>
+	<param name="_objColor">Color to darken.</param>
+	<param name="_intPercent">The percent of darken.</param>
+	<returns>The new color generated.</returns>
+</member><member name="M:BaseflightGUI.MRG.Controls.UI.LoadingCircle.GenerateColorsPallet">
+	<summary>
+ Generates the colors pallet.
+ </summary>
+</member><member name="M:BaseflightGUI.MRG.Controls.UI.LoadingCircle.GenerateColorsPallet(System.Drawing.Color,System.Boolean,System.Int32)">
+	<summary>
+ Generates the colors pallet.
+ </summary>
+	<param name="_objColor">Color of the lightest spoke.</param>
+	<param name="_blnShadeColor">if set to <c>true</c> the color will be shaded on X spoke.</param>
+	<returns>An array of color used to draw the circle.</returns>
+</member><member name="M:BaseflightGUI.MRG.Controls.UI.LoadingCircle.GetControlCenterPoint">
+	<summary>
+ Gets the control center point.
+ </summary>
+</member><member name="M:BaseflightGUI.MRG.Controls.UI.LoadingCircle.GetControlCenterPoint(System.Windows.Forms.Control)">
+	<summary>
+ Gets the control center point.
+ </summary>
+	<returns>PointF object</returns>
+</member><member name="M:BaseflightGUI.MRG.Controls.UI.LoadingCircle.DrawLine(System.Drawing.Graphics,System.Drawing.PointF,System.Drawing.PointF,System.Drawing.Color,System.Int32)">
+	<summary>
+ Draws the line with GDI+.
+ </summary>
+	<param name="_objGraphics">The Graphics object.</param>
+	<param name="_objPointOne">The point one.</param>
+	<param name="_objPointTwo">The point two.</param>
+	<param name="_objColor">Color of the spoke.</param>
+	<param name="_intLineThickness">The thickness of spoke.</param>
+</member><member name="M:BaseflightGUI.MRG.Controls.UI.LoadingCircle.GetCoordinate(System.Drawing.PointF,System.Int32,System.Double)">
+	<summary>
+ Gets the coordinate.
+ </summary>
+	<param name="_objCircleCenter">The Circle center.</param>
+	<param name="_intRadius">The radius.</param>
+	<param name="_dblAngle">The angle.</param>
+	<returns></returns>
+</member><member name="M:BaseflightGUI.MRG.Controls.UI.LoadingCircle.GetSpokesAngles">
+	<summary>
+ Gets the spokes angles.
+ </summary>
+</member><member name="M:BaseflightGUI.MRG.Controls.UI.LoadingCircle.GetSpokesAngles(System.Int32)">
+	<summary>
+ Gets the spoke angles.
+ </summary>
+	<param name="intNumberSpoke">The number spoke.</param>
+	<returns>An array of angle.</returns>
+</member><member name="M:BaseflightGUI.MRG.Controls.UI.LoadingCircle.ActiveTimer">
+	<summary>
+ Actives the timer.
+ </summary>
+</member><member name="M:BaseflightGUI.MRG.Controls.UI.LoadingCircle.SetCircleAppearance(System.Int32,System.Int32,System.Int32,System.Int32)">
+	<summary>
+ Sets the circle appearance.
+ </summary>
+	<param name="numberSpoke">The number spoke.</param>
+	<param name="spokeThickness">The spoke thickness.</param>
+	<param name="innerCircleRadius">The inner circle radius.</param>
+	<param name="outerCircleRadius">The outer circle radius.</param>
 </member><member name="F:BaseflightGUI.BaseflightGUIControls.GpsIndicatorInstrumentControl.components">
 	<summary>
  Required designer variable.
@@ -590,6 +787,20 @@ BaseflightGUI
  </summary>
 	<param name="aircraftPitchAngle">The aircraft pitch angle in °deg</param>
 	<param name="aircraftRollAngle">The aircraft roll angle in °deg</param>
+</member><member name="T:BaseflightGUI.Locationwp">
+	<summary>
+ Struct as used in Ardupilot
+ </summary>
+</member><member name="T:BaseflightGUI.GMapMarkerRect">
+	<summary>
+ used to override the drawing of the waypoint box bounding
+ </summary>
+</member><member name="M:BaseflightGUI.PointLatLngAlt.GetDistance(BaseflightGUI.PointLatLngAlt)">
+	<summary>
+ Calc Distance in M
+ </summary>
+	<param name="p2"></param>
+	<returns>Distance in M</returns>
 </member><member name="F:BaseflightGUI.BaseflightGUIControls.rc_expo_control.components">
 	<summary>
  Required designer variable.

@@ -33,8 +33,6 @@
     Public Const MSP_BOXNAMES As Integer = 116
     Public Const MSP_PIDNAMES As Integer = 117
     Public Const MSP_WP As Integer = 118
-    Public Const MSP_TEMP As Integer = 119
-    Public Const MSP_SONAR As Integer = 120
 
     Public Const MSP_SET_RAW_RC As Integer = 200
     Public Const MSP_SET_RAW_GPS As Integer = 201
@@ -49,6 +47,12 @@
 
     Public Const MSP_EEPROM_WRITE As Integer = 250
     Public Const MSP_DEBUG As Integer = 254
+
+    'Additional Commands not compatible with MultiWii
+    Public Const MSP_UID As Integer = 160
+    Public Const MSP_TEMPERATURE As Integer = 161
+    Public Const MSP_SONAR As Integer = 162
+    Public Const MSP_FIRMWARE As Integer = 163
 
     Public Const IDLE As Byte = 0
     Public Const HEADER_START As Byte = 1
@@ -65,20 +69,22 @@
         Dim o As Byte()
         o = New Byte(9) {}
         ' with checksum 
-        o(0) = CByte(asc("$"c))
-        o(1) = CByte(asc("M"c))
-        o(2) = CByte(asc("<"c))
-        o(3) = CByte(0)
+        o(0) = Convert.ToByte(Asc("$"c))
+        o(1) = Convert.ToByte(Asc("M"c))
+        o(2) = Convert.ToByte(Asc("<"c))
+        o(3) = Convert.ToByte(0)
         c = c Xor o(3)
         'no payload 
-        o(4) = CByte(command)
+        o(4) = Convert.ToByte(command)
         c = c Xor o(4)
-        o(5) = CByte(c)
+        o(5) = Convert.ToByte(c)
         Try
-            serialPort.Write(o, 0, 6)
+            If isConnected = True Then
+                serialPort.Write(o, 0, 6)
+            End If
         Catch ex As Exception
             comError = True
-            lostconnection()
+            lostConnection()
         End Try
     End Sub
 
@@ -135,13 +141,21 @@
                                 Else
                                     ' we got a valid response packet, evaluate it 
                                     serial_packet_count += 1
-                                    frmMain.lblVPacketReceived.Text = serial_packet_count
+                                    Try
+                                        'frmMain.lblVPacketReceived.Text = serial_packet_count
+                                    Catch ex As Exception
+
+                                    End Try
                                     Application.DoEvents()
                                     evaluate_command(cmd)
                                 End If
                             Else
                                 serial_error_count += 1
-                                frmMain.lblVPacketError.Text = serial_error_count
+                                Try
+                                    'frmMain.lblVPacketError.Text = serial_error_count
+                                Catch ex As Exception
+
+                                End Try
                                 Application.DoEvents()
                             End If
                             c_state = IDLE
@@ -161,11 +175,11 @@
             Select Case cmd
                 Case MSP_IDENT
                     ptr = 1
-                    mw_gui.version = CByte(inBuf(ptr))
+                    mw_gui.version = Convert.ToByte(inBuf(ptr))
                     ptr += 1
-                    mw_gui.multiType = CByte(inBuf(ptr))
+                    mw_gui.multiType = Convert.ToByte(inBuf(ptr))
                     ptr += 1
-                    mw_gui.protocol_version = CByte(inBuf((ptr)))
+                    mw_gui.protocol_version = Convert.ToByte(inBuf((ptr)))
                     ptr += 1
                     mw_gui.capability = BitConverter.ToInt32(inBuf, ptr)
                     ptr += 4
@@ -219,27 +233,34 @@
                     Next
                     Exit Select
                 Case MSP_RC
-                    ptr = 1
-                    mw_gui.rcRoll = BitConverter.ToInt16(inBuf, ptr)
-                    ptr += 2
-                    mw_gui.rcPitch = BitConverter.ToInt16(inBuf, ptr)
-                    ptr += 2
-                    mw_gui.rcYaw = BitConverter.ToInt16(inBuf, ptr)
-                    ptr += 2
-                    mw_gui.rcThrottle = BitConverter.ToInt16(inBuf, ptr)
-                    ptr += 2
-                    If AUX_CHANNELS <> ((dataSize / 2) - 4) Then
-                        AUX_CHANNELS = (dataSize / 2) - 4
-                    End If
-                    For i As Integer = 0 To AUX_CHANNELS - 1
-                        mw_gui.rcAUX(i) = BitConverter.ToInt16(inBuf, ptr)
+                    Try
+                        ptr = 1
+                        mw_gui.rcRoll = BitConverter.ToInt16(inBuf, ptr)
                         ptr += 2
-                    Next
-                    Exit Select
+                        mw_gui.rcPitch = BitConverter.ToInt16(inBuf, ptr)
+                        ptr += 2
+                        mw_gui.rcYaw = BitConverter.ToInt16(inBuf, ptr)
+                        ptr += 2
+                        mw_gui.rcThrottle = BitConverter.ToInt16(inBuf, ptr)
+                        ptr += 2
+                        If AUX_CHANNELS <> ((dataSize / 2) - 4) Then
+                            AUX_CHANNELS = (dataSize / 2) - 4
+                            isAUX_CHANNEL_update = True
+                        End If
+                        For i As Integer = 0 To AUX_CHANNELS - 1
+                            mw_gui.rcAUX(i) = BitConverter.ToInt16(inBuf, ptr)
+                            ptr += 2
+                        Next
+                        Exit Select
+                    Catch ex As Exception
+
+                    End Try
                 Case MSP_RAW_GPS
                     ptr = 1
-                    mw_gui.GPS_fix = CByte(inBuf(ptr))
-                    mw_gui.GPS_numSat = CByte(inBuf(ptr))
+                    mw_gui.GPS_fix = Convert.ToByte(inBuf(ptr))
+                    ptr += 1
+                    mw_gui.GPS_numSat = Convert.ToByte(inBuf(ptr))
+                    ptr += 1
                     mw_gui.GPS_latitude = BitConverter.ToInt32(inBuf, ptr)
                     ptr += 4
                     mw_gui.GPS_longitude = BitConverter.ToInt32(inBuf, ptr)
@@ -247,7 +268,6 @@
                     mw_gui.GPS_altitude = BitConverter.ToInt16(inBuf, ptr)
                     ptr += 2
                     mw_gui.GPS_speed = BitConverter.ToInt16(inBuf, ptr)
-                    ptr += 2
                     Exit Select
                 Case MSP_COMP_GPS
                     ptr = 1
@@ -255,7 +275,7 @@
                     ptr += 2
                     mw_gui.GPS_directionToHome = BitConverter.ToInt16(inBuf, ptr)
                     ptr += 2
-                    mw_gui.GPS_update = CByte(inBuf(ptr))
+                    mw_gui.GPS_update = Convert.ToByte(inBuf(ptr))
                     Exit Select
                 Case MSP_ATTITUDE
                     ptr = 1
@@ -273,50 +293,51 @@
                     Exit Select
                 Case MSP_BAT
                     ptr = 1
-                    mw_gui.vBat = CByte(inBuf(ptr))
+                    mw_params.vBat = Convert.ToByte(inBuf(ptr))
                     ptr = 1
-                    mw_gui.pMeterSum = BitConverter.ToInt16(inBuf, ptr)
+                    mw_params.pMeterSum = BitConverter.ToInt16(inBuf, ptr)
                     Exit Select
                 Case MSP_RC_TUNING
                     ptr = 1
-                    mw_gui.rcRate = CByte(inBuf(ptr))
+                    mw_params.rcRate = Convert.ToByte(inBuf(ptr))
                     ptr += 1
-                    mw_gui.rcExpo = CByte(inBuf(ptr))
+                    mw_params.rcExpo = Convert.ToByte(inBuf(ptr))
                     ptr += 1
-                    mw_gui.RollPitchRate = CByte(inBuf(ptr))
+                    mw_params.RollPitchRate = Convert.ToByte(inBuf(ptr))
                     ptr += 1
-                    mw_gui.YawRate = CByte(inBuf(ptr))
+                    mw_params.YawRate = Convert.ToByte(inBuf(ptr))
                     ptr += 1
-                    mw_gui.DynThrPID = CByte(inBuf(ptr))
+                    mw_params.DynThrPID = Convert.ToByte(inBuf(ptr))
                     ptr += 1
-                    mw_gui.ThrottleMID = CByte(inBuf(ptr))
+                    mw_params.ThrottleMID = Convert.ToByte(inBuf(ptr))
                     ptr += 1
-                    mw_gui.ThrottleEXPO = CByte(inBuf(ptr))
+                    mw_params.ThrottleEXPO = Convert.ToByte(inBuf(ptr))
                     Exit Select
                 Case MSP_PID
                     ptr = 0
                     For i As Integer = 0 To iPidItems - 1
                         ptr += 1
-                        mw_gui.pidP(i) = CByte(inBuf(ptr))
+                        mw_params.pidP(i) = Convert.ToByte(inBuf(ptr))
                         ptr += 1
-                        mw_gui.pidI(i) = CByte(inBuf(ptr))
+                        mw_params.pidI(i) = Convert.ToByte(inBuf(ptr))
                         ptr += 1
-                        mw_gui.pidD(i) = CByte(inBuf(ptr))
+                        mw_params.pidD(i) = Convert.ToByte(inBuf(ptr))
                     Next
                     ' bOptions_needs_refresh = True
                     Exit Select
                 Case MSP_BOX
                     ptr = 1
                     cfgBoxWidth = dataSize / iCheckBoxItems
-                    If mw_gui.activation.Length < dataSize / cfgBoxWidth Then
-                        mw_gui.activation = New Int32(dataSize / cfgBoxWidth - 1) {}
+                    If mw_params.activation.Length < dataSize / cfgBoxWidth Then
+                        mw_params.activation = New UInt32(dataSize / cfgBoxWidth - 1) {}
                     End If
                     For i As Integer = 0 To (dataSize / cfgBoxWidth) - 1
-                        mw_gui.activation(i) = BitConverter.ToInt32(inBuf, ptr)
+                        mw_params.activation(i) = BitConverter.ToInt32(inBuf, ptr)
                         ptr += cfgBoxWidth
                     Next
                     Exit Select
                 Case MSP_BOXNAMES
+                    iCheckBoxItems = 0
                     Dim builder As New System.Text.StringBuilder()
                     ptr = 1
                     While ptr <= dataSize
@@ -326,15 +347,16 @@
                     builder.Remove(builder.Length - 1, 1)
                     Dim boxNames As String() = builder.ToString().Split(";"c)
                     iCheckBoxItems = boxNames.Length
+                    sBoxNames = New String(iCheckBoxItems) {}
                     If IsNothing(mw_gui) = False Then
-                        mw_gui.sBoxNames = New String(builder.ToString().Split(";"c).Length - 1) {}
-                        mw_gui.sBoxNames = boxNames
+                        sBoxNames = New String(builder.ToString().Split(";"c).Length - 1) {}
+                        sBoxNames = boxNames
                         mw_gui.bUpdateBoxNames = True
                     End If
                     Exit Select
                 Case MSP_MISC
                     ptr = 1
-                    mw_gui.powerTrigger = BitConverter.ToInt16(inBuf, ptr)
+                    mw_params.PowerTrigger = BitConverter.ToInt16(inBuf, ptr)
                     Exit Select
                 Case MSP_DEBUG
                     ptr = 1
@@ -348,7 +370,7 @@
                     Exit Select
                 Case MSP_WP
                     ptr = 1
-                    Dim wp_no As Byte = CByte(inBuf(ptr))
+                    Dim wp_no As Byte = Convert.ToByte(inBuf(ptr))
                     If wp_no = 0 Then
                         mw_gui.GPS_home_lat = BitConverter.ToInt32(inBuf, ptr)
                         ptr += 4
@@ -367,13 +389,30 @@
                         ptr += 2
                     End If
                     Exit Select
-                Case MSP_TEMP
+
+                Case MSP_UID
+                    Dim tmp As String = ""
+                    For ptr = 1 To 12
+                        tmp = tmp & Hex(Convert.ToByte(inBuf(ptr)))
+                    Next
+                    sUID = tmp
+                    Exit Select
+                Case MSP_TEMPERATURE
                     ptr = 1
-                    mw_gui.Temp = CByte(inBuf(ptr))
+                    mw_gui.Temp = Convert.ToByte(inBuf(ptr))
                     Exit Select
                 Case MSP_SONAR
                     ptr = 1
-                    mw_gui.Sonar = CByte(inBuf(ptr))
+                    mw_gui.Sonar = Convert.ToByte(inBuf(ptr))
+                    Exit Select
+                Case MSP_FIRMWARE
+                    Dim builder As New System.Text.StringBuilder()
+                    ptr = 1
+                    While ptr <= dataSize
+                        builder.Append(CChar(ChrW(inBuf(ptr))))
+                        ptr += 1
+                    End While
+                    mw_gui.firmware = builder.ToString()
                     Exit Select
             End Select
         Catch ex As Exception

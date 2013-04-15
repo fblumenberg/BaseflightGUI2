@@ -277,4 +277,31 @@
   <data name="y6" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\img\y6.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="home" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\img\home.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="quadicon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\img\quad.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Home_32_n_p" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\img.x32\Home 32 n p.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Web_Globe_32_n_p" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\img.x32\Web Globe 32 n p.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="gps_green_x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\img.x32\gps_green_x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="gps_red_x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\img.x32\gps_red_x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Rounded_Arrow_Up_Black_32_n_p" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\img\Rounded Arrow Up Black 32 n p.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Rounded_Arrow_Up_Black_48_n_p" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\img\Rounded Arrow Up Black 48 n p.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WayPoint_x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\img.x32\WayPoint_x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

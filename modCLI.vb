@@ -4,24 +4,36 @@
     Public cliBuffer As String = ""
 
     Public Sub AccessToTB()
-        If frmMain.txtCLIResult.InvokeRequired Then
-            frmMain.txtCLIResult.BeginInvoke(New MethodInvoker(AddressOf AccessToTB))
-            Return
-        End If
-        frmMain.txtCLIResult.AppendText(cliBuffer)
+        Try
+            If frmMain.txtCLIResult.InvokeRequired Then
+                frmMain.txtCLIResult.BeginInvoke(New MethodInvoker(AddressOf AccessToTB))
+                Return
+            End If
+            frmMain.txtCLIResult.AppendText(cliBuffer)
+        Catch ex As Exception
+
+        End Try
     End Sub
 
     Public Sub startCLI()
-        serialPort.ReadExisting()
-        isCLI = True
-        serialPort.Write("#")
+        If serialPort.IsOpen = True Then
+            System.Threading.Thread.Sleep(500)
+            serialPort.ReadExisting()
+            isCLI = True
+            serialPort.Write("#")
+        End If
     End Sub
 
     Public Sub endcli()
         If isCLI = True Then
-            serialPort.Write("exit" & vbCrLf)
-            serialPort.ReadExisting()
-            isCLI = False
+            If serialPort.IsOpen = True Then
+                serialPort.Write("exit" & vbCrLf)
+                serialPort.ReadExisting()
+                isCLI = False
+            Else
+                'lostConnection()
+                frmMain.setButtonsOffline()
+            End If
         End If
     End Sub
 
@@ -72,8 +84,11 @@
  
     Private Sub cmdLoad_Click(sender As Object, e As EventArgs)
         Dim fd As New OpenFileDialog()
+        fd.InitialDirectory = sConfigFolder
         If fd.ShowDialog() = DialogResult.OK Then
             Dim filename As String = fd.FileName
+            sConfigFolder = System.IO.Path.GetDirectoryName(fd.FileName)
+            ini.Write("GUI", "WayPointFolder", sWayPointFolder)
             Dim commands As String() = System.IO.File.ReadAllLines(filename)
             For Each command As String In commands
                 serialPort.Write(command & vbCr & vbLf)
@@ -87,8 +102,11 @@
 
     Public Sub loadCLIFile()
         Dim fd As New OpenFileDialog()
+        fd.InitialDirectory = sConfigFolder
         If fd.ShowDialog() = DialogResult.OK Then
             Dim filename As String = fd.FileName
+            sConfigFolder = System.IO.Path.GetDirectoryName(filename)
+            ini.Write("GUI", "ConfigFolder", sConfigFolder)
             Dim commands As String() = System.IO.File.ReadAllLines(filename)
             For Each command As String In commands
                 serialPort.Write(command & vbCr & vbLf)
@@ -96,15 +114,5 @@
             Next
         End If
     End Sub
-
-    Public Sub saveCLI()
-        serialPort.Write("Save" & vbCr & vbLf)
-        System.Threading.Thread.Sleep(5000)
-        serialPort.Write(vbCrLf)
-        startCLI()
-    End Sub
-
-    '{ "cmix", "design custom mixer", cliCMix },
-    '{ "mixer", "mixer name or list", cliMixer },
 
 End Module

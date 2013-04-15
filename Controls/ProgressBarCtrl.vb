@@ -441,7 +441,7 @@ Public Class ProgressBarCtrl
 
     <Category("Appearance"), DefaultValue(100), _
     Description("A value from 0 through 100 that specifies how fast the foreground color falls off from the focus in SigmaBell mode.")> _
-    Public Property BarSigmaScale() As Integer
+    Public Property BarSigmascale() As Integer
         Get
             Return CInt(mbarsigmascale * 100.0F)
         End Get
@@ -469,7 +469,7 @@ Public Class ProgressBarCtrl
 
     <Category("Appearance"), DefaultValue(100), _
     Description("A value from 0 through 100 that specifies how fast the background color falls off from the focus in SigmaBell mode.")> _
-    Public Property BackSigmaScale() As Integer
+    Public Property BackSigmascale() As Integer
         Get
             Return CInt(mbacksigmascale * 100.0F)
         End Get
@@ -482,7 +482,7 @@ Public Class ProgressBarCtrl
     End Property
 
     <Category("Appearance"), DefaultValue(GetType(SigmaMode), "None"), _
-    Description("When set to SigmaBell, creates a foreground gradient falloff based on a bell-shaped curve using the BarSigmaFocus and BarSigmaScale values.")> _
+    Description("When set to SigmaBell, creates a foreground gradient falloff based on a bell-shaped curve using the BarSigmaFocus and BarSigmascale values.")> _
     Public Property BarSigmaMode() As SigmaMode
         Get
             Return mbarsigmamode
@@ -494,7 +494,7 @@ Public Class ProgressBarCtrl
     End Property
 
     <Category("Appearance"), DefaultValue(GetType(SigmaMode), "None"), _
-    Description("When set to SigmaBell, creates a background gradient falloff based on a bell-shaped curve using the BackSigmaFocus and BackSigmaScale values.")> _
+    Description("When set to SigmaBell, creates a background gradient falloff based on a bell-shaped curve using the BackSigmaFocus and BackSigmascale values.")> _
     Public Property BackSigmaMode() As SigmaMode
         Get
             Return mbacksigmamode
