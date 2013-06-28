@@ -6,6 +6,7 @@ Imports GMap.NET.WindowsForms.Markers
 Module modMap
     Public dtWayPoints As New DataTable
     Public editWPDr As DataRow
+    Public isNewWayPoint As Boolean = False
 
     Public pointLng As Double = 0
     Public pointLat As Double = 0
@@ -56,127 +57,6 @@ Module modMap
     Public GPS_pos As PointLatLng
     Public [end] As PointLatLng
     Public start As PointLatLng
-
-    Public Sub createDTWayPoints()
-        Try
-            If dtWayPoints.Columns.Count = 0 Then
-                Dim col As DataColumn
-                col = New DataColumn("WPNo", GetType(System.Byte))
-                dtWayPoints.Columns.Add(col)
-                col = New DataColumn("Lat", GetType(System.Double))
-                dtWayPoints.Columns.Add(col)
-                col = New DataColumn("Lng", GetType(System.Double))
-                dtWayPoints.Columns.Add(col)
-                col = New DataColumn("Alt", GetType(System.Byte))
-                dtWayPoints.Columns.Add(col)
-                col = New DataColumn("Heading", GetType(System.Int16))
-                dtWayPoints.Columns.Add(col)
-                col = New DataColumn("TimeToStay", GetType(System.Byte))
-                dtWayPoints.Columns.Add(col)
-                col = New DataColumn("Action", GetType(System.Byte))
-                dtWayPoints.Columns.Add(col)
-                col = New DataColumn("ActionParameter", GetType(System.UInt16))
-                dtWayPoints.Columns.Add(col)
-                dtWayPoints.TableName = "WayPoints"
-            End If
-            frmMain.dgWayPoints.AutoGenerateColumns = False
-            frmMain.dgWayPoints.DataSource = dtWayPoints
-            frmMain.colWPNumber.DataPropertyName = "WPNo"
-            frmMain.colWPLat.DataPropertyName = "Lat"
-            frmMain.colWPLng.DataPropertyName = "Lng"
-            frmMain.colWPAlt.DataPropertyName = "Alt"
-            frmMain.colWPHeading.DataPropertyName = "Heading"
-            frmMain.colWPTimeToStay.DataPropertyName = "TimeToStay"
-        Catch ex As Exception
-
-        End Try
-    End Sub
-
-    'Public Sub initTPMap()
-    '    Try
-    '        ' config map             
-    '        createDTWayPoints()
-
-    '        frmMain.MainMap.MinZoom = 1
-    '        frmMain.MainMap.MaxZoom = 20
-    '        frmMain.tb_mapzoom.Value = iMapZoom
-
-    '        frmMain.MainMap.CacheLocation = IO.Path.GetDirectoryName(Application.ExecutablePath) & "/mapcache/"
-
-    '        pointLng = ini.ReadDouble("GPS", "Longtitude", 7.230758)
-    '        pointLat = ini.ReadDouble("GPS", "Latitude", 51.462447)
-    '        copterPos = New PointLatLng(pointLat, pointLng)
-
-    '        mapProviders = New GMapProvider(5) {}
-    '        mapProviders(0) = GMapProviders.BingHybridMap
-    '        mapProviders(1) = GMapProviders.BingSatelliteMap
-    '        mapProviders(2) = GMapProviders.GoogleHybridMap
-    '        mapProviders(3) = GMapProviders.GoogleSatelliteMap
-    '        mapProviders(4) = GMapProviders.OviHybridMap
-    '        mapProviders(5) = GMapProviders.OviSatelliteMap
-
-    '        For i As Integer = 0 To 5
-    '            frmMain.cmbMapProviders.Items.Add(mapProviders(i))
-    '        Next
-
-    '        frmMain.cmbMapProviders.SelectedIndex = iMapProviderSelectedIndex
-    '        frmMain.MainMap.MapProvider = mapProviders(iMapProviderSelectedIndex)
-    '        frmMain.tb_mapzoom.Value = frmMain.MainMap.MaxZoom
-    '        frmMain.MainMap.Zoom = frmMain.MainMap.MaxZoom
-
-    '        currentMarker = New GMapMarkerGoogleRed(frmMain.MainMap.Position)
-    '        frmMain.MainMap.MapScaleInfoEnabled = True
-
-    '        frmMain.MainMap.ForceDoubleBuffer = True
-    '        frmMain.MainMap.Manager.Mode = AccessMode.ServerAndCache
-
-    '        frmMain.MainMap.Position = copterPos
-
-    '        Dim penRoute As New Pen(Color.Yellow, 3)
-    '        Dim penWPRoute As New Pen(Color.Red, 3)
-    '        Dim penScale As New Pen(Color.Blue, 3)
-
-    '        frmMain.MainMap.ScalePen = penScale
-
-    '        routes = New GMapOverlay(frmMain.MainMap, "routes")
-    '        frmMain.MainMap.Overlays.Add(routes)
-
-    '        drawnpolygons = New GMapOverlay(frmMain.MainMap, "drawnpolygons")
-    '        frmMain.MainMap.Overlays.Add(drawnpolygons)
-
-    '        markers = New GMapOverlay(frmMain.MainMap, "objects")
-    '        frmMain.MainMap.Overlays.Add(markers)
-
-    '        polygons = New GMapOverlay(frmMain.MainMap, "polygons")
-    '        frmMain.MainMap.Overlays.Add(polygons)
-
-    '        positions = New GMapOverlay(frmMain.MainMap, "positions")
-    '        frmMain.MainMap.Overlays.Add(positions)
-
-    '        WProutes = New GMapOverlay(frmMain.MainMap, "wproutes")
-    '        frmMain.MainMap.Overlays.Add(WProutes)
-
-    '        WayPoints = New GMapOverlay(frmMain.MainMap, "waypoints")
-    '        frmMain.MainMap.Overlays.Add(WayPoints)
-
-    '        positions.Markers.Clear()
-    '        positions.Markers.Add(New GMapMarkerQuad(copterPos, 0, 0, 0))
-
-    '        Grout = New GMapRoute(points, "track")
-    '        Grout.Stroke = penRoute
-    '        routes.Routes.Add(Grout)
-
-    '        GWPRout = New GMapRoute(points, "wptrack")
-    '        GWPRout.Stroke = penWPRoute
-    '        WProutes.Routes.Add(GWPRout)
-
-    '        center = New GMapMarkerCross(frmMain.MainMap.Position)
-
-    '    Catch ex As Exception
-
-    '    End Try
-
-    'End Sub
 
     Public Function getBmpHeading(ByVal Heading As Integer) As Bitmap
         ' Copy the output bitmap from the source image.
@@ -242,9 +122,32 @@ Module modMap
     End Function
 
     Public Sub askForMapData()
+        MSPquery(MSP_STATUS)
+        frmMain.lblV_cycletime.Text = [String].Format("{0:0000} µs", mw_gui.cycleTime)
         MSPquery(MSP_ATTITUDE)
         MSPquery(MSP_COMP_GPS)
         MSPquery(MSP_RAW_GPS)
+        'Do some logging
+        If bKMLLogRunning Then
+            If GPS_lat_old <> mw_gui.GPS_latitude OrElse GPS_lon_old <> mw_gui.GPS_longitude Then
+                wKMLLogStream.WriteLine("{0},{1},{2}", CDec(mw_gui.GPS_longitude) / 10000000, CDec(mw_gui.GPS_latitude) / 10000000, mw_gui.GPS_altitudeMSL)
+                GPS_lat_old = mw_gui.GPS_latitude
+                GPS_lon_old = mw_gui.GPS_longitude
+            End If
+            If Not bHomeRecorded AndAlso (mw_gui.GPS_home_lon <> 0) Then
+                addKMLMarker("Home position", mw_gui.GPS_home_lon, mw_gui.GPS_home_lat, mw_gui.GPS_altitudeMSL)
+                bHomeRecorded = True
+            End If
+            If Not bPosholdRecorded AndAlso (mw_gui.GPS_poshold_lon <> 0) Then
+                addKMLMarker("PosHold", mw_gui.GPS_poshold_lon, mw_gui.GPS_poshold_lat, mw_gui.GPS_altitudeMSL)
+                bPosholdRecorded = True
+            End If
+        End If
+        If Convert.ToBoolean(mw_gui.GPS_update) = True Then
+            frmMain.picMapGPSUpdate.Image = My.Resources.gps_led_green
+        Else
+            frmMain.picMapGPSUpdate.Image = My.Resources.gps_led_red
+        End If
     End Sub
 
     Public Sub updateTPMap()
@@ -264,7 +167,7 @@ Module modMap
             frmMain.lblV_GPS_lat.Text = [String].Format("{0:0.000000}", GPS_latitude)
             frmMain.lblV_GPS_lon.Text = [String].Format("{0:0.000000}", GPS_longitude)
             frmMain.lblV_GPS_numsat.Text = mw_gui.GPS_numSat & "/" & mw_gui.GPS_fix
-            frmMain.lblV_GPS_alt.Text = mw_gui.GPS_altitude
+            frmMain.lblV_GPS_alt.Text = mw_gui.GPS_altitudeMSL
 
             GPS_pos.Lat = GPS_latitude
             GPS_pos.Lng = GPS_longitude
@@ -285,11 +188,6 @@ Module modMap
 
             positions.Markers.Add(New GMapMarkerQuad(GPS_pos, mw_gui.heading, 0, 0))
 
-            'If IsNothing(editWPDr) = False Then
-            '    WayPoints.Markers.Clear()
-            '    WayPoints.Markers.Add(New GMapMarkerWayPoint(New GMap.NET.PointLatLng(CDbl(frmMain.txtWPLat.Text), CDbl(frmMain.txtWPLng.Text)), CInt(frmMain.numWPHeading.Value), 0, 0))
-            'End If
-
             If frmMain.chkSetToLiveData.Checked = True Then
                 If mw_gui.GPS_numSat > 3 Then
                     Grout.Points.Add(GPS_pos)
@@ -297,76 +195,39 @@ Module modMap
                 End If
             End If
             frmMain.MainMap.Invalidate()
-        Catch ex As Exception
 
+            If isNewWayPoint = True Then
+                updateWayPointRoute()
+                frmMain.Refresh()
+                isNewWayPoint = False
+            End If
+        Catch ex As Exception
+            frmError.lastCommand = "updateTPMap()"
+            frmError.myEx = ex
+            If frmError.ShowDialog() = Windows.Forms.DialogResult.Cancel Then
+                System.Windows.Forms.Application.Exit()
+            End If
         End Try
     End Sub
 
     Public Sub updateWayPointRoute()
         GWPRout.Points.Clear()
         For Each dr As DataRow In dtWayPoints.Rows
-            GWPRout.Points.Add(New GMap.NET.PointLatLng(dr("Lat"), dr("Lng")))
+            GWPRout.Points.Add(New GMap.NET.PointLatLng(dr("Lat"), dr("Lon")))
         Next
         Dim pos As GMap.NET.PointLatLng = frmMain.MainMap.Position
         frmMain.MainMap.Position = New GMap.NET.PointLatLng(pos.Lat + 0.00000000001, pos.Lng)
         frmMain.MainMap.Position = pos
     End Sub
 
-#Region "Distance Helpers"
-    Public Function distance(ByVal oldPos As GMap.NET.PointLatLng, ByVal newPos As GMap.NET.PointLatLng, Optional ByVal unit As String = "K") As Double
-        Dim result As Double = 0
-        If oldPos.Lat <> 0 Or oldPos.Lng <> 0 Then
-            Dim theta As Double = 0
-            Dim dist As Double = 0
-            theta = oldPos.Lng - newPos.Lng
-            dist = Math.Sin(deg2rad(oldPos.Lat)) * Math.Sin(deg2rad(newPos.Lat)) + Math.Cos(deg2rad(oldPos.Lat)) * Math.Cos(deg2rad(newPos.Lat)) * Math.Cos(deg2rad(theta))
-            dist = acos(dist)
-            dist = rad2deg(dist)
-            result = dist * 60 * 1.1515
-            Select Case UCase(unit)
-                Case "K"
-                    result = result * 1.609344 * 1000
-                Case "M"
-                    result = result * 0.8684 * 1000
-            End Select
-        End If
-        Return result
-    End Function
-
-    '::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ':::  This function get the arccos function using arctan function   :::
-    '::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    Function acos(rad) As Double
-        Dim result As Double
-        If Math.Abs(rad) <> 1 Then
-            result = Math.PI / 2 - Math.Atan(rad / Math.Sqrt(1 - rad * rad))
-        ElseIf rad = -1 Then
-            result = Math.PI
-        End If
-        Return result
-    End Function
-
-
-    '::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ':::  This function converts decimal degrees to radians             :::
-    '::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    Function deg2rad(Deg)
-        deg2rad = CDbl(Deg * Math.PI / 180)
-    End Function
-
-    '::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ':::  This function converts radians to decimal degrees             :::
-    '::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    Function rad2deg(Rad)
-        rad2deg = CDbl(Rad * 180 / Math.PI)
-    End Function
-#End Region
-
-    Private Sub openKMLLog()
+    Public Sub openKMLLog()
         Try
-            wKMLLogStream = New IO.StreamWriter(sLogFolder + "\mwgpstrack" & [String].Format("-{0:yymmdd-hhmm}.kml", DateTime.Now))
+            If System.IO.Directory.Exists(sLogFolder) = False Then
+                System.IO.Directory.CreateDirectory(sLogFolder)
+            End If
+            wKMLLogStream = New System.IO.StreamWriter(sLogFolder + "\BaseflightGPSTrack" + [String].Format("-{0:yymmdd-hhmm}.kml", DateTime.Now))
         Catch
-            MessageBox.Show("Unable to open KMLlog file at " + sLogFolder & "\mwgpstrack" & [String].Format("-{0:yymmdd-hhmm}.kml", DateTime.Now), "Error opening KMLlog", MessageBoxButtons.OK, MessageBoxIcon.[Error])
+            MessageBox.Show(frmMain, "Unable to open KMLlog file at " + sLogFolder & "\BasefligthGPSTrack" & [String].Format("-{0:yymmdd-hhmm}.kml", DateTime.Now), "Error opening KMLlog", MessageBoxButtons.OK, MessageBoxIcon.[Error])
         End Try
         Try
             If wKMLLogStream IsNot Nothing Then
@@ -387,7 +248,7 @@ Module modMap
         End Try
     End Sub
 
-    Private Sub closeKMLLog()
+    Public Sub closeKMLLog()
         Try
             wKMLLogStream.WriteLine("</coordinates>")
             wKMLLogStream.WriteLine("</LineString>")
@@ -403,7 +264,7 @@ Module modMap
         End Try
     End Sub
 
-    Private Sub addKMLMarker(description As String, lon As Double, lat As Double, alt As Double)
+    Public Sub addKMLMarker(description As String, lon As Double, lat As Double, alt As Double)
         Try
             'Close open LineStringPlacemark
             wKMLLogStream.WriteLine("</coordinates>")
@@ -553,5 +414,244 @@ Module modMap
             ini.Write("GUI", "WayPointFolder", sWayPointFolder)
         End If
     End Sub
+
+    Public Sub GoToHomePosition()
+        pointLng = ini.ReadDouble("GPS", "Longtitude", 7.230758)
+        pointLat = ini.ReadDouble("GPS", "Latitude", 51.462447)
+        copterPos = New GMap.NET.PointLatLng(pointLat, pointLng)
+        frmMain.MainMap.Position = copterPos
+    End Sub
+
+    Public Sub createDTWayPoints()
+        Try
+            If dtWayPoints.Columns.Count = 0 Then
+                Dim col As DataColumn
+                col = New DataColumn("WPNo", GetType(System.Byte))
+                dtWayPoints.Columns.Add(col)
+                col = New DataColumn("Lat", GetType(System.Double))
+                dtWayPoints.Columns.Add(col)
+                col = New DataColumn("Lon", GetType(System.Double))
+                dtWayPoints.Columns.Add(col)
+                col = New DataColumn("Alt", GetType(System.Byte))
+                dtWayPoints.Columns.Add(col)
+                col = New DataColumn("Heading", GetType(System.Int16))
+                dtWayPoints.Columns.Add(col)
+                col = New DataColumn("TimeToStay", GetType(System.Int16))
+                dtWayPoints.Columns.Add(col)
+                col = New DataColumn("Action", GetType(System.Byte))
+                dtWayPoints.Columns.Add(col)
+                col = New DataColumn("ActionParameter", GetType(System.UInt16))
+                dtWayPoints.Columns.Add(col)
+                dtWayPoints.TableName = "WayPoints"
+            End If
+            frmMain.dgWayPoints.AutoGenerateColumns = False
+            frmMain.dgWayPoints.DataSource = dtWayPoints
+            frmMain.colWPNumber.DataPropertyName = "WPNo"
+            frmMain.colWPLat.DataPropertyName = "Lat"
+            frmMain.colWPLng.DataPropertyName = "Lon"
+            frmMain.colWPAlt.DataPropertyName = "Alt"
+            frmMain.colWPHeading.DataPropertyName = "Heading"
+            frmMain.colWPTimeToStay.DataPropertyName = "TimeToStay"
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Public Sub renumberWPNO()
+        If dtWayPoints.Rows.Count > 0 Then
+            Dim no As Int16 = 1
+            For Each dr As DataRow In dtWayPoints.Rows
+                dr("WPNo") = no
+                no += 1
+            Next
+            dtWayPoints.Select("WPNo = " & no - 1)(0)("WPNo") = 16
+        End If
+    End Sub
+
+    Public Sub writeWayPointSettings()
+        renumberWPNO()
+        If dtWayPoints.Rows.Count > 0 Then
+            Dim no As Int16 = 1
+            For Each dr As DataRow In dtWayPoints.Rows
+                setWayPoint(dr)
+                no += 1
+            Next
+        End If
+    End Sub
+
+    Public Sub readWayPointSettings()
+        If comError = True Then Exit Sub
+        dtWayPoints.Clear()
+        For i As Int16 = 1 To 16
+            readWayPoint(i)
+            sleep(100)
+        Next
+        updateWayPointRoute()
+    End Sub
+
+    Public Sub readWayPoint(ByVal wp_no As Integer)
+        Dim c As Byte = 0
+        Dim o As Byte()
+        o = New Byte(9) {}
+        ' with checksum 
+        o(0) = Convert.ToByte(Asc("$"c))
+        o(1) = Convert.ToByte(Asc("M"c))
+        o(2) = Convert.ToByte(Asc("<"c))
+        o(3) = Convert.ToByte(1)
+        c = c Xor o(3)
+        'no payload 
+        o(4) = Convert.ToByte(MSP_WP)
+        c = c Xor o(4)
+        o(5) = Convert.ToByte(wp_no)
+        c = c Xor o(5)
+        o(6) = Convert.ToByte(c)
+        Try
+            If isConnected = True Then
+                serialPort.Write(o, 0, 7)
+            End If
+        Catch ex As Exception
+            comError = True
+            lostConnection()
+        End Try
+    End Sub
+
+    Public Sub setWayPoint(ByVal dr As DataRow)
+        Dim wp_no As Byte = CByte(dr("WPNo")) 'wp_no = read8();    //get the wp number
+        Dim lat As Int32 = Convert.ToInt32(dr("Lat") * 10000000)             'lat = read32();
+        Dim lon As Int32 = Convert.ToInt32(dr("Lon") * 10000000)             'lon = read32();
+        Dim alt As Int32 = Convert.ToInt32(dr("Alt") * 10000000)             'alt = read32();     // to set altitude (cm)
+        Dim heading As Int16 = Convert.ToInt16(dr("Heading"))     'read16();           // future: to set heading (deg)
+        Dim time As Int16 = Convert.ToInt16(dr("TimeToStay"))     'read16();           // future: to set time to stay (ms)
+        Dim action As Byte = CByte(dr("Action"))            'read8();            // future: to set nav flag
+        Dim actionparameter As Int16 = Convert.ToInt16(dr("ActionParameter"))       'read16();           // future: to set action flag
+
+        Dim size As Integer = 20
+        Dim checksum As Byte = 0
+        Dim Buffer As Byte()
+        Dim bptr As Integer = 0
+        Buffer = New Byte(150) {}
+        ' with checksum 
+        Buffer(0) = Convert.ToByte(Asc("$"c))
+        bptr += 1
+        Buffer(1) = Convert.ToByte(Asc("M"c))
+        bptr += 1
+        Buffer(2) = Convert.ToByte(Asc("<"c))
+        bptr += 1
+        Buffer(3) = Convert.ToByte(size)
+        bptr += 1
+        Buffer(4) = Convert.ToByte(MSP_SET_WP)
+        'wp_no
+        Buffer(5) = Convert.ToByte(wp_no)
+        'lat
+        bptr = 6
+        Buffer(bptr) = Convert.ToByte(lat And &HFF)
+        bptr += 1
+        Buffer(bptr) = Convert.ToByte((lat >> 8) And &HFF)
+        bptr += 1
+        Buffer(bptr) = Convert.ToByte((lat >> 16) And &HFF)
+        bptr += 1
+        Buffer(bptr) = CByte((lat >> 24) And &HFF)
+        bptr += 1
+        'lon
+        Buffer(bptr) = Convert.ToByte(lon And &HFF)
+        bptr += 1
+        Buffer(bptr) = Convert.ToByte((lon >> 8) And &HFF)
+        bptr += 1
+        Buffer(bptr) = Convert.ToByte((lon >> 16) And &HFF)
+        bptr += 1
+        Buffer(bptr) = CByte((lon >> 24) And &HFF)
+        bptr += 1
+        'alt
+        Buffer(bptr) = Convert.ToByte(alt And &HFF)
+        bptr += 1
+        Buffer(bptr) = Convert.ToByte((alt >> 8) And &HFF)
+        bptr += 1
+        Buffer(bptr) = Convert.ToByte((alt >> 16) And &HFF)
+        bptr += 1
+        Buffer(bptr) = CByte((alt >> 24) And &HFF)
+        bptr += 1
+        'heading
+        Buffer(bptr) = Convert.ToByte(heading And &HFF)
+        bptr += 1
+        Buffer(bptr) = Convert.ToByte((heading >> 8) And &HFF)
+        bptr += 1
+        'time
+        Buffer(bptr) = Convert.ToByte(time And &HFF)
+        bptr += 1
+        Buffer(bptr) = Convert.ToByte((time >> 8) And &HFF)
+        bptr += 1
+        'flag
+        Buffer(bptr) = Convert.ToByte(action)
+        bptr += 1
+        'Action
+        Buffer(bptr) = Convert.ToByte(actionparameter And &HFF)
+        bptr += 1
+        Buffer(bptr) = Convert.ToByte((actionparameter >> 8) And &HFF)
+        bptr += 1
+
+        For i As Integer = 3 To bptr - 1
+            checksum = checksum Xor Buffer(i)
+        Next
+        Buffer(bptr) = checksum
+        bptr += 1
+        Try
+            If isConnected = True Then
+                serialPort.Write(Buffer, 0, bptr)
+            End If
+        Catch ex As Exception
+            comError = True
+            lostConnection()
+        End Try
+    End Sub
+
+#Region "Distance Helpers"
+    Public Function distance(ByVal oldPos As GMap.NET.PointLatLng, ByVal newPos As GMap.NET.PointLatLng, Optional ByVal unit As String = "K") As Double
+        Dim result As Double = 0
+        If oldPos.Lat <> 0 Or oldPos.Lng <> 0 Then
+            Dim theta As Double = 0
+            Dim dist As Double = 0
+            theta = oldPos.Lng - newPos.Lng
+            dist = Math.Sin(deg2rad(oldPos.Lat)) * Math.Sin(deg2rad(newPos.Lat)) + Math.Cos(deg2rad(oldPos.Lat)) * Math.Cos(deg2rad(newPos.Lat)) * Math.Cos(deg2rad(theta))
+            dist = acos(dist)
+            dist = rad2deg(dist)
+            result = dist * 60 * 1.1515
+            Select Case UCase(unit)
+                Case "K"
+                    result = result * 1.609344 * 1000
+                Case "M"
+                    result = result * 0.8684 * 1000
+            End Select
+        End If
+        Return result
+    End Function
+
+    '::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    ':::  This function get the arccos function using arctan function   :::
+    '::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    Function acos(rad) As Double
+        Dim result As Double
+        If Math.Abs(rad) <> 1 Then
+            result = Math.PI / 2 - Math.Atan(rad / Math.Sqrt(1 - rad * rad))
+        ElseIf rad = -1 Then
+            result = Math.PI
+        End If
+        Return result
+    End Function
+
+
+    '::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    ':::  This function converts decimal degrees to radians             :::
+    '::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    Function deg2rad(Deg)
+        deg2rad = CDbl(Deg * Math.PI / 180)
+    End Function
+
+    '::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    ':::  This function converts radians to decimal degrees             :::
+    '::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    Function rad2deg(Rad)
+        rad2deg = CDbl(Rad * 180 / Math.PI)
+    End Function
+#End Region
 
 End Module

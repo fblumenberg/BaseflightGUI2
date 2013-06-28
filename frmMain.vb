@@ -1,5 +1,11 @@
 ﻿Public Class frmMain
 
+    Friend lngMagCalibaration As String = "Mag calibration" & vbCrLf & "is" & vbCrLf & "performed"
+    Friend lngRebooting As String = "Rebooting"
+
+    Private Sub frmMain_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        disconnectCOM()
+    End Sub
 
     Private Sub me_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Text = "Baseflight GUI - Version " & Application.ProductVersion
@@ -17,11 +23,157 @@
         Me.MainMap.Zoom = CDbl(iMapZoom)
         Me.tb_mapzoom.Value = iMapZoom
         versionCheck()
-        setButtonsOffline()
+        setButtons(False)
         inBuf = New Byte(299) {}
-        inBuffer = New Byte(299) {}
-        AddHandler serialPort.DataReceived, AddressOf DataReceivedHandler
+        gpsBuffer = New Byte(299) {}
+        readDTOnlineHelp()
+        readToolTip()
+
+        Me.chk_acc_roll.Checked = ini.ReadBoolean("GUI", "acc_roll", True)
+        Me.chk_acc_pitch.Checked = ini.ReadBoolean("GUI", "acc_pitch", True)
+        Me.chk_acc_z.Checked = ini.ReadBoolean("GUI", "acc_z", True)
+        Me.chk_gyro_roll.Checked = ini.ReadBoolean("GUI", "gyro_roll", True)
+        Me.chk_gyro_pitch.Checked = ini.ReadBoolean("GUI", "gyro_pitch", True)
+        Me.chk_gyro_yaw.Checked = ini.ReadBoolean("GUI", "gyro_yaw", True)
+        Me.chk_mag_roll.Checked = ini.ReadBoolean("GUI", "mag_roll", False)
+        Me.chk_mag_pitch.Checked = ini.ReadBoolean("GUI", "mag_pitch", False)
+        Me.chk_mag_yaw.Checked = ini.ReadBoolean("GUI", "mag_yaw", False)
+        Me.chk_alt.Checked = ini.ReadBoolean("GUI", "alt", False)
+        Me.chk_head.Checked = ini.ReadBoolean("GUI", "head", False)
+        Me.chk_dbg1.Checked = ini.ReadBoolean("GUI", "dbg1", False)
+        Me.chk_dbg2.Checked = ini.ReadBoolean("GUI", "dbg2", False)
+        Me.chk_dbg3.Checked = ini.ReadBoolean("GUI", "dbg3", False)
+        Me.chk_dbg4.Checked = ini.ReadBoolean("GUI", "dbg4", False)
+
+        Me.lblParameterWarning.Visible = False
+        Me.lblRealtimeWarning.Visible = False
+        Me.lblMapWarning.Visible = False
+        Me.lblRCWarning.Visible = False
+        Me.lblParameterWarning.BringToFront()
+        Me.lblRealtimeWarning.BringToFront()
+        Me.lblMapWarning.BringToFront()
+        Me.lblRCWarning.BringToFront()
+        mw_gui = New baseflight_data_gui(iPidItems, iCheckBoxItems, iSoftwareVersion)
+
         isStartup = False
+    End Sub
+
+    Private Sub setTAB()
+        'timerRealtime.Stop()   'don't stop because of background logging
+        If isConnected = False Then
+            Me.cmdLoadSettings.Enabled = False
+            Me.cmdSaveSettings.Enabled = False
+        End If
+        isRealtime = False
+        Me.cmdLoadSettings.Text = lngLoadSetting
+        Me.cmdSaveSettings.Text = lngSaveSetting
+        If isCLI = True And Not tabMain.SelectedTab Is tpCLI Then
+            endcli()
+        End If
+        If isPASSGPS = True And Not tabMain.SelectedTab Is tpPassGPS Then
+            endPassGPS()
+        End If
+        Me.MinimizeBox = True
+        If tabMain.SelectedTab Is tpParameter Then
+            'timerRealtime.Stop()
+            If isConnected = True Then
+                endcli()
+                readParameterSettings()
+                updateParameter()
+            End If
+        ElseIf tabMain.SelectedTab Is tpRCSetting Then
+            LastReceived = Now
+            endcli()
+            If isConnected = True Then
+                Me.timerRealtime.Interval = iRefreshIntervals(Me.cmbRefreshRate.SelectedIndex)
+                isRealtime = True
+                timerRealtime.Start()
+            End If
+        ElseIf tabMain.SelectedTab Is tpRealtime Then
+            LastReceived = Now
+            endcli()
+            If isConnected = True Then
+                serialPort.ReadExisting()
+                Me.timerRealtime.Interval = iRefreshIntervals(Me.cmbRefreshRate.SelectedIndex)
+                isRealtime = True
+                timerRealtime.Start()
+            End If
+        ElseIf tabMain.SelectedTab Is tpMap Then
+            LastReceived = Now
+            endcli()
+            Me.cmdLoadSettings.Text = lngLoadWayPoints
+            Me.cmdSaveSettings.Text = lngSaveWayPoints
+            Me.cmdLoadSettings.Enabled = True
+            Me.cmdSaveSettings.Enabled = True
+
+            'Me.MinimizeBox = False
+            Me.timerRealtime.Interval = 100 'GPS only every 0.5 sec. iRefreshIntervals(Me.cmbRefreshRate.SelectedIndex)
+            If isConnected = True Then
+                isRealtime = True
+                timerRealtime.Start()
+            End If
+        ElseIf tabMain.SelectedTab Is tpPassGPS Then
+            startPassGPS()
+            timerRealtime.Start()
+        ElseIf tabMain.SelectedTab Is tpCLI Then
+            isCLI = True
+            timerRealtime.Stop()    'Stop logging! otherwise CLI didn't work!
+            startCLI()
+        ElseIf tabMain.SelectedTab Is tpGFWUpdate Then
+            timerRealtime.Stop()    'Stop logging! otherwise Firmware update didn't work!
+            endcli()
+            initFirmwareUpdate()
+        End If
+    End Sub
+
+    Delegate Sub ShowRDataCallback(ByVal Text As String)
+    Private Sub DataReceivedHandler(sender As Object, e As IO.Ports.SerialDataReceivedEventArgs)
+        If isClosing = True Then Exit Sub
+        LastReceived = Now
+        If isRealtime = True Then
+            readCOM()
+        ElseIf isCLI = True Then
+            Try
+                System.Threading.Thread.Sleep(200)
+                Do While serialPort.BytesToRead > 0
+                    cliBuffer = serialPort.ReadExisting()
+                    Dim MyDelegate As New ShowRDataCallback(AddressOf ShowRData)
+                    Me.txtCLIResult.Invoke(MyDelegate, cliBuffer)
+                Loop
+                If cliBuffer.ToLower.Contains("rebooting") Then
+                    isCLI = False
+                    Dim MyDelegateTab As New ShowRDataCallback(AddressOf setDelegateTab)
+                    Me.tabMain.Invoke(MyDelegateTab, "")
+                End If
+            Catch ex As Exception
+                lostConnection()
+            End Try
+        ElseIf isPASSGPS = True Then
+            ReadGPS()
+        End If
+    End Sub
+
+    Private Sub ShowRData(ByVal Text As String)
+        Me.txtCLIResult.AppendText(filterIncomingBuffer(Text))
+        Me.txtCLIResult.ScrollToCaret()
+    End Sub
+
+    Private Sub setDelegateTab(ByVal Text As String)
+        lblParameterWarning.Text = lngRebooting
+        lblParameterWarning.Visible = True
+        lblMapWarning.Text = lngRebooting
+        lblMapWarning.Visible = True
+        lblRealtimeWarning.Text = lngRebooting
+        lblRealtimeWarning.Visible = True
+        lblRCWarning.Text = lngRebooting
+        lblRCWarning.Visible = True
+        If IsNothing(selectedTab) = True Then
+            selectedTab = tpParameter
+        End If
+        Me.tabMain.SelectedTab = selectedTab
+        Timeout = RebootTimeout
+        fcCount = 3
+        Application.DoEvents()
     End Sub
 
     Private Sub cmdRefreshCOM_Click(sender As Object, e As EventArgs) Handles cmdRefreshCOM.Click
@@ -33,10 +185,26 @@
     End Sub
 
     Private Sub cmbCOMPort_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbCOMPort.SelectedIndexChanged
-        ini.Write("COM", "DefaultPort", Me.cmbCOMPort.SelectedItem)
+        If isStartup = True Then Exit Sub
+        Try
+            Dim port As String = Me.cmbCOMPort.ComboBox.SelectedValue
+            If Me.cmbCOMPort.ComboBox.SelectedItem("Description").ToString.ToLower.Contains("bluetooth") Then
+                isBluetooth = True
+            Else
+                isBluetooth = False
+            End If
+            ini.Write("COM", "DefaultPort", port)
+        Catch ex As Exception
+
+        End Try
     End Sub
 
     Private Sub cmdConnect_Click(sender As Object, e As EventArgs) Handles cmdConnect.Click
+        AddHandler serialPort.DataReceived, AddressOf DataReceivedHandler
+        Me.lblRealtimeWarning.Visible = False
+        Me.lblMapWarning.Visible = False
+        Me.lblRCWarning.Visible = False
+        Me.lblParameterWarning.Visible = False
         If serialPort.IsOpen = True Then
             If isCLI = True Then
                 serialPort.Write("exit" & vbCrLf)
@@ -44,17 +212,30 @@
                 isCLI = False
             End If
             disconnectCOM()
-            setButtonsOffline()
+            setButtons(False)
         Else
-            serial_error_count = 0
-            serial_packet_count = 0
-            setButtonsOnline()
-            If connectCOM() = True Then
-                readBaseflightBasics()
-                readSettings()
-                setTimer()
+            If Not tabMain.SelectedTab Is Me.tpPassGPS Then
+                Me.tabMain.SelectedTab = Me.tpParameter
+                serial_error_count = 0
+                serial_packet_count = 0
+                setButtons(True)
+                If connectCOM() = True Then
+                    readBaseflightBasics()
+                    'readSettings()
+                    setTAB()
+                Else
+                    setButtons(False)
+                End If
             Else
-                setButtonsOffline()
+                isPASSGPS = True
+                serialPort.PortName = Me.cmbCOMPort.ComboBox.SelectedValue
+                serialPort.BaudRate = CInt(Me.cmbCOMSpeed.Text)
+                serialPort.Open()
+                Me.timerRealtime.Interval = iRefreshIntervals(Me.cmbRefreshRate.SelectedIndex)
+                timerRealtime.Enabled = True
+                timerRealtime.Start()
+                Me.cmdConnect.Text = "PassGPS"
+                Me.cmdConnect.Image = Global.BaseflightGUI.My.Resources.Resources.gps_green_x32
             End If
         End If
         Me.lblVPacketReceived.Text = serial_packet_count
@@ -119,166 +300,157 @@
         If ofdLoadParameters.ShowDialog() = System.Windows.Forms.DialogResult.OK Then
             'we have file to open
             If mw_params.read_from_xml(ofdLoadParameters.FileName) Then
-                fillParameter2GUI()
+                updateParameter()  'fillParameter2GUI()
                 sConfigFolder = System.IO.Path.GetDirectoryName(ofdLoadParameters.FileName)
                 ini.Write("GUI", "ConfigFolder", sConfigFolder)
             End If
         End If
     End Sub
 
+    Private Sub cmdUpdateOnlineHelp_Click(sender As Object, e As EventArgs) Handles cmdUpdateOnlineHelp.Click
+        DownloadHelpXML()
+    End Sub
+
+    Dim isClosing As Boolean = False
     Private Sub cmdExit_Click(sender As Object, e As EventArgs) Handles cmdExit.Click
+        isClosing = True
+        ini.Write("COM", "ComTimeout", comTimeOut)
+        ini.Write("COM", "RebootTimeout", RebootTimeout)
+        ini.Write("COM", "USBTimeout", USBTimeout)
+        ini.Write("COM", "BluetoothTimeout", BluetoothTimeout)
         Try
             If isCLI = True Then
                 endcli()
             End If
-            disconnectCOM()
+            If serialPort.IsOpen = True Then
+                serialPort.Close()
+            End If
         Catch ex As Exception
 
         End Try
-        serialPort.Close()
         Application.Exit()
     End Sub
 
+    Public Sub updateStatus()
+        Me.lblVPacketReceived.Text = serial_packet_count
+        Me.lblVPacketError.Text = serial_error_count
+        Application.DoEvents()
+    End Sub
+
     Private Sub readSettings()
-        If comError = True Then Exit Sub
-        MSPquery(MSP_BOX)
-        readCOM()
-        If comError = True Then Exit Sub
-        set_aux_panel()
-        MSPquery(MSP_RC)
-        readCOM()
-        If comError = True Then Exit Sub
-        MSPquery(MSP_PID)
-        readCOM()
-        If comError = True Then Exit Sub
-        MSPquery(MSP_RC_TUNING)
-        readCOM()
-        If comError = True Then Exit Sub
-        MSPquery(MSP_IDENT)
-        readCOM()
-        If comError = True Then Exit Sub
-        MSPquery(MSP_MISC)
-        readCOM()
-        If comError = True Then Exit Sub
-        updateParameter()
+        timerRealtime.Stop()
+        isRealtime = False
+        Timeout = 120
+        fcCount = 5
+        System.Threading.Thread.Sleep(200)
+        serialPort.ReadExisting()
+        If tabMain.SelectedTab Is tpMap Then
+            readWayPointSettings()
+        Else
+            readParameterSettings()
+        End If
+        LastReceived = Now
+        setTAB()
     End Sub
 
     Private Sub writeSettings()
         timerRealtime.Stop()
-        System.Threading.Thread.Sleep(500)
-        fillGUI2Parameter()
-        mw_params.write_settings(serialPort)
+        isRealtime = False
+        Timeout = 120
+        fcCount = 5
+        System.Threading.Thread.Sleep(200)
+        serialPort.ReadExisting()
+        If tabMain.SelectedTab Is tpMap Then
+            writeWayPointSettings()
+        Else
+            writeParameterSettings()
+        End If
+        LastReceived = Now
+        setTAB()
+    End Sub
 
-        System.Threading.Thread.Sleep(1000)
-
-        readSettings()
-        setTimer()
+    Friend lngMsgboxStopLogging As String = "Please stop logging first!"
+    Private Sub tabMain_Selecting(sender As Object, e As TabControlCancelEventArgs) Handles tabMain.Selecting
+        If bKMLLogRunning Then
+            If tabMain.SelectedTab Is tpCLI Or tabMain.SelectedTab Is tpGFWUpdate Then
+                e.Cancel = True
+                MessageBox.Show(Me, lngMsgboxStopLogging, "", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If
+        End If
     End Sub
 
     Private Sub tabMain_SelectedIndexChanged(sender As Object, e As EventArgs) Handles tabMain.SelectedIndexChanged
-        setTimer()
+        If Not Me.tabMain.SelectedTab Is Me.tpCLI Then
+            selectedTab = Me.tabMain.SelectedTab
+        End If
+        setTAB()
     End Sub
 
     Friend lngSaveSetting As String = "Save Setting"
     Friend lngLoadSetting As String = "Load Setting"
     Friend lngSaveWayPoints As String = "Save WayPoints"
     Friend lngLoadWayPoints As String = "Load WayPoints"
-    Private Sub setTimer()
-        timerRealtime.Stop()
-        isRealtime = False
-        Me.cmdLoadSettings.Text = lngLoadSetting
-        Me.cmdSaveSettings.Text = lngSaveSetting
-        If isConnected = False Then
-            Me.cmdLoadSettings.Enabled = False
-            Me.cmdSaveSettings.Enabled = False
-        End If
-        Me.MinimizeBox = True
-        If tabMain.SelectedTab Is tpParameter Then
-            timerRealtime.Stop()
-            If isConnected = True Then
-                endcli()
-                updateParameter()
-            End If
-        ElseIf tabMain.SelectedTab Is tpRCSetting Then
-            endcli()
-            If isConnected = True Then
-                Me.timerRealtime.Interval = iRefreshIntervals(Me.cmbRefreshRate.SelectedIndex)
-                isRealtime = True
-                timerRealtime.Start()
-            End If
-        ElseIf tabMain.SelectedTab Is tpRealtime Then
-            endcli()
-            If isConnected = True Then
-                Me.timerRealtime.Interval = iRefreshIntervals(Me.cmbRefreshRate.SelectedIndex)
-                isRealtime = True
-                timerRealtime.Start()
-            End If
-        ElseIf tabMain.SelectedTab Is tpCLI Then
-            isCLI = True
-            timerRealtime.Stop()
-            startCLI()
-        ElseIf tabMain.SelectedTab Is tpGFWUpdate Then
-            timerRealtime.Stop()
-            endcli()
-            initFirmwareUpdate()
-        ElseIf tabMain.SelectedTab Is tpMap Then
-            Me.cmdLoadSettings.Text = lngLoadWayPoints
-            Me.cmdSaveSettings.Text = lngSaveWayPoints
-            Me.cmdLoadSettings.Enabled = True
-            Me.cmdSaveSettings.Enabled = True
-
-            Me.MinimizeBox = False
-            Me.timerRealtime.Interval = 1000 'GPS only every 1 sec. iRefreshIntervals(Me.cmbRefreshRate.SelectedIndex)
-            If isConnected = True Then
-                isRealtime = True
-                timerRealtime.Start()
-            End If
-        End If
+    Dim selectedTab As System.Windows.Forms.TabPage = Nothing
+    Public Sub setButtons(ByVal value As Boolean)
+        cmbCOMPort.Enabled = Not value
+        cmbCOMSpeed.Enabled = Not value
+        cmdRefreshCOM.Enabled = Not value
+        cmdReadSettings.Enabled = value
+        cmdResetSettings.Enabled = value
+        cmdWriteSettings.Enabled = value
+        cmdSaveSettings.Enabled = value
+        cmdLoadSettings.Enabled = value
+        cmdCalibrateMag.Enabled = value
+        cmdCalibrateAcc.Enabled = value
+        cmdCLIDefaults.Enabled = value
+        cmdCLIDump.Enabled = value
+        cmdCLIFeature.Enabled = value
+        cmdCLIHelp.Enabled = value
+        cmdCLILoad.Enabled = value
+        cmdCLIMap.Enabled = value
+        cmdCLISave.Enabled = value
+        cmdCLISend.Enabled = value
+        cmdCLIDump.Enabled = value
+        cmdCLIMixer.Enabled = value
+        cmdCLISet.Enabled = value
+        cmdCLIStatus.Enabled = value
+        cmdCLIVersion.Enabled = value
     End Sub
 
-    Private Sub setButtonsOnline()
-        cmbCOMPort.Enabled = False
-        cmbCOMSpeed.Enabled = False
-        cmdRefreshCOM.Enabled = False
-        cmdReadSettings.Enabled = True
-        cmdWriteSettings.Enabled = True
-        cmdResetSettings.Enabled = True
-        cmdSaveSettings.Enabled = True
-        cmdLoadSettings.Enabled = True
-        cmdCalibrateMag.Enabled = True
-        cmdCalibrateAcc.Enabled = True
-    End Sub
+    'Private Sub updateGUI()
+    '    If tabMain.SelectedTab Is tpParameter Then
+    '        fillParameter2GUI()
+    '    ElseIf tabMain.SelectedTab Is tpRCSetting Then
+    '        fillParameter2GUI()
+    '    ElseIf tabMain.SelectedTab Is tpRealtime Then
+    '        updateTPRealtime()
+    '    ElseIf tabMain.SelectedTab Is tpCLI Then
 
-    Public Sub setButtonsOffline()
-        cmbCOMPort.Enabled = True
-        cmbCOMSpeed.Enabled = True
-        cmdRefreshCOM.Enabled = True
-        cmdReadSettings.Enabled = False
-        cmdResetSettings.Enabled = False
-        cmdWriteSettings.Enabled = False
-        cmdSaveSettings.Enabled = False
-        cmdLoadSettings.Enabled = False
-        cmdCalibrateMag.Enabled = False
-        cmdCalibrateAcc.Enabled = False
-    End Sub
+    '    ElseIf tabMain.SelectedTab Is tpGFWUpdate Then
 
-    Private Sub updateGUI()
-        If tabMain.SelectedTab Is tpParameter Then
-            fillParameter2GUI()
-        ElseIf tabMain.SelectedTab Is tpRCSetting Then
-            fillParameter2GUI()
-        ElseIf tabMain.SelectedTab Is tpRealtime Then
-            updateTPRealtime()
-        ElseIf tabMain.SelectedTab Is tpCLI Then
+    '    ElseIf tabMain.SelectedTab Is tpMap Then
 
-        ElseIf tabMain.SelectedTab Is tpGFWUpdate Then
-
-        ElseIf tabMain.SelectedTab Is tpMap Then
-
-        End If
-    End Sub
+    '    End If
+    'End Sub
 
 #Region "tpParameter"
+
+    Private Sub numRoll_P_ValueChanged(sender As Object, e As EventArgs) Handles numRoll_P.ValueChanged, numRoll_I.ValueChanged, numRoll_D.ValueChanged, _
+                                                                              numPitch_P.ValueChanged, numPitch_I.ValueChanged, numPitch_D.ValueChanged, _
+                                                                              numYaw_P.ValueChanged, numYaw_I.ValueChanged, numYaw_D.ValueChanged, _
+                                                                              numAltitude_P.ValueChanged, numAltitude_I.ValueChanged, numAltitude_D.ValueChanged, _
+                                                                              numPosHold_P.ValueChanged, numPosHold_I.ValueChanged, _
+                                                                              numPosHoldRate_P.ValueChanged, numPosHoldRate_I.ValueChanged, numPosHoldRate_D.ValueChanged, _
+                                                                              numNavigationRate_P.ValueChanged, numNavigationRate_I.ValueChanged, numNavigationRate_D.ValueChanged, _
+                                                                              numLevel_P.ValueChanged, numLevel_I.ValueChanged, numLevel_D.ValueChanged, _
+                                                                              numMag_P.ValueChanged, _
+                                                                              numVelocity_P.ValueChanged, numVelocity_I.ValueChanged, numVelocity_D.ValueChanged, _
+                                                                              numRATE_rp.ValueChanged, _
+                                                                              numRATE_yaw.ValueChanged, _
+                                                                              numRATE_tpid.ValueChanged, _
+                                                                              numPowerMeterAlarm.ValueChanged
+        valueChange(sender, e)
+    End Sub
 
     Private Sub tbrRCExpo_Scroll(sender As Object, e As EventArgs) Handles trbRCExpo.Scroll
         RCExpo_Scroll()
@@ -288,7 +460,7 @@
         RCRate_Scroll()
     End Sub
 
-    Private Sub numRCExpo_ValueChanged(sender As Object, e As EventArgs) Handles numRCExpo.ValueChanged, numPowerMeterAlarm.ValueChanged
+    Private Sub numRCExpo_ValueChanged(sender As Object, e As EventArgs) Handles numRCExpo.ValueChanged
         RCExpo_ValueChanged()
     End Sub
 
@@ -429,24 +601,52 @@
 
     Private Sub timerRealtime_Tick(sender As Object, e As EventArgs) Handles timerRealtime.Tick
         If Me.WindowState <> FormWindowState.Minimized Then
-            If comError = False Then
-                If tabMain.SelectedTab Is tpRCSetting Then
-                    MSPquery(MSP_RC)
-                    readCOM()
-                    updateRCChannels()
-                    updateRCControlSettings()
-                ElseIf tabMain.SelectedTab Is tpRealtime Then
-                    askForRealtimeValues()
-                    updateTPRealtime()
-                ElseIf tabMain.SelectedTab Is tpMap Then
-                    askForMapData()
-                    updateTPMap()
+            If comError = False And isConnected = True Or isPASSGPS = True Then
+                If isPASSGPS = False Then
+                    If Timeout < 120 Then
+                        Me.lblRealtimeWarning.Visible = False
+                        Me.lblMapWarning.Visible = False
+                        Me.lblRCWarning.Visible = False
+                        Me.lblParameterWarning.Visible = False
+                    End If
+                    If isRealtime = True Then
+                        If DateDiff(DateInterval.Second, LastReceived, Now) > Timeout Then
+                            timeoutError()
+                        End If
+                    End If
+                    If tabMain.SelectedTab Is tpParameter Then
+                        If bKMLLogRunning Then askForMapData()
+                    ElseIf tabMain.SelectedTab Is tpRCSetting Then
+                        MSPquery(MSP_STATUS)
+                        Me.lblV_cycletime.Text = [String].Format("{0:0000} µs", mw_gui.cycleTime)
+                        MSPquery(MSP_RC)
+                        'readCOM()
+                        updateRCChannels()
+                        updateRCControlSettings()
+                        If bKMLLogRunning Then
+                            askForMapData()
+                            updateTPMap()
+                        End If
+                    ElseIf tabMain.SelectedTab Is tpRealtime Then
+                        askForRealtimeValues()
+                        updateTPRealtime()
+                        If bKMLLogRunning Then
+                            askForMapData()
+                            updateTPMap()
+                        End If
+                    ElseIf tabMain.SelectedTab Is tpMap Then
+                        askForMapData()
+                        updateTPMap()
+                    End If
+                    Me.lblVPacketReceived.Text = serial_packet_count
+                    Me.lblVPacketError.Text = serial_error_count
+                Else
+                    updatePassGPS()
                 End If
-                Me.lblVPacketReceived.Text = serial_packet_count
-                Me.lblVPacketError.Text = serial_error_count
             Else
                 timerRealtime.Stop()
             End If
+
             Application.DoEvents()
         End If
     End Sub
@@ -474,53 +674,102 @@
     End Sub
 
     Private Sub cmdMap_Click(sender As Object, e As EventArgs) Handles cmdCLIMap.Click
-        Static lastclick As Double = 0
-        Dim ThisClick As Double = DateAndTime.Timer
-        If ThisClick > lastclick + 0.5 Then
-            Me.lblCLIHelp.Text = "Help: T=Throttle A=Aileron E=Elevator R=Ruder / Example: MAP TAER1234"
-            Me.txtCLICommand.AppendText("Map")
-        Else
-            Me.txtCLICommand.Text = ""
-            serialPort.Write("Map" & vbCr & vbLf)
+        If frmMap.ShowDialog = Windows.Forms.DialogResult.OK Then
+
         End If
-        lastclick = DateAndTime.Timer
+
+        'Static lastclick As Double = 0
+        'Dim ThisClick As Double = DateAndTime.Timer
+        'If ThisClick > lastclick + 0.5 Then
+        '    Me.lblCLIHelp.Text = "Help: T=Throttle A=Aileron E=Elevator R=Ruder / Example: MAP TAER1234"
+        '    Me.txtCLICommand.AppendText("Map")
+        'Else
+        '    Me.txtCLICommand.Text = ""
+        '    serialPort.Write("Map" & vbCr & vbLf)
+        'End If
+        'lastclick = DateAndTime.Timer
+    End Sub
+
+    Private Sub cmdMixer_Click(sender As Object, e As EventArgs) Handles cmdCLIMixer.Click
+        If frmMixer.ShowDialog = Windows.Forms.DialogResult.OK Then
+
+        End If
     End Sub
 
     Private Sub cmdFeature_Click(sender As Object, e As EventArgs) Handles cmdCLIFeature.Click
-        Static lastclick As Double = 0
-        Dim ThisClick As Double = DateAndTime.Timer
-        If ThisClick > lastclick + 0.5 Then
-            Me.txtCLICommand.AppendText("Feature")
-            Me.cmdCLIList.Enabled = True
-            setCLICmdEnterCommand()
+        If "" = "" Then
+            If frmFeature.ShowDialog = Windows.Forms.DialogResult.OK Then
+
+            End If
         Else
-            Me.txtCLICommand.Text = ""
-            serialPort.Write("Feature" & vbCr & vbLf)
+            Static lastclick As Double = 0
+            Dim ThisClick As Double = DateAndTime.Timer
+            If ThisClick > lastclick + 0.5 Then
+                Me.txtCLICommand.AppendText("Feature")
+                setCLICmdEnterCommand()
+            Else
+                Me.txtCLICommand.Text = ""
+                serialPort.Write("Feature" & vbCr & vbLf)
+            End If
+            lastclick = DateAndTime.Timer
         End If
-        lastclick = DateAndTime.Timer
     End Sub
 
     Private Sub cmdSet_Click(sender As Object, e As EventArgs) Handles cmdCLISet.Click
-        Static lastclick As Double = 0
-        Dim ThisClick As Double = DateAndTime.Timer
-        If ThisClick > lastclick + 0.5 Then
-            Me.txtCLICommand.AppendText("Set")
-            setCLICmdEnterCommand()
+        If "" = "" Then
+            If frmSet.ShowDialog = Windows.Forms.DialogResult.OK Then
+
+            End If
         Else
-            Me.txtCLICommand.Text = ""
-            serialPort.Write("Set" & vbCr & vbLf)
+            Static lastclick As Double = 0
+            Dim ThisClick As Double = DateAndTime.Timer
+            If ThisClick > lastclick + 0.5 Then
+                Me.txtCLICommand.AppendText("Set")
+                setCLICmdEnterCommand()
+            Else
+                Me.txtCLICommand.Text = ""
+                serialPort.Write("Set" & vbCr & vbLf)
+            End If
+            lastclick = DateAndTime.Timer
         End If
-        lastclick = DateAndTime.Timer
     End Sub
 
-    Private Sub cmdList_Click(sender As Object, e As EventArgs) Handles cmdCLIList.Click
+    Private Sub cmdList_Click(sender As Object, e As EventArgs)
         Me.txtCLICommand.AppendText(" LIST")
         CLISendComamand()
     End Sub
 
+    Friend lngMsgboxSaveDump As String = "Do you want to save the DUMP to disk?"
+    Friend lngMsgboxQuestion As String = "Question"
     Private Sub cmdDump_Click(sender As Object, e As EventArgs) Handles cmdCLIDump.Click
-        Me.txtCLICommand.Text = "DUMP"
-        CLISendComamand()
+        If MessageBox.Show(Me, lngMsgboxSaveDump, lngMsgboxQuestion, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
+            Dim fd As New SaveFileDialog
+            fd.InitialDirectory = sConfigFolder
+            fd.FileName = Now.ToString("yyyyMMdd-HHmm") & ".txt"
+            fd.DefaultExt = ".txt"
+            fd.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*"
+            If fd.ShowDialog = Windows.Forms.DialogResult.OK Then
+                isCLI = False
+                serialPort.Write("DUMP" & vbCr & vbLf)
+                System.Threading.Thread.Sleep(500)
+                Dim dump() As String = serialPort.ReadExisting().Split(vbCrLf)
+                Dim lineNo As Integer = 0
+                For Each line As String In dump
+                    lineNo += 1
+                    If lineNo > 2 Then
+                        If line.Trim.Length > 0 Then
+                            If line.Trim.Substring(0, 1) <> "#" Then
+                                System.IO.File.AppendAllText(fd.FileName, line)
+                            End If
+                        End If
+                    End If
+                Next
+                isCLI = True
+            End If
+        Else
+            Me.txtCLICommand.Text = "DUMP"
+            CLISendComamand()
+        End If
     End Sub
 
     Private Sub cmdLoad_Click(sender As Object, e As EventArgs) Handles cmdCLILoad.Click
@@ -528,69 +777,123 @@
     End Sub
 
     Private Sub cmdSave_Click(sender As Object, e As EventArgs) Handles cmdCLISave.Click
-        serialPort.Write("Save" & vbCr & vbLf)
-        frmReboot.StartPosition = FormStartPosition.Manual
-        frmReboot.Location = New System.Drawing.Point(Me.Location.X + (Me.Width - frmReboot.Width) / 2, Me.Location.Y + (Me.Height - frmReboot.Height) / 2)
-        frmReboot.Show()
-
+        Me.txtCLICommand.Text = "SAVE"
+        CLISendComamand()
     End Sub
 
     Private Sub cmdCLISend_Click(sender As Object, e As EventArgs) Handles cmdCLISend.Click
         CLISendComamand()
     End Sub
 
-    Private Sub txtCLICommand_KeyDown(sender As Object, e As KeyEventArgs) Handles txtCLICommand.KeyDown
-        If e.KeyCode = Keys.Enter Then
-            CLISendComamand()
-        ElseIf e.KeyCode = (Keys.Control Or Keys.E) Then
-            CommandHistory()
-        End If
-    End Sub
+    'Private Sub txtCLICommand_KeyDown(sender As Object, e As KeyEventArgs) Handles txtCLICommand.KeyDown
+    '    If e.KeyCode = Keys.Enter Then
+    '        CLISendComamand()
+    '    ElseIf e.KeyCode = (Keys.Control Or Keys.E) Then
+    '        CommandHistory()
+    '    End If
+    'End Sub
 
-    Delegate Sub ShowRDataCallback(ByVal Text As String)
-    Private Sub DataReceivedHandler(sender As Object, e As IO.Ports.SerialDataReceivedEventArgs)
-        If isRealtime = True Then
-            readCOM()
+    Private Sub txtCLICommand_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtCLICommand.KeyPress
+        If isConnected = True Then
+            If e.KeyChar = Convert.ToChar(13) Then
+                CLISendComamand()
+            ElseIf e.KeyChar = Convert.ToChar(5) Then
+                CommandHistory()
+            End If
         End If
-        If isCLI = True Then
-            System.Threading.Thread.Sleep(200)
-            Do While serialPort.BytesToRead > 0
-                cliBuffer = serialPort.ReadExisting()
-                'cliBuffer = Str(serialPort.ReadByte)
-                Dim MyDelegate As New ShowRDataCallback(AddressOf ShowRData)
-                Me.txtCLIResult.Invoke(MyDelegate, cliBuffer)
-            Loop
-        End If
-    End Sub
-
-    Private Sub ShowRData(ByVal Text As String)
-        Me.txtCLIResult.AppendText(Text)
-        Me.txtCLIResult.ScrollToCaret()
     End Sub
 
 #End Region
 
 #Region "Realtime"
 
+    Private Sub chk_acc_roll_CheckedChanged(sender As Object, e As EventArgs) Handles chk_acc_roll.CheckedChanged
+        ini.Write("GUI", "acc_roll", Me.chk_acc_roll.Checked)
+    End Sub
+
+    Private Sub chk_acc_pitch_CheckedChanged(sender As Object, e As EventArgs) Handles chk_acc_pitch.CheckedChanged
+        ini.Write("GUI", "acc_pitch", Me.chk_acc_pitch.Checked)
+    End Sub
+
+    Private Sub chk_acc_z_CheckedChanged(sender As Object, e As EventArgs) Handles chk_acc_z.CheckedChanged
+        ini.Write("GUI", "acc_z", Me.chk_acc_z.Checked)
+    End Sub
+
+    Private Sub chk_gyro_roll_CheckedChanged(sender As Object, e As EventArgs) Handles chk_gyro_roll.CheckedChanged
+        ini.Write("GUI", "gyro_roll", Me.chk_gyro_roll.Checked)
+    End Sub
+
+    Private Sub chk_gyro_pitch_CheckedChanged(sender As Object, e As EventArgs) Handles chk_gyro_pitch.CheckedChanged
+        ini.Write("GUI", "gyro_pitch", Me.chk_gyro_pitch.Checked)
+    End Sub
+
+    Private Sub chk_gyro_yaw_CheckedChanged(sender As Object, e As EventArgs) Handles chk_gyro_yaw.CheckedChanged
+        ini.Write("GUI", "gyro_yaw", Me.chk_gyro_yaw.Checked)
+    End Sub
+
+    Private Sub chk_mag_roll_CheckedChanged(sender As Object, e As EventArgs) Handles chk_mag_roll.CheckedChanged
+        ini.Write("GUI", "mag_roll", Me.chk_mag_roll.Checked)
+    End Sub
+
+    Private Sub chk_mag_pitch_CheckedChanged(sender As Object, e As EventArgs) Handles chk_mag_pitch.CheckedChanged
+        ini.Write("GUI", "mag_pitch", Me.chk_mag_pitch.Checked)
+    End Sub
+
+    Private Sub chk_mag_yaw_CheckedChanged(sender As Object, e As EventArgs) Handles chk_mag_yaw.CheckedChanged
+        ini.Write("GUI", "mag_yaw", Me.chk_mag_yaw.Checked)
+    End Sub
+
+    Private Sub chk_alt_CheckedChanged(sender As Object, e As EventArgs) Handles chk_alt.CheckedChanged
+        ini.Write("GUI", "alt", Me.chk_alt.Checked)
+    End Sub
+
+    Private Sub chk_head_CheckedChanged(sender As Object, e As EventArgs) Handles chk_head.CheckedChanged
+        ini.Write("GUI", "head", Me.chk_head.Checked)
+    End Sub
+
+    Private Sub chk_dbg1_CheckedChanged(sender As Object, e As EventArgs) Handles chk_dbg1.CheckedChanged
+        ini.Write("GUI", "dbg1", Me.chk_dbg1.Checked)
+    End Sub
+
+    Private Sub chk_dbg2_CheckedChanged(sender As Object, e As EventArgs) Handles chk_dbg2.CheckedChanged
+        ini.Write("GUI", "dbg2", Me.chk_dbg2.Checked)
+    End Sub
+
+    Private Sub chk_dbg3_CheckedChanged(sender As Object, e As EventArgs) Handles chk_dbg3.CheckedChanged
+        ini.Write("GUI", "dbg3", Me.chk_dbg3.Checked)
+    End Sub
+
+    Private Sub chk_dbg4_CheckedChanged(sender As Object, e As EventArgs) Handles chk_dbg4.CheckedChanged
+        ini.Write("GUI", "dbg4", Me.chk_dbg4.Checked)
+    End Sub
+
+    Friend lngCalibrateAccelerometerBody As String = "Make sure that your copter is leveled!" & vbCrLf & "Press OK when ready, then keep copter steady for 5 seconds."
+    Friend lngCalibrateAccelerometerHeader As String = "Calibrating Accelerometer"
     Private Sub cmdCalibrateAcc_Click(sender As Object, e As EventArgs) Handles cmdCalibrateAcc.Click
         If Not isConnected Then
-            MessageBox.Show(Me, "You have to connect to the FC first!", "Not connected", MessageBoxButtons.OK, MessageBoxIcon.[Error])
+            MessageBox.Show(Me, "You have to connect to the FC first!", "Not connected", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return
         End If
 
-        If MessageBox.Show(Me, "Make sure that your copter is leveled!" & vbCr & vbLf & "Press OK when ready, then keep copter steady for 5 seconds.", "Calibrating Accelerometer", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) = DialogResult.OK Then
+        If MessageBox.Show(Me, lngCalibrateAccelerometerBody, lngCalibrateAccelerometerHeader, MessageBoxButtons.OKCancel, MessageBoxIcon.Information) = DialogResult.OK Then
             MSPquery(MSP_ACC_CALIBRATION)
         End If
     End Sub
 
+    Friend lngCalibrateMagBody As String = "After pressing OK please rotate your copter around all three axes" & vbCrLf & " at least a full 360° turn for each axes. You will have 1 minute to finish"
+    Friend lngCalibrateMagHeader As String = "Calibrating Magnetometer"
     Private Sub cmdCalibrateMag_Click(sender As Object, e As EventArgs) Handles cmdCalibrateMag.Click
         If Not isConnected Then
             MessageBox.Show(Me, "You have to connect to the FC first!", "Not connected", MessageBoxButtons.OK, MessageBoxIcon.[Error])
             Return
         End If
 
-        If MessageBox.Show(Me, "After pressing OK please rotate your copter around all three axes" & vbCr & vbLf & " at least a full 360° turn for each axes. You will have 1 minute to finish", "Calibrating Magnetometer", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) = DialogResult.OK Then
+        If MessageBox.Show(Me, lngCalibrateMagBody, lngCalibrateMagHeader, MessageBoxButtons.OKCancel, MessageBoxIcon.Information) = DialogResult.OK Then
             MSPquery(MSP_MAG_CALIBRATION)
+            Timeout = 120
+            fcCount = 5
+            lblRealtimeWarning.Text = lngMagCalibaration
+            lblRealtimeWarning.Visible = True
         End If
     End Sub
 
@@ -776,6 +1079,24 @@
 #End Region
 
 #Region "Map"
+    Friend lngStartKMLLog As String = "Start GPS Log"
+    Friend lngStopKMLLog As String = "Stop STOP Log"
+
+    Private Sub cmdStart_KML_log_Click(sender As Object, e As EventArgs) Handles cmdStart_KML_log.Click
+        If bKMLLogRunning Then
+            cmdStart_KML_log.Text = lngStartKMLLog
+            cmdStart_KML_log.BackColor = Color.Transparent
+            Me.Refresh()
+            closeKMLLog()
+        Else
+            openKMLLog()
+            If bKMLLogRunning Then
+                cmdStart_KML_log.Text = lngStopKMLLog
+                cmdStart_KML_log.BackColor = Color.LightGray
+                Me.Refresh()
+            End If
+        End If
+    End Sub
 
     Private Sub initTPMap()
         Try
@@ -788,8 +1109,13 @@
 
             Me.MainMap.CacheLocation = IO.Path.GetDirectoryName(Application.ExecutablePath) & "/mapcache/"
 
-            pointLng = ini.ReadDouble("GPS", "Longtitude", 7.230758)
-            pointLat = ini.ReadDouble("GPS", "Latitude", 51.462447)
+            Try
+                pointLng = ini.ReadDouble("GPS", "Longtitude", 7.230758)
+                pointLat = ini.ReadDouble("GPS", "Latitude", 51.462447)
+            Catch ex As Exception
+                pointLng = 7.230758
+                pointLat = 51.462447
+            End Try
             copterPos = New GMap.NET.PointLatLng(pointLat, pointLng)
 
             mapProviders = New GMap.NET.MapProviders.GMapProvider(5) {}
@@ -812,7 +1138,7 @@
             currentMarker = New GMap.NET.WindowsForms.Markers.GMapMarkerGoogleRed(Me.MainMap.Position)
             Me.MainMap.MapScaleInfoEnabled = True
 
-            Me.MainMap.ForceDoubleBuffer = True
+            'Me.MainMap.ForceDoubleBuffer = True
             Me.MainMap.Manager.Mode = GMap.NET.AccessMode.ServerAndCache
 
             Me.MainMap.Position = copterPos
@@ -861,7 +1187,11 @@
             center = New GMap.NET.WindowsForms.Markers.GMapMarkerCross(Me.MainMap.Position)
 
         Catch ex As Exception
-
+            frmError.lastCommand = "initTPMap()"
+            frmError.myEx = ex
+            If frmError.ShowDialog() = Windows.Forms.DialogResult.Cancel Then
+                System.Windows.Forms.Application.Exit()
+            End If
         End Try
     End Sub
 
@@ -869,21 +1199,23 @@
     Dim wpNo As Integer = 0
     Private Sub dgWayPoints_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgWayPoints.CellClick, dgWayPoints.CellContentClick
         If isStartup = True Then Exit Sub
-        isStartup = True
-        Me.cmdWPUpdate.Enabled = False
-        editWPDr = dtWayPoints.Select("WPNo = " & dgWayPoints.Item("colWPNumber", e.RowIndex).Value)(0)
-        WayPoints.Markers.Clear()
-        WayPoints.Markers.Add(New GMapMarkerWayPoint(New GMap.NET.PointLatLng(editWPDr("Lat"), editWPDr("Lng")), editWPDr("Heading"), 0, 0))
+        If e.RowIndex > -1 Then
+            isStartup = True
+            Me.cmdWPUpdate.Enabled = False
+            editWPDr = dtWayPoints.Select("WPNo = " & dgWayPoints.Item("colWPNumber", e.RowIndex).Value)(0)
+            WayPoints.Markers.Clear()
+            WayPoints.Markers.Add(New GMapMarkerWayPoint(New GMap.NET.PointLatLng(editWPDr("Lat"), editWPDr("Lon")), editWPDr("Heading"), 0, 0))
 
-        Me.txtWPLat.Text = editWPDr("Lat")
-        Me.txtWPLng.Text = editWPDr("Lng")
-        Me.numWPAlt.Value = editWPDr("Alt")
-        Me.numWPTimeToStay.Text = editWPDr("TimeToStay")
-        Me.numWPParameter.Text = editWPDr("ActionParameter")
-        Me.numWPNavFlagAction.Text = editWPDr("Action")
-        Me.numWPHeading.Text = editWPDr("Heading")
-        setMapCtrl(True)
-        isStartup = False
+            Me.txtWPLat.Text = editWPDr("Lat")
+            Me.txtWPLng.Text = editWPDr("Lon")
+            Me.numWPAlt.Value = editWPDr("Alt")
+            Me.numWPTimeToStay.Text = editWPDr("TimeToStay")
+            Me.numWPParameter.Text = editWPDr("ActionParameter")
+            Me.numWPNavFlagAction.Text = editWPDr("Action")
+            Me.numWPHeading.Text = editWPDr("Heading")
+            setMapCtrl(True)
+            isStartup = False
+        End If
     End Sub
 
     Private Sub dgWayPoints_RowsRemoved(sender As Object, e As DataGridViewRowsRemovedEventArgs) Handles dgWayPoints.RowsRemoved
@@ -915,9 +1247,6 @@
             dgWayPoints.Rows(RowDestination).Selected = True
         End If
     End Sub
-
-
-
 
     Private Sub txtWPLat_TextChanged(sender As Object, e As EventArgs) Handles txtWPLat.TextChanged
         If isStartup = True Then Exit Sub
@@ -961,10 +1290,14 @@
         Grout.Points.Clear()
     End Sub
 
+    Private Sub picSaveAsHomePosition_Click(sender As Object, e As EventArgs) Handles picGoToHomePosition.Click
+        GoToHomePosition()
+    End Sub
+
     Private Sub cmdWPUpdate_Click(sender As Object, e As EventArgs) Handles cmdWPUpdate.Click
         Me.cmdWPUpdate.Enabled = False
         editWPDr("Lat") = Me.txtWPLat.Text
-        editWPDr("Lng") = Me.txtWPLng.Text
+        editWPDr("Lon") = Me.txtWPLng.Text
         editWPDr("Alt") = Me.numWPAlt.Value
         editWPDr("TimeToStay") = Me.numWPTimeToStay.Text
         editWPDr("ActionParameter") = Me.numWPParameter.Text
@@ -1011,7 +1344,7 @@
             wpNo += 1
             dr("WPNo") = wpNo
             dr("Lat") = pointLat
-            dr("Lng") = pointLng
+            dr("Lon") = pointLng
             dr("Alt") = 0
             dr("Heading") = 0
             dr("TimeToStay") = 0
@@ -1021,7 +1354,7 @@
             editWPDr = dr
             WayPoints.Markers.Clear()
             Me.txtWPLat.Text = editWPDr("Lat")
-            Me.txtWPLng.Text = editWPDr("Lng")
+            Me.txtWPLng.Text = editWPDr("Lon")
             Me.numWPAlt.Value = editWPDr("Alt")
             Me.numWPTimeToStay.Text = editWPDr("TimeToStay")
             Me.numWPParameter.Text = editWPDr("ActionParameter")
@@ -1037,11 +1370,16 @@
         start = Me.MainMap.FromLocalToLatLng(e.X, e.Y)
 
         If e.Button = MouseButtons.Left AndAlso Control.ModifierKeys <> Keys.Alt Then
-            isMouseDown = True
-            isMouseDraging = False
+            If Control.ModifierKeys = Keys.ControlKey Then
+                ini.Write("GPS", "Longtitude", pointLng)
+                ini.Write("GPS", "Latitude", pointLat)
+            Else
+                isMouseDown = True
+                isMouseDraging = False
 
-            If currentMarker.IsVisible Then
-                currentMarker.Position = Me.MainMap.FromLocalToLatLng(e.X, e.Y)
+                If currentMarker.IsVisible Then
+                    currentMarker.Position = Me.MainMap.FromLocalToLatLng(e.X, e.Y)
+                End If
             End If
         End If
     End Sub
@@ -1214,15 +1552,234 @@
         ini.Write("GUI", "MapZoom", tb_mapzoom.Value)
     End Sub
 
+    Public Sub updatePassGPS()
+        Me.lblVPassGPS_Hz.Text = mw_gui.GPS_Hz
+        Me.gbNAV_POSLLH.Text = "NAV_POSLLH (" & mw_gui.GPS_ms_POSLLH & " ms)"
+        Me.gbNAV_SOL.Text = "NAV_SOL (" & mw_gui.GPS_ms_SOL & " ms)"
+        Me.gbNAV_VELNED.Text = "NAV_VELNED (" & mw_gui.GPS_ms_VELNED & " ms)"
+        Me.gbNAV_SVINFO.Text = "NAV_SVINFO (" & mw_gui.GPS_ms_SVINFO & " ms)"
+        Me.lblSGPSError.Text = " |  GPS Error: " & mw_gui.GPS_Error
+        Me.lblsGPSPktCount.Text = " |  GPS Packets: " & mw_gui.GPS_Count
+        'NAV_POSLLH
+        Me.lblVPassGPS_Altitude.Text = mw_gui.GPS_altitudeMSL
+        Me.lblVPassGPS_Latitude.Text = (mw_gui.GPS_latitude / 10000000).ToString("#.000000")
+        Me.lblVPassGPS_Longtitude.Text = (mw_gui.GPS_longitude / 10000000).ToString("#.000000")
+        Me.lblVPassGPS_AltitudeMSL.Text = mw_gui.GPS_altitudeMSL
+        Me.lblVPassGPS_Altitude.Text = mw_gui.GPS_altitude
+        Me.lblVhAcc.Text = mw_gui.GPS_hAcc
+        Me.lblVvAcc.Text = mw_gui.GPS_vAcc
+
+
+        '- 0x00 = no fix
+        '- 0x01 = dead reckoning only
+        '- 0x02 = 2D-fix
+        '- 0x03 = 3D-fix
+        '- 0x04 = GPS + dead reckoning combined
+        '- 0x05 = Time only fix
+        '- 0x06..0xff = reserved
+        Select Case mw_gui.GPS_fix
+            Case 0
+                Me.lblVPassGPS_FIX.Text = "--"
+                Me.lblVPassGPS_FIX_Desc.Text = "no fix"
+            Case 1
+                Me.lblVPassGPS_FIX.Text = ".."
+                Me.lblVPassGPS_FIX_Desc.Text = "dead reckoning only"
+            Case 2
+                Me.lblVPassGPS_FIX.Text = "2D"
+                Me.lblVPassGPS_FIX_Desc.Text = ""
+            Case 3
+                Me.lblVPassGPS_FIX.Text = "3D"
+                Me.lblVPassGPS_FIX_Desc.Text = ""
+            Case 4
+                Me.lblVPassGPS_FIX.Text = "++"
+                Me.lblVPassGPS_FIX_Desc.Text = "GPS + dead reckoning combined"
+            Case 5
+                Me.lblVPassGPS_FIX.Text = "**"
+                Me.lblVPassGPS_FIX_Desc.Text = "Time only fix"
+            Case Else
+                Me.lblVPassGPS_FIX.Text = "??"
+                Me.lblVPassGPS_FIX_Desc.Text = "reserved"
+        End Select
+        Me.lblVPassGPS_FIX_Status.Text = mw_gui.GPS_fix_status
+        Me.lblVecefx.Text = mw_gui.GPS_ecef_x
+        Me.lblVecefy.Text = mw_gui.GPS_ecef_y
+        Me.lblVecefz.Text = mw_gui.GPS_ecef_z
+        Me.lblVpAcc.Text = mw_gui.GPS_position_accuracy_3d
+        Me.lblVecefVX.Text = mw_gui.GPS_ecef_x_velocity
+        Me.lblVecefVY.Text = mw_gui.GPS_ecef_y_velocity
+        Me.lblVecefVZ.Text = mw_gui.GPS_ecef_z_velocity
+        Me.lblVaAcc.Text = mw_gui.GPS_speed_accuracy
+        Me.lblVpDOP.Text = mw_gui.GPS_position_DOP
+        Me.lblVPassGPS_SATs.Text = mw_gui.GPS_numSat
+
+        'NAV_VELNED
+        Me.lblVvelN.Text = mw_gui.GPS_ned_north
+        Me.lblVvelE.Text = mw_gui.GPS_ned_east
+        Me.lblVvelD.Text = mw_gui.GPS_ned_down
+        Me.lblVspeed.Text = mw_gui.GPS_speed_3d
+        Me.lblVgSpeed.Text = mw_gui.GPS_speed_2d
+        Me.lblVheading.Text = mw_gui.GPS_heading_2d
+        Me.lblVsAcc.Text = mw_gui.GPS_speed_accuracy1
+        Me.lblVcAcc.Text = mw_gui.GPS_heading_accuracy
+
+        'NAV_SVINFO
+        Me.lblVnumCh.Text = mw_gui.GPS_numCH
+        If mw_gui.GPS_numCH > 0 Then
+            Me.lblV01_SatID.Text = mw_gui.GPS_svid(0)
+            Me.pbChn01.Value = mw_gui.GPS_cno(0)
+            Me.pbChn01.BarColor1 = getCnoColor(mw_gui.GPS_quality(0))
+        Else
+            Me.lblV01_SatID.Text = 0
+            Me.pbChn01.Value = 0
+        End If
+        If mw_gui.GPS_numCH > 1 Then
+            Me.lblV02_SatID.Text = mw_gui.GPS_svid(1)
+            Me.pbChn02.Value = mw_gui.GPS_cno(1)
+            Me.pbChn02.BarColor1 = getCnoColor(mw_gui.GPS_quality(1))
+        Else
+            Me.lblV02_SatID.Text = 0
+            Me.pbChn02.Value = 0
+        End If
+        If mw_gui.GPS_numCH > 2 Then
+            Me.lblV03_SatID.Text = mw_gui.GPS_svid(2)
+            Me.pbChn03.Value = mw_gui.GPS_cno(2)
+            Me.pbChn03.BarColor1 = getCnoColor(mw_gui.GPS_quality(2))
+        Else
+            Me.lblV03_SatID.Text = 0
+            Me.pbChn03.Value = 0
+        End If
+        If mw_gui.GPS_numCH > 3 Then
+            Me.lblV04_SatID.Text = mw_gui.GPS_svid(3)
+            Me.pbChn04.Value = mw_gui.GPS_cno(3)
+            Me.pbChn04.BarColor1 = getCnoColor(mw_gui.GPS_quality(3))
+        Else
+            Me.lblV04_SatID.Text = 0
+            Me.pbChn04.Value = 0
+        End If
+        If mw_gui.GPS_numCH > 4 Then
+            Me.lblV05_SatID.Text = mw_gui.GPS_svid(4)
+            Me.pbChn05.Value = mw_gui.GPS_cno(4)
+            Me.pbChn05.BarColor1 = getCnoColor(mw_gui.GPS_quality(4))
+        Else
+            Me.lblV05_SatID.Text = 0
+            Me.pbChn05.Value = 0
+        End If
+        If mw_gui.GPS_numCH > 5 Then
+            Me.lblV06_SatID.Text = mw_gui.GPS_svid(5)
+            Me.pbChn06.Value = mw_gui.GPS_cno(5)
+            Me.pbChn06.BarColor1 = getCnoColor(mw_gui.GPS_quality(5))
+        Else
+            Me.lblV06_SatID.Text = 0
+            Me.pbChn06.Value = 0
+        End If
+        If mw_gui.GPS_numCH > 6 Then
+            Me.lblV07_SatID.Text = mw_gui.GPS_svid(6)
+            Me.pbChn07.Value = mw_gui.GPS_cno(6)
+            Me.pbChn07.BarColor1 = getCnoColor(mw_gui.GPS_quality(6))
+        Else
+            Me.lblV07_SatID.Text = 0
+            Me.pbChn07.Value = 0
+        End If
+        If mw_gui.GPS_numCH > 7 Then
+            Me.lblV08_SatID.Text = mw_gui.GPS_svid(7)
+            Me.pbChn08.Value = mw_gui.GPS_cno(7)
+            Me.pbChn08.BarColor1 = getCnoColor(mw_gui.GPS_quality(7))
+        Else
+            Me.lblV08_SatID.Text = 0
+            Me.pbChn08.Value = 0
+        End If
+        If mw_gui.GPS_numCH > 8 Then
+            Me.lblV09_SatID.Text = mw_gui.GPS_svid(8)
+            Me.pbChn09.Value = mw_gui.GPS_cno(8)
+            Me.pbChn09.BarColor1 = getCnoColor(mw_gui.GPS_quality(8))
+        Else
+            Me.lblV09_SatID.Text = 0
+            Me.pbChn09.Value = 0
+        End If
+        If mw_gui.GPS_numCH > 9 Then
+            Me.lblV10_SatID.Text = mw_gui.GPS_svid(9)
+            Me.pbChn10.Value = mw_gui.GPS_cno(9)
+            Me.pbChn10.BarColor1 = getCnoColor(mw_gui.GPS_quality(9))
+        Else
+            Me.lblV10_SatID.Text = 0
+            Me.pbChn10.Value = 0
+        End If
+        If mw_gui.GPS_numCH > 10 Then
+            Me.lblV11_SatID.Text = mw_gui.GPS_svid(10)
+            Me.pbChn11.Value = mw_gui.GPS_cno(10)
+            Me.pbChn11.BarColor1 = getCnoColor(mw_gui.GPS_quality(10))
+        Else
+            Me.lblV11_SatID.Text = 0
+            Me.pbChn11.Value = 0
+        End If
+        If mw_gui.GPS_numCH > 11 Then
+            Me.lblV12_SatID.Text = mw_gui.GPS_svid(11)
+            Me.pbChn12.Value = mw_gui.GPS_cno(11)
+            Me.pbChn12.BarColor1 = getCnoColor(mw_gui.GPS_quality(11))
+        Else
+            Me.lblV12_SatID.Text = 0
+            Me.pbChn12.Value = 0
+        End If
+        If mw_gui.GPS_numCH > 12 Then
+            Me.lblV13_SatID.Text = mw_gui.GPS_svid(12)
+            Me.pbChn13.Value = mw_gui.GPS_cno(12)
+            Me.pbChn13.BarColor1 = getCnoColor(mw_gui.GPS_quality(12))
+        Else
+            Me.lblV13_SatID.Text = 0
+            Me.pbChn13.Value = 0
+        End If
+        If mw_gui.GPS_numCH > 13 Then
+            Me.lblV14_SatID.Text = mw_gui.GPS_svid(13)
+            Me.pbChn14.Value = mw_gui.GPS_cno(13)
+            Me.pbChn14.BarColor1 = getCnoColor(mw_gui.GPS_quality(13))
+        Else
+            Me.lblV14_SatID.Text = 0
+            Me.pbChn14.Value = 0
+        End If
+        If mw_gui.GPS_numCH > 14 Then
+            Me.lblV15_SatID.Text = mw_gui.GPS_svid(14)
+            Me.pbChn15.Value = mw_gui.GPS_cno(14)
+            Me.pbChn15.BarColor1 = getCnoColor(mw_gui.GPS_quality(14))
+        Else
+            Me.lblV15_SatID.Text = 0
+            Me.pbChn15.Value = 0
+        End If
+        If mw_gui.GPS_numCH > 15 Then
+            Me.lblV16_SatID.Text = mw_gui.GPS_svid(15)
+            Me.pbChn16.Value = mw_gui.GPS_cno(15)
+            Me.pbChn16.BarColor1 = getCnoColor(mw_gui.GPS_quality(15))
+        Else
+            Me.lblV16_SatID.Text = 0
+            Me.pbChn16.Value = 0
+        End If
+    End Sub
+
+    Private Function getCnoColor(ByVal qualitiy As Integer) As System.Drawing.Color
+        Dim result As System.Drawing.Color = Color.DarkGray
+        Select Case qualitiy
+            Case 0
+            Case 1 'channel is searching
+            Case 2 'signal aquired
+                result = Color.DarkRed
+            Case 3 'signal detected but unusable
+                result = Color.Red
+            Case 4 'code lock on signal
+                result = Color.LightGreen
+            Case Else 'code and carrier locked
+                result = Color.Green
+        End Select
+        Return result
+    End Function
+
 #End Region
 
     Private Sub frmMain_SizeChanged(sender As Object, e As EventArgs) Handles Me.SizeChanged
-        If Me.WindowState = FormWindowState.Minimized Then
-            Me.WindowState = FormWindowState.Normal
-            Me.timerRealtime.Enabled = False
-        Else
-            Me.timerRealtime.Enabled = True
-        End If
+        'If Me.WindowState = FormWindowState.Minimized Then
+        '    Me.WindowState = FormWindowState.Normal
+        '    Me.timerRealtime.Enabled = False
+        'Else
+        '    Me.timerRealtime.Enabled = True
+        'End If
     End Sub
 
     Private Sub txtCLIResult_KeyDown(sender As Object, e As KeyEventArgs) Handles txtCLIResult.KeyDown

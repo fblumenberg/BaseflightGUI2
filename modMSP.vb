@@ -33,6 +33,7 @@
     Public Const MSP_BOXNAMES As Integer = 116
     Public Const MSP_PIDNAMES As Integer = 117
     Public Const MSP_WP As Integer = 118
+    Public Const MSP_BOXIDS As Integer = 119
 
     Public Const MSP_SET_RAW_RC As Integer = 200
     Public Const MSP_SET_RAW_GPS As Integer = 201
@@ -44,6 +45,8 @@
     Public Const MSP_SET_MISC As Integer = 207
     Public Const MSP_RESET_CONF As Integer = 208
     Public Const MSP_SET_WP As Integer = 209
+    Public Const MSP_SELECT_SETTING As Integer = 210
+    Public Const MSP_SET_HEAD As Integer = 211
 
     Public Const MSP_EEPROM_WRITE As Integer = 250
     Public Const MSP_DEBUG As Integer = 254
@@ -164,7 +167,11 @@
                 End Select
             Loop
         Catch ex As Exception
-
+            frmError.lastCommand = "ReadMSP()"
+            frmError.myEx = ex
+            If frmError.ShowDialog() = Windows.Forms.DialogResult.Cancel Then
+                System.Windows.Forms.Application.Exit()
+            End If
         End Try
     End Sub
 
@@ -181,7 +188,7 @@
                     ptr += 1
                     mw_gui.protocol_version = Convert.ToByte(inBuf((ptr)))
                     ptr += 1
-                    mw_gui.capability = BitConverter.ToInt32(inBuf, ptr)
+                    mw_gui.capability = BitConverter.ToUInt32(inBuf, ptr)
                     ptr += 4
                     Exit Select
                 Case MSP_STATUS
@@ -265,7 +272,7 @@
                     ptr += 4
                     mw_gui.GPS_longitude = BitConverter.ToInt32(inBuf, ptr)
                     ptr += 4
-                    mw_gui.GPS_altitude = BitConverter.ToInt16(inBuf, ptr)
+                    mw_gui.GPS_altitudeMSL = BitConverter.ToInt16(inBuf, ptr)
                     ptr += 2
                     mw_gui.GPS_speed = BitConverter.ToInt16(inBuf, ptr)
                     Exit Select
@@ -326,15 +333,19 @@
                     ' bOptions_needs_refresh = True
                     Exit Select
                 Case MSP_BOX
-                    ptr = 1
-                    cfgBoxWidth = dataSize / iCheckBoxItems
-                    If mw_params.activation.Length < dataSize / cfgBoxWidth Then
-                        mw_params.activation = New UInt32(dataSize / cfgBoxWidth - 1) {}
-                    End If
-                    For i As Integer = 0 To (dataSize / cfgBoxWidth) - 1
-                        mw_params.activation(i) = BitConverter.ToInt32(inBuf, ptr)
-                        ptr += cfgBoxWidth
-                    Next
+                    Try
+                        ptr = 1
+                        cfgBoxWidth = dataSize / iCheckBoxItems
+                        If mw_params.activation.Length < dataSize / cfgBoxWidth Then
+                            mw_params.activation = New UInt32(dataSize / cfgBoxWidth - 1) {}
+                        End If
+                        For i As Integer = 0 To (dataSize / cfgBoxWidth) - 1
+                            mw_params.activation(i) = BitConverter.ToInt32(inBuf, ptr)
+                            ptr += cfgBoxWidth
+                        Next
+                    Catch ex As Exception
+
+                    End Try
                     Exit Select
                 Case MSP_BOXNAMES
                     iCheckBoxItems = 0
@@ -354,6 +365,15 @@
                         mw_gui.bUpdateBoxNames = True
                     End If
                     Exit Select
+                Case MSP_BOXIDS
+                    ptr = 0
+                    Dim BOXIDS(dataSize - 1) As Integer
+                    While ptr < dataSize
+                        BOXIDS(ptr) = Int(inBuf(ptr + 1))
+                        ptr += 1
+                    End While
+                    iBoxIdents = BOXIDS
+                    Exit Select
                 Case MSP_MISC
                     ptr = 1
                     mw_params.PowerTrigger = BitConverter.ToInt16(inBuf, ptr)
@@ -371,25 +391,43 @@
                 Case MSP_WP
                     ptr = 1
                     Dim wp_no As Byte = Convert.ToByte(inBuf(ptr))
+                    ptr += 1
                     If wp_no = 0 Then
                         mw_gui.GPS_home_lat = BitConverter.ToInt32(inBuf, ptr)
                         ptr += 4
                         mw_gui.GPS_home_lon = BitConverter.ToInt32(inBuf, ptr)
                         ptr += 4
-                        mw_gui.GPS_home_alt = BitConverter.ToInt16(inBuf, ptr)
-                        'flag comes here but not care
-                        ptr += 2
-                    End If
-                    If wp_no = 16 Then
-                        mw_gui.GPS_poshold_lat = BitConverter.ToInt32(inBuf, ptr)
+                        mw_gui.GPS_home_alt = BitConverter.ToInt32(inBuf, ptr)
                         ptr += 4
-                        mw_gui.GPS_poshold_lon = BitConverter.ToInt32(inBuf, ptr)
-                        ptr += 4
-                        mw_gui.GPS_poshold_alt = BitConverter.ToInt16(inBuf, ptr)
+                        Dim GPS_heading As Int16 = BitConverter.ToInt16(inBuf, ptr)
                         ptr += 2
+                        Dim TimeToStay As Int16 = BitConverter.ToInt16(inBuf, ptr)
+                        ptr += 2
+                        Dim action As Byte = Convert.ToByte(inBuf(ptr))
+                        ptr += 1
+                        Dim action_paramter As Int16 = BitConverter.ToInt16(inBuf, ptr)
+                        ptr += 2
+                    Else
+                        Dim newRow As DataRow = dtWayPoints.NewRow
+                        newRow("WPNo") = wp_no
+                        newRow("Lat") = BitConverter.ToInt32(inBuf, ptr) / 10000000
+                        ptr += 4
+                        newRow("Lon") = BitConverter.ToInt32(inBuf, ptr) / 10000000
+                        ptr += 4
+                        newRow("Alt") = BitConverter.ToInt32(inBuf, ptr) / 10000000
+                        ptr += 4
+                        newRow("Heading") = BitConverter.ToInt16(inBuf, ptr)
+                        ptr += 4
+                        newRow("TimeToStay") = BitConverter.ToInt16(inBuf, ptr)
+                        ptr += 4
+                        newRow("Action") = Convert.ToByte(inBuf(ptr))
+                        ptr += 4
+                        newRow("ActionParameter") = BitConverter.ToInt16(inBuf, ptr)
+                        ptr += 4
+                        dtWayPoints.Rows.Add(newRow)
+                        isNewWayPoint = True
                     End If
                     Exit Select
-
                 Case MSP_UID
                     Dim tmp As String = ""
                     For ptr = 1 To 12
@@ -403,7 +441,7 @@
                     Exit Select
                 Case MSP_SONAR
                     ptr = 1
-                    mw_gui.Sonar = Convert.ToByte(inBuf(ptr))
+                    mw_gui.Sonar = BitConverter.ToInt16(inBuf, ptr)
                     Exit Select
                 Case MSP_FIRMWARE
                     Dim builder As New System.Text.StringBuilder()
@@ -416,7 +454,11 @@
                     Exit Select
             End Select
         Catch ex As Exception
-
+            frmError.lastCommand = "evaluate_command(" & cmd.ToString & ")"
+            frmError.myEx = ex
+            If frmError.ShowDialog() = Windows.Forms.DialogResult.Cancel Then
+                System.Windows.Forms.Application.Exit()
+            End If
         End Try
     End Sub
 

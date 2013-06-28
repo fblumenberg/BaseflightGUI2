@@ -83,6 +83,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -165,6 +166,12 @@
     <Compile Include="frmError.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmFeature.Designer.vb">
+      <DependentUpon>frmFeature.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmFeature.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmMain.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -172,20 +179,40 @@
       <DependentUpon>frmMain.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmReboot.Designer.vb">
-      <DependentUpon>frmReboot.vb</DependentUpon>
+    <Compile Include="frmMap.Designer.vb">
+      <DependentUpon>frmMap.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmReboot.vb">
+    <Compile Include="frmMap.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMessageBox.Designer.vb">
+      <DependentUpon>frmMessageBox.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmMessageBox.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMixer.Designer.vb">
+      <DependentUpon>frmMixer.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmMixer.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSet.Designer.vb">
+      <DependentUpon>frmSet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmSet.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="modCLI.vb" />
     <Compile Include="modCOM.vb" />
     <Compile Include="modFirmwareUpdate.vb" />
+    <Compile Include="modLanguage.vb" />
     <Compile Include="modMain.vb" />
     <Compile Include="modMap.vb" />
     <Compile Include="Class\clsGMapMarkerRect.vb" />
     <Compile Include="modMSP.vb" />
     <Compile Include="modParameter.vb" />
+    <Compile Include="modPassGPS.vb" />
     <Compile Include="modRCControlSettings.vb" />
     <Compile Include="modRealtime.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -211,11 +238,23 @@
     <EmbeddedResource Include="frmError.resx">
       <DependentUpon>frmError.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmFeature.resx">
+      <DependentUpon>frmFeature.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmReboot.resx">
-      <DependentUpon>frmReboot.vb</DependentUpon>
+    <EmbeddedResource Include="frmMap.resx">
+      <DependentUpon>frmMap.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMessageBox.resx">
+      <DependentUpon>frmMessageBox.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMixer.resx">
+      <DependentUpon>frmMixer.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSet.resx">
+      <DependentUpon>frmSet.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
@@ -401,6 +440,20 @@
     <None Include="img\Rounded Arrow Up Black 32 n p.png" />
     <None Include="img.x32\WayPoint_x32.png" />
     <Content Include="baseflight2.ico" />
+    <None Include="img.x32\Download from Web 32 n p8.png" />
+    <None Include="img\gps_led_green.bmp" />
+    <None Include="img\gps_led_red.bmp" />
+    <None Include="img\gps_led_green.png" />
+    <None Include="img\gps_led_red.png" />
+    <None Include="img.x16\Home 2 16 n p8.png" />
+    <None Include="img.x32\Roll.png" />
+    <None Include="img.x32\Yaw.png" />
+    <None Include="img.x32\Pitch.png" />
+    <None Include="img.x32\Pitch_32_p_n.png" />
+    <None Include="img.x32\Roll_32_p_n.png" />
+    <None Include="img.x32\Yaw_32_p_n.png" />
+    <None Include="img.x32\Alt_32_p_n.png" />
+    <None Include="img.x32\PosHold_32_p_n.png" />
     <Content Include="Naze32.ico" />
     <None Include="Resources\gps_background.bmp" />
   </ItemGroup>

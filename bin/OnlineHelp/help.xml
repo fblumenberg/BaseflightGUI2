@@ -1,0 +1,3053 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:MainDataTable="OnlineHelp" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="OnlineHelp">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Item" type="xs:string" minOccurs="0" />
+                <xs:element name="Type" type="xs:int" minOccurs="0" />
+                <xs:element name="URL" type="xs:string" minOccurs="0" />
+                <xs:element name="Language" type="xs:string" minOccurs="0" />
+                <xs:element name="Description" type="xs:string" minOccurs="0" />
+                <xs:element name="Updated" type="xs:dateTime" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <OnlineHelp>
+    <Item>PPM</Item>
+    <Type>2</Type>
+    <URL>https://docs.google.com/document/d/1SdKXVoVkYw7Mp-FBL1ctxKqW3_pqexEClJ0X-GNGAkg/edit?pli=1#bookmark=id.885prn4wd1z6</URL>
+    <Language>DE</Language>
+    <Description>Bei Empfängern die das Summensignal unterstützen, kann diese Funktion mit diesem Feature aktiviert werden.
+</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>VBAT</Item>
+    <Type>2</Type>
+    <URL>https://docs.google.com/document/d/1SdKXVoVkYw7Mp-FBL1ctxKqW3_pqexEClJ0X-GNGAkg/edit?pli=1#bookmark=id.kt35u7wd7uo6</URL>
+    <Language>DE</Language>
+    <Description>Die Spannungsüberwachung des Naze32 wird aktiviert. Wird die Spannung unterschritten, werden entsprechende Routinen aktiviert.
+</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>SPEKTRUM</Item>
+    <Type>2</Type>
+    <URL>https://docs.google.com/document/d/1SdKXVoVkYw7Mp-FBL1ctxKqW3_pqexEClJ0X-GNGAkg/edit?pli=1#bookmark=id.11bjrhfhwnp4</URL>
+    <Language>DE</Language>
+    <Description>Ermöglicht einen Spektrum Satelitten Empfänger an PIN RX4 als Empfänger zu nutzen</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>MOTOR_STOP</Item>
+    <Type>2</Type>
+    <URL>https://docs.google.com/document/d/1SdKXVoVkYw7Mp-FBL1ctxKqW3_pqexEClJ0X-GNGAkg/edit?pli=1#bookmark=id.awcig77jv77t</URL>
+    <Language>DE</Language>
+    <Description>Mit diesem Feature laufen die Motoren beim armen nicht sofort an. Sie laufen erst an, wenn auch Gas gebenen wird! Gas auf 0 ist dann auch Motoren aus.
+</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>SERVO_TILT</Item>
+    <Type>2</Type>
+    <URL>https://docs.google.com/document/d/1SdKXVoVkYw7Mp-FBL1ctxKqW3_pqexEClJ0X-GNGAkg/edit#bookmark=id.rxsq6hb7xxj5</URL>
+    <Language>DE</Language>
+    <Description>Aktiviert die Unterstützung für eine Gimbal.</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>LED</Item>
+    <Type>2</Type>
+    <URL>https://docs.google.com/document/d/1SdKXVoVkYw7Mp-FBL1ctxKqW3_pqexEClJ0X-GNGAkg/edit?pli=1#bookmark=id.qmm6ladfue61</URL>
+    <Language>DE</Language>
+    <Description>Aktiviert die Unterstützung für LED Funktionen.</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>GPS</Item>
+    <Type>2</Type>
+    <URL>https://docs.google.com/document/d/1SdKXVoVkYw7Mp-FBL1ctxKqW3_pqexEClJ0X-GNGAkg/edit?pli=1#bookmark=id.ivzrm489jt89</URL>
+    <Language>DE</Language>
+    <Description>Aktiviert die Unterstützung für GPS Funktionen.
+WICHTIG:
+- gps_baudrate
+- gps_type
+müssen mit eingestellt werden.</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>FAILSAFE</Item>
+    <Type>2</Type>
+    <URL>https://docs.google.com/document/d/1SdKXVoVkYw7Mp-FBL1ctxKqW3_pqexEClJ0X-GNGAkg/edit?pli=1#bookmark=id.1ilp5zis0e87</URL>
+    <Language>DE</Language>
+    <Description>Aktiviert die Routinen, die bei einem Senderausfall eingreifen</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>SONAR</Item>
+    <Type>2</Type>
+    <URL>https://docs.google.com/document/d/1SdKXVoVkYw7Mp-FBL1ctxKqW3_pqexEClJ0X-GNGAkg/edit?https://docs.google.com/document/d/1SdKXVoVkYw7Mp-FBL1ctxKqW3_pqexEClJ0X-GNGAkg/edit?pli=1#bookmark=id.wyj198njtqr4</URL>
+    <Language>DE</Language>
+    <Description>Dieser Befehl schaltet das SONAR ein. Unterstützt wird derzeit nur das HC-SR04</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>TRI</Item>
+    <Type>3</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Definiert einen Copter in Form eines "Y" (mit 3 Motoren) und einem Heckservo.</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>QUADP</Item>
+    <Type>3</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Definiert einen Copter im Form eines "PLUS"</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>QUADX</Item>
+    <Type>3</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Definiert einen Copter in Form eines "X"</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>Y6</Item>
+    <Type>3</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Definiert einen Copter in Form eines "Y" (mit 6 Motoren)</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>Y4</Item>
+    <Type>3</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Definiert einen Copter in Form eines "Y" (mit 4 Motoren)</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>VTAIL4</Item>
+    <Type>3</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Definiert einen Copter mit verstellbaren Rotoren</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>deadband</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Ist der Bereich um die Knüppelmitte herum, in dem die Elektronik noch nicht auf Bewegungen des Knüppels reagiert (ROLL/PITCH). </Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>yawdeadband</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Ist der Bereich um die Knüppelmitte herum, in dem die Elektronik noch nicht auf Bewegungen des Knüppels reagiert (YAW). </Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>rc_rate</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Bestimmt den max. Steuerweg, der vom Sendersignal ausgewertet wird.</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>rc_expo</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Bestimmt die Expo-Steuercharakteristik des Sendersignal</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>thr_mid</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Verschiebung des THROTLLE-Mitte (Es läßt sich einstellen, an welcher Stelle des Senderknüppel der Copter schwebt.</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>thr_expo</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Bestimmt die Expo-Steuercharakteristik des Sendersignal vom THROTTLE</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>roll_pitch_rate</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Bestimmt die max. Drehrate von ROLL/PITCH</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>yawrate</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Bestimmt die max. Drehrate von YAW
+Erklärung: mit YAW ist die Drehung um die Hochachse gemeint (Heck)</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>maxthrottle</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>oberster Gaspunkt der an den Regler geschickt wird (i.d.R. 1950)</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>maxcheck</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>oberster RC Endpunkt (i.d.R. 2000)</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>retarded_arm</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Deaktiviert die Funktion: ARM/DISARM über ROLL (links/rechts)</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>killswitchtime</Item>
+    <Type>1</Type>
+    <URL>https://docs.google.com/document/d/1SdKXVoVkYw7Mp-FBL1ctxKqW3_pqexEClJ0X-GNGAkg/edit#bookmark=id.6n0algn0vh7e</URL>
+    <Language>DE</Language>
+    <Description>Bei einem Wert größer 0 wird der ARM Schalter zu einem Notaus (Killswitch)</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>failsafe_delay</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Verzögerung FAILSAFE in 0.1s (10 = 1s)</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>failsafe_off_delay</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Verzögerung FAILSAFE aus in 0.1s (10 = 1s)</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>motor_pwm_rate</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Motoransteuerfrequenz (50 - 498 Hz)</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>servo_pwm_rate</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Ansteuerfrequenz der Servos. Standardservos 50Hz, </Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>serial_baudrate</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>serielle Baudrate (9600, 19200, 38400, 57600, 115200)</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>yaw_direction</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Hier kann die "Drehrichtung oder Wirkrichtung" der YAW Stabilisierungs-Funktion (Heck) umgedreht werden.</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>wing_left_min</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Querruder links, Trimmung  Servoweg in µs (ca. 1000 .. 1300, normal 1000)</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>wing_left_mid</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Querruder links, Trimmung Servomitte in µs (ca. 1400 .. 1600, normal 1500)</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>wing_left_max</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Querruder links, Trimmung  Servoweg in µs (ca. 1800 .. 2000, normal 2000)</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>wing_right_min</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Querruder rechts, Trimmung Servoweg in µs (ca. 1000 .. 1300, normal 1000)</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>wing_right_mid</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Querruder rechts, Trimmung Servomitte in µs (ca. 1400 .. 1600, normal 1500)</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>wing_right_max</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Querruder rechts,Trimmung Servoweg  in µs (ca. 1800 .. 2000, normal 2000)</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gimbal_flags</Item>
+    <Type>1</Type>
+    <URL>https://docs.google.com/document/d/1SdKXVoVkYw7Mp-FBL1ctxKqW3_pqexEClJ0X-GNGAkg/edit#bookmark=id.hk0er57dypw2</URL>
+    <Language>DE</Language>
+    <Description>Bitmask die Definiert wie die Gimbal arbeiten soll. Eine ausführliche Erklärung findet Ihr über den Link.</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gimbal_pitch_gain</Item>
+    <Type>1</Type>
+    <URL>https://docs.google.com/document/d/1SdKXVoVkYw7Mp-FBL1ctxKqW3_pqexEClJ0X-GNGAkg/edit#bookmark=id.d943ow4qqcdn</URL>
+    <Language>DE</Language>
+    <Description>Hiermit wird die Stärke der Reaktion von Pitch eingestellt. Je größer, je stärker.</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gimbal_roll_gain</Item>
+    <Type>1</Type>
+    <URL>https://docs.google.com/document/d/1SdKXVoVkYw7Mp-FBL1ctxKqW3_pqexEClJ0X-GNGAkg/edit#bookmark=id.6vbambrrkvbm</URL>
+    <Language>DE</Language>
+    <Description>Hiermit wird die Stärke der Reaktion von Roll eingestellt. Je größer, je stärker.</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gimbal_pitch_min</Item>
+    <Type>1</Type>
+    <URL>https://docs.google.com/document/d/1SdKXVoVkYw7Mp-FBL1ctxKqW3_pqexEClJ0X-GNGAkg/edit#bookmark=id.fn6ne0gwsvkr</URL>
+    <Language>DE</Language>
+    <Description>Hiermit wird der Pitch Minimum Endanschlag eingestellt.</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gimbal_pitch_max</Item>
+    <Type>1</Type>
+    <URL>https://docs.google.com/document/d/1SdKXVoVkYw7Mp-FBL1ctxKqW3_pqexEClJ0X-GNGAkg/edit#bookmark=id.ag8mzfs1nenl</URL>
+    <Language>DE</Language>
+    <Description>Hiermit wird der Pitch Maximum Endanschlag eingestellt.</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gimbal_pitch_mid</Item>
+    <Type>1</Type>
+    <URL>https://docs.google.com/document/d/1SdKXVoVkYw7Mp-FBL1ctxKqW3_pqexEClJ0X-GNGAkg/edit#bookmark=id.9gbx8j968mxl</URL>
+    <Language>DE</Language>
+    <Description>Hiermit wird die Pitch Mitte eingestellt</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gimbal_roll_min</Item>
+    <Type>1</Type>
+    <URL>https://docs.google.com/document/d/1SdKXVoVkYw7Mp-FBL1ctxKqW3_pqexEClJ0X-GNGAkg/edit#bookmark=id.jtijk89d3g67</URL>
+    <Language>DE</Language>
+    <Description>Hiermit wird der Roll Minimum Endanschlag eingestellt.</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gimbal_roll_max</Item>
+    <Type>1</Type>
+    <URL>https://docs.google.com/document/d/1SdKXVoVkYw7Mp-FBL1ctxKqW3_pqexEClJ0X-GNGAkg/edit#bookmark=id.ey2dmsgslfll</URL>
+    <Language>DE</Language>
+    <Description>Hiermit wird der Roll Maximum Endanschlag eingestellt</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gimbal_roll_mid</Item>
+    <Type>1</Type>
+    <URL>https://docs.google.com/document/d/1SdKXVoVkYw7Mp-FBL1ctxKqW3_pqexEClJ0X-GNGAkg/edit#bookmark=id.px5cgx9pjh33</URL>
+    <Language>DE</Language>
+    <Description>Hiermit wird die Roll Mitte eingestellt</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>autolandrate</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Sinkgeschwindichkeitsrate bei Autolandung</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>acc_hardware</Item>
+    <Type>1</Type>
+    <URL>https://docs.google.com/document/d/1SdKXVoVkYw7Mp-FBL1ctxKqW3_pqexEClJ0X-GNGAkg/edit#bookmark=id.cem42to78c00</URL>
+    <Language>DE</Language>
+    <Description>0 = autodetect&lt;BR&gt;1 = ADXL345 (wird von Baseflight &amp; Harakiri unterstützt, ist aber nicht auf dem Naze32 verbaut)&lt;BR&gt;2 = MPU6050&lt;BR&gt;3 = MMA8452</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gyro_lpf</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>mögliche Werte 256 188 98 42 20 10 (HZ)</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_baudrate</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>serielle Baudrate des GPS (9600, 19200, 38400, 57600, 115200)</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_type</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>0 = NMEA (default)
+1 = UBLOX (mit Konfigurations Block für Binär Mode)
+2 = MTK3329 with 3Drobotics V1.6 FW
+3 = MTK3329 with 3Drobotics V1.9 FW
+4 = UBLOX_DUMP </Description>
+    <Updated>2013-06-14T09:43:13.5532249+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_ph_minsat</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Ab wieviel Satelliten das PH (GPS Hold) möglich sein soll. (gültige Werte: 5 - 10)</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_ph_settletime</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>in cm/s ist die geschwindichkeit die
+er erreichen soll beim abremsen wen man im PH fliegt und stick loslässt wenn er diese erreicht nimmt er die GPS position und korrigiert mit Position Hold Parametern .Dieses spiel macht er im 300ms takt und maximun 4 Sekunden lang danach wenn er nicht erfolgreich ist macht er ein Direkten PH .</Description>
+    <Updated>2013-06-03T19:55:53.521708+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_maxangle</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Bestimmt den maximalen Kippwinkel den das GPS am Kopter überhaupt verursachen kann.
+(gültige Werte: 10 - 40 Grad)</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>nav_rtl_lastturn</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>bei RTL dreht sich der Copter in Zielrichtung (unabhängig von "NAV_CONTROLS_HEADING". </Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>nav_speed_max</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>maximale Geschwindigkeit bei RTL (GPS HOME)</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>nav_controls_heading</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Die Navigation steuert YAW bei "WP only"</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>nav_tail_first</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Damit kann man einstellen mit welchem "Arm" der Copter beim RTL zurück kommt.
+Funktioniert nur, wenn nav_controls_heading aktiviert ist (nav_controls_heading = 1 (default)).
+(gültige Werte: 0 - 1)</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>looptime</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Wert in ms, der angibt in welchem Zyklus die Regelung arbeiten soll</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>oldcontroller</Item>
+    <Type>1</Type>
+    <URL>https://docs.google.com/document/d/1SdKXVoVkYw7Mp-FBL1ctxKqW3_pqexEClJ0X-GNGAkg/edit#bookmark=id.v1t3tb7nk919</URL>
+    <Language>DE</Language>
+    <Description>Aktiviert den Original Baseflight Controller. Ideal für Acromode</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>p_pitch</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Die Korrekturkraft die den Copter bei LEVEL-Änderungen wieder in seine Ausgangsposition bringt.</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>i_pitch</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Der Zeitraum der die Winkeländerung auf PITCH-Änderungen abtastet und ermittelt.</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>d_pitch</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Die Geschwindigkeit mit der der Copter in seine ursprüngliche PITCH-Position zurückkehren will.</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>p_roll</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Die Korrekturkraft die den Copter bei ROLL-Bewegungen wieder in seine Ausgangsposition bringt.</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>i_roll</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Der Zeitraum der die Winkeländerung auf ROLL-Änderungen abtastet und ermittelt.</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>d_roll</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Die Geschwindigkeit mit der der Copter in seine ursprüngliche ROLL-Position zurückkehren will.</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>p_yaw</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Die Korrekturkraft die den Copter bei YAW-Bewegungen wieder in seine Ausgangsposition bringt.</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>i_yaw</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Der Zeitraum der die Winkeländerung auf YAW-Änderungen abtastet und ermittelt.</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>d_yaw</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Die Geschwindigkeit mit der der Copter in seine ursprüngliche YAW-Position zurückkehren will.</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>p_alt</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Die Korrekturkraft die den Copter bei Höhen-Bewegungen wieder in seine Ausgangsposition bringt.</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>i_alt</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Der Zeitraum der die Winkeländerung auf Höhen-Änderungen abtastet und ermittelt.</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>d_alt</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Die Geschwindigkeit mit der der Copter auf seine ursprüngliche HÖHEN-Position zurückkehren will.</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>p_level</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Die Korrekturkraft die den Copter bei LEVEL-Änderungen wieder in seine Ausgangsposition bringt.</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>i_level</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Der Zeitraum der die Winkeländerung auf LEVEL-Änderungen abtastet und ermittelt.</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>d_level</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Die Geschwindigkeit mit der der Copter in seine ursprüngliche LEVEL-Position zurückkehren will.</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>auxChannels</Item>
+    <Type>1</Type>
+    <URL>https://docs.google.com/document/d/1SdKXVoVkYw7Mp-FBL1ctxKqW3_pqexEClJ0X-GNGAkg/edit#bookmark=id.cdpabbfe2f06</URL>
+    <Language>DE</Language>
+    <Description>min = 4, max = 14
+Wird nur mit Feature PPM unterstützt
+Viele Sender und Empfänger unterstützen im PPM Mode mehr als 8 Kanäle.
+z.B. Kann Graupner mit einem GR-12 (6 Kanalempfänger) und einer MX-12 (12 Kanal Sender) trotzdem 12 Kanäle im PPM Mode übertragen!
+bei auxChannels &gt; 4 wird lediglich die auslese Zeit von 20ms auf 30ms (bei auxChannel = 8) und 40ms (bei auxChannel = 12) verlängert. Wenn es auf super schnelle Reaktionen, wie gerade bei Kunstflug, ankommt, muss man sich mit auxChannel = 4 begnügen! . 
+</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>SONAR_Pinout</Item>
+    <Type>1</Type>
+    <URL>https://docs.google.com/document/d/1SdKXVoVkYw7Mp-FBL1ctxKqW3_pqexEClJ0X-GNGAkg/edit#bookmark=id.ie708xukz1km</URL>
+    <Language>DE</Language>
+    <Description>0 = PWM5
+PWM5 (Trigger) &amp; PWM6 (Echo)
+Dieses geht natürlich nicht, wenn wir 6 Motoren oder eine Gimbal unterstützen wollen.
+Die Firmware fängt dieses nicht ab, als NACHDENKEN!
+Empfohlen wird die Variante 1
+1 = RC78
+RC7 (Trigger) &amp; RC8 (Echo) 
+Aber Achtung! Diese PIN sind nicht 5V fest, deshalb muss jeweils ein Widerstand von 1KOhm in Reihe geschaltet werden.
+Mehr Informationen hier
+</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>LED_Type</Item>
+    <Type>1</Type>
+    <URL>https://docs.google.com/document/d/1SdKXVoVkYw7Mp-FBL1ctxKqW3_pqexEClJ0X-GNGAkg/edit#bookmark=id.et45rgfuurko</URL>
+    <Language>DE</Language>
+    <Description>Hiermit wählt man aus, welcher Art von LED genutzt werden soll:
+1 = MWCRGB
+2 = MONO_LED
+3 = LEDRing
+</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>LED_pinout</Item>
+    <Type>1</Type>
+    <URL>https://docs.google.com/document/d/1SdKXVoVkYw7Mp-FBL1ctxKqW3_pqexEClJ0X-GNGAkg/edit#bookmark=id.bpu3hfa03mnb</URL>
+    <Language>DE</Language>
+    <Description>Hiermit wird eingestellt, welcher Port genutzt werden soll
+Für LED_TYPE 1 (MWCRGB) gilt:
+0 =  RC5 (noch nicht umgesetzt! z.Z. nur RC5)
+1 =  RC6 (noch nicht umgesetzt!)
+Für LED_TYPE 2 (MONO_LED) gilt:
+0 =  RC5
+1 =  RC6
+</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>LED_ControlChannel</Item>
+    <Type>1</Type>
+    <URL>https://docs.google.com/document/d/1SdKXVoVkYw7Mp-FBL1ctxKqW3_pqexEClJ0X-GNGAkg/edit#bookmark=id.3up2msl7g1i6</URL>
+    <Language>DE</Language>
+    <Description>Hiermit wird eingestellt, mit welchem RX Kanal die LED Funktionen gesteuert werden sollen.
+AUX1 = 4, AUX2 = 5 u.s.w.
+</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>LED_ARMED</Item>
+    <Type>1</Type>
+    <URL>https://docs.google.com/document/d/1SdKXVoVkYw7Mp-FBL1ctxKqW3_pqexEClJ0X-GNGAkg/edit#bookmark=id.79b74vhebewm</URL>
+    <Language>DE</Language>
+    <Description>Gilt nur für LED_TYPE 1 und 2
+0 = Aktivere LED’s nur, wenn der Copter gearmt ist
+1 = Die LED Funktionen sind immer aktiviert
+</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>LED_Pattern1</Item>
+    <Type>1</Type>
+    <URL>https://docs.google.com/document/d/1SdKXVoVkYw7Mp-FBL1ctxKqW3_pqexEClJ0X-GNGAkg/edit#bookmark=id.swwlp9umhvdr</URL>
+    <Language>DE</Language>
+    <Description>Für LED_TYPE 1 (MWCRGB) gilt:
+Wertebereich: 1000 - 2000
+1000 = off
+1200 = landiglight
+http://www.youtube.com/watch?v=LDODrQfr9ew
+1300 = flight lighting 1 Voll
+1400 = flight lighting 2 ("fair light")
+http://www.youtube.com/watch?v=pFBZ8AF-yHI
+1500 = flight lighting 3 (Two - Back and forth)
+http://www.youtube.com/watch?v=RaKO--7evj4
+1600 = flight lighting 4 (Three - continuously)
+http://www.youtube.com/watch?v=AlB5HW_b90U
+1700 = flight lighting 5 (fill and empty)
+http://www.youtube.com/watch?v=wAEjtSIHrdY
+1800 = Muster 1 (colored rainbow)
+http://www.youtube.com/watch?v=wGvevxHs-F4
+1900 = Muster 2 (per arm, transitory color wheel)
+http://www.youtube.com/watch?v=rub2_3yk2Ew
+2000 = Muster 3 (all LED´s, transitory color wheel)
+http://www.youtube.com/watch?v=6rbv-ALXQkQ
+Failsafe und Lowbat übersteuern diese Einstellungen!
+Failsafe
+http://www.youtube.com/watch?v=v_706lmhDf4
+Lowbat
+http://www.youtube.com/watch?v=wi54YUGzmSA
+Für LED_TYPE 2 (MONO_LED) gilt:
+Wertebereich: 0 - 2147483647 (0x7FFFFFFF)
+Beispiel:
+set LED_toggle_pattern = 16711935
+set LED_toggle_delay = 20
+Mit dieser Kombination erzeugt man ein S.O.S.
+Geplant ist:
+- Blink Signale wenn was nicht stimmt! LowBat, FailSafe u.s.w.</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>LED_Pattern2</Item>
+    <Type>1</Type>
+    <URL>https://docs.google.com/document/d/1SdKXVoVkYw7Mp-FBL1ctxKqW3_pqexEClJ0X-GNGAkg/edit#bookmark=id.swwlp9umhvdr</URL>
+    <Language>DE</Language>
+    <Description>Für LED_TYPE 1 (MWCRGB) gilt:
+Wertebereich: 1000 - 2000
+1000 = off
+1200 = landiglight
+http://www.youtube.com/watch?v=LDODrQfr9ew
+1300 = flight lighting 1 Voll
+1400 = flight lighting 2 ("fair light")
+http://www.youtube.com/watch?v=pFBZ8AF-yHI
+1500 = flight lighting 3 (Two - Back and forth)
+http://www.youtube.com/watch?v=RaKO--7evj4
+1600 = flight lighting 4 (Three - continuously)
+http://www.youtube.com/watch?v=AlB5HW_b90U
+1700 = flight lighting 5 (fill and empty)
+http://www.youtube.com/watch?v=wAEjtSIHrdY
+1800 = Muster 1 (colored rainbow)
+http://www.youtube.com/watch?v=wGvevxHs-F4
+1900 = Muster 2 (per arm, transitory color wheel)
+http://www.youtube.com/watch?v=rub2_3yk2Ew
+2000 = Muster 3 (all LED´s, transitory color wheel)
+http://www.youtube.com/watch?v=6rbv-ALXQkQ
+Failsafe und Lowbat übersteuern diese Einstellungen!
+Failsafe
+http://www.youtube.com/watch?v=v_706lmhDf4
+Lowbat
+http://www.youtube.com/watch?v=wi54YUGzmSA
+Für LED_TYPE 2 (MONO_LED) gilt:
+Wertebereich: 0 - 2147483647 (0x7FFFFFFF)
+Beispiel:
+set LED_toggle_pattern = 16711935
+set LED_toggle_delay = 20
+Mit dieser Kombination erzeugt man ein S.O.S.
+Geplant ist:
+- Blink Signale wenn was nicht stimmt! LowBat, FailSafe u.s.w.</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>LED_Pattern3</Item>
+    <Type>1</Type>
+    <URL>https://docs.google.com/document/d/1SdKXVoVkYw7Mp-FBL1ctxKqW3_pqexEClJ0X-GNGAkg/edit#bookmark=id.swwlp9umhvdr</URL>
+    <Language>DE</Language>
+    <Description>Für LED_TYPE 1 (MWCRGB) gilt:
+Wertebereich: 1000 - 2000
+1000 = off
+1200 = landiglight
+http://www.youtube.com/watch?v=LDODrQfr9ew
+1300 = flight lighting 1 Voll
+1400 = flight lighting 2 ("fair light")
+http://www.youtube.com/watch?v=pFBZ8AF-yHI
+1500 = flight lighting 3 (Two - Back and forth)
+http://www.youtube.com/watch?v=RaKO--7evj4
+1600 = flight lighting 4 (Three - continuously)
+http://www.youtube.com/watch?v=AlB5HW_b90U
+1700 = flight lighting 5 (fill and empty)
+http://www.youtube.com/watch?v=wAEjtSIHrdY
+1800 = Muster 1 (colored rainbow)
+http://www.youtube.com/watch?v=wGvevxHs-F4
+1900 = Muster 2 (per arm, transitory color wheel)
+http://www.youtube.com/watch?v=rub2_3yk2Ew
+2000 = Muster 3 (all LED´s, transitory color wheel)
+http://www.youtube.com/watch?v=6rbv-ALXQkQ
+Failsafe und Lowbat übersteuern diese Einstellungen!
+Failsafe
+http://www.youtube.com/watch?v=v_706lmhDf4
+Lowbat
+http://www.youtube.com/watch?v=wi54YUGzmSA
+Für LED_TYPE 2 (MONO_LED) gilt:
+Wertebereich: 0 - 2147483647 (0x7FFFFFFF)
+Beispiel:
+set LED_toggle_pattern = 16711935
+set LED_toggle_delay = 20
+Mit dieser Kombination erzeugt man ein S.O.S.
+Geplant ist:
+- Blink Signale wenn was nicht stimmt! LowBat, FailSafe u.s.w.</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>acc_hardware</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>0 = autodetect&lt;BR&gt;1 = ADXL345 (supported by Baseflight &amp; Harakiri, but it is not installed on Naze32)&lt;BR&gt;2 = MPU6050&lt;BR&gt;3 = MMA8452</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>PPM</Item>
+    <Type>2</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>Enable Serial PPM or Combined PPM receiver input. Use only when a suitable receiever is fitted. </Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>VBAT</Item>
+    <Type>2</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>Enable on board flight battery monitor.</Description>
+    <Updated>2013-06-26T13:58:53.402222+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>SPEKTRUM</Item>
+    <Type>2</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>Enable use of a Sprektrum or compatible satellite receiver for RC control.</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>MOTOR_STOP</Item>
+    <Type>2</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>Enable stopping of motors at zero throttle stick. If disabled the motors run after FC arming.</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>LED</Item>
+    <Type>2</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>Enable output for LED navigation lights.</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>GPS</Item>
+    <Type>2</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>Enable a serial GPS module. Can only be used IF a combined PPM RC receiver is fitted.</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>FAILSAFE</Item>
+    <Type>2</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>Enable flight controller failsafe. </Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>TELEMETRY</Item>
+    <Type>2</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>Enable FrSky compatible telemetry serial output. Used with FrSky DHT-U or FLD-02 displays.</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>midrc</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>Adjust for transmiotters with mid stick servo outputs other than 1500uS. e.g. Futaba uses 1520uS.</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>vbatscale</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>Calibration value for flight battery monitor. Adjust if GUI or Telemetry reads incorrect voltage.</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>mag_declination</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>Set local magnetic declination. Used to match GPS True North. +8.2 degrees is value of 820. -2.05 degrees is value of -205.</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_baudrate</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>Set to match your serial GPS modules baud rate.</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_type</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>0 = Standard NMEA
+1 = uBlox with Auto config (for binary mode)
+2 = MTK3329 with 3Drobotics V1.6 FW
+3 = MTK3329 with 3Drobotics V1.9 FW
+4 = uBlox in Dumb mode (user must configure GPS module).</Description>
+    <Updated>2013-06-14T09:42:52.710757+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>SERVO_TILT</Item>
+    <Type>2</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>Enable support for a servo driven camera gimbal mount</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>SONAR</Item>
+    <Type>2</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>Enable HC-SR04 soanar module support</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>serial_baudrate</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>seriall Baudrate (9600, 19200, 38400, 57600, 115200)</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gimbal_flags</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>Sets the bit mask for gimbal control. You can find a detailed explanation in the link.</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gyro_lpf</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>Possible values 256 188 98 42 20 10 (HZ)</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>oldcontroller</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>Enables old BaseFlight control method. Good for Acro flight.</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>auxChannels</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>min = 4, max = 14
+Feature is supported only with Combined PPM receivers enabled
+Many transmitters and receivers support more than 8 channels in Combined PPM  mode.
+e.g. Graupner can still transmit with a GR-12 (6-channel receiver) and an MX-12 (12 channel transmitter) 12 channels in PPM mode!
+at auxChannels&gt; 4,  frame time of 20ms to 30ms (when auxChannel = 8) and 40ms (at auxChannel = 12) is extended. </Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>SONAR_Pinout</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>0 = PWM5
+PWM5 (trigger) &amp; PWM6 (echo)
+Can not be used with HEX or Gimbal
+The variant is recommended 1
+1 = RC78
+RC7 (trigger) &amp; RC8 (echo)
+But be careful! This PIN 5V are not fixed, so each one of 1KOhm resistance must be connected in series (board is 3.3V logic).</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>LED_Type</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>This selects what kind of LED should be used:
+1 = MWCRGB
+2 = MONO_LED
+3 = Led ring</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>LED_pinout</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>0 = PWM5</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>LED_ControlChannel</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>This sets RX channel with which the LED functions are controlled.
+4 = AUX1, AUX2 = 5 u.s.w.</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>LED_ARMED</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>Applies only to LED_TYPE 1 and 2
+0 = LED's active when the aircraft is armed
+1 = The LED functions are always enabled</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>LED_Pattern1</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>For LED_TYPE 1 (MWCRGB) the table applies:
+Range: 1000 - 2000uS
+1000 = off
+1200 = landiglight
+http://www.youtube.com/watch?v=LDODrQfr9ew
+1300 = flight lighting 1 full
+1400 = flight lighting 2 ("fairly light")
+http://www.youtube.com/watch?v=pFBZ8AF-yHI
+1500 = 3 flight lighting (Two - Back and Forth)
+http://www.youtube.com/watch?v=RaKO--7evj4
+1600 = flight lighting 4 (Three - Continuously)
+http://www.youtube.com/watch?v=AlB5HW_b90U
+1700 = 5 euros lighting (fill and empty)
+http://www.youtube.com/watch?v=wAEjtSIHrdY
+1 = 1800 pattern (rainbow colored)
+http://www.youtube.com/watch?v=wGvevxHs-F4
+1900 = Pattern 2 (by poor, transitory color wheel)
+http://www.youtube.com/watch?v=rub2_3yk2Ew
+2000 = 3 samples (all LED's, transitory color wheel)
+http://www.youtube.com/watch?v=6rbv-ALXQkQ
+Failsafe and LOWBAT override these settings!
+Failsafe
+http://www.youtube.com/watch?v=v_706lmhDf4
+LOWBAT
+http://www.youtube.com/watch?v=wi54YUGzmSA
+
+For LED_TYPE 2 (MONO_LED) applies:
+Range: 0 - 2147483647 (0x7FFFFFFF)
+Example:
+set LED_toggle_pattern = 16711935
+set LED_toggle_delay = 20
+With this combination, we generated a S.O.S.
+This will:
+- Flashes when something is wrong! LowBat, FailSafe u.s.w.</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>LED_Pattern2</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>For LED_TYPE 1 (MWCRGB) the table applies:
+Range: 1000 - 2000uS
+1000 = off
+1200 = landiglight
+http://www.youtube.com/watch?v=LDODrQfr9ew
+1300 = flight lighting 1 full
+1400 = flight lighting 2 ("fairly light")
+http://www.youtube.com/watch?v=pFBZ8AF-yHI
+1500 = 3 flight lighting (Two - Back and Forth)
+http://www.youtube.com/watch?v=RaKO--7evj4
+1600 = flight lighting 4 (Three - Continuously)
+http://www.youtube.com/watch?v=AlB5HW_b90U
+1700 = 5 euros lighting (fill and empty)
+http://www.youtube.com/watch?v=wAEjtSIHrdY
+1 = 1800 pattern (rainbow colored)
+http://www.youtube.com/watch?v=wGvevxHs-F4
+1900 = Pattern 2 (by poor, transitory color wheel)
+http://www.youtube.com/watch?v=rub2_3yk2Ew
+2000 = 3 samples (all LED's, transitory color wheel)
+http://www.youtube.com/watch?v=6rbv-ALXQkQ
+Failsafe and LOWBAT override these settings!
+Failsafe
+http://www.youtube.com/watch?v=v_706lmhDf4
+LOWBAT
+http://www.youtube.com/watch?v=wi54YUGzmSA
+
+For LED_TYPE 2 (MONO_LED) applies:
+Range: 0 - 2147483647 (0x7FFFFFFF)
+Example:
+set LED_toggle_pattern = 16711935
+set LED_toggle_delay = 20
+With this combination, we generated a S.O.S.
+This will:
+- Flashes when something is wrong! LowBat, FailSafe u.s.w.</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>LED_Pattern3</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>For LED_TYPE 1 (MWCRGB) the table applies:
+Range: 1000 - 2000uS
+1000 = off
+1200 = landiglight
+http://www.youtube.com/watch?v=LDODrQfr9ew
+1300 = flight lighting 1 full
+1400 = flight lighting 2 ("fairly light")
+http://www.youtube.com/watch?v=pFBZ8AF-yHI
+1500 = 3 flight lighting (Two - Back and Forth)
+http://www.youtube.com/watch?v=RaKO--7evj4
+1600 = flight lighting 4 (Three - Continuously)
+http://www.youtube.com/watch?v=AlB5HW_b90U
+1700 = 5 euros lighting (fill and empty)
+http://www.youtube.com/watch?v=wAEjtSIHrdY
+1 = 1800 pattern (rainbow colored)
+http://www.youtube.com/watch?v=wGvevxHs-F4
+1900 = Pattern 2 (by poor, transitory color wheel)
+http://www.youtube.com/watch?v=rub2_3yk2Ew
+2000 = 3 samples (all LED's, transitory color wheel)
+http://www.youtube.com/watch?v=6rbv-ALXQkQ
+Failsafe and LOWBAT override these settings!
+Failsafe
+http://www.youtube.com/watch?v=v_706lmhDf4
+LOWBAT
+http://www.youtube.com/watch?v=wi54YUGzmSA
+
+For LED_TYPE 2 (MONO_LED) applies:
+Range: 0 - 2147483647 (0x7FFFFFFF)
+Example:
+set LED_toggle_pattern = 16711935
+set LED_toggle_delay = 20
+With this combination, we generated a S.O.S.
+This will:
+- Flashes when something is wrong! LowBat, FailSafe u.s.w.</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>BI</Item>
+    <Type>3</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Definiert einen Copter mit 2 Motoren und 2 Servos, siehe Avatar</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>GIMBAL</Item>
+    <Type>3</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Kamerasteuerung</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>HEX6</Item>
+    <Type>3</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Definiert einen Copter mit 6 Motoren (1 Motor zeigt nach vorne).</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>FLYING_WING</Item>
+    <Type>3</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Definiert ein Flugzeug Typ Delta oder Nurflügel</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>HEX6X</Item>
+    <Type>3</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Definiert einen Copter mit 6 Motoren (2 Motore zeigen nach vorne).</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>OCTOX8</Item>
+    <Type>3</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Definiert einen Copter mit 8 Motoren (2 Motore zeigen nach vorne).</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>OCTOFLATP</Item>
+    <Type>3</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Definiert einen Copter mit 8 Motoren (1 Motor zeigt nach vorne).</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>OCTOFLATX</Item>
+    <Type>3</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Definiert einen Copter mit 8 Motoren (2 Motore an jedem Arm oben/unten)</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>AIRPLANE</Item>
+    <Type>3</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Definiert ein Flugzeug mit Querruder, Höhenruder, Seitenruder und max 2 Motoren. Optional FLAPS, siehe plane_flap_mode</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>HELI_120_CCPM</Item>
+    <Type>3</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Definiert einen Hubschrauber mit 120° Taumelscheibe (nicht implementiert)</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>HELI_90_DEG</Item>
+    <Type>3</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Definiert einen Hubschrauber mit 90° Taumelscheibe (nicht implementiert)</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>snr_type</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>0 = HC-SR04 an PWM56
+1 = HC-SR04 an RC78
+2 = I2C (DaddyWalross)
+3 = MB1200 XL an PWM6
+4 = MB1200 XL an RC8</Description>
+    <Updated>2013-06-14T09:08:32.5541546+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>snr_min</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Der minimum Wert, ab wann ein Sonarwert als gültig anerkannt wird
+(5 - 200cm)
+Default = 25cm</Description>
+    <Updated>2013-06-26T13:57:07.0476383+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>snr_max</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Der maximum Wert, unter dem ein Sonarwert als gültig anerkannt wird
+(50 - 700cm)
+Default =200cm</Description>
+    <Updated>2013-06-26T13:57:45.0163454+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>snr_debug</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Aktiviert Sonar Debug
+debug[0] = -1 wenn außerhalb von SNR_MIN und SNR_MAX 
+debug[1] = tiltvalue
+debug[2] = raw sonaralt</Description>
+    <Updated>2013-06-14T09:54:28.8797924+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>snr_tilt</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Ungefährer Tilt Winkel, in dem Sonar möglich ist</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>snr_cf</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Je größer der Wert, um so mehr Einfluss hat das Sonar</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>snr_diff</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Maximal erlaubt Unterschied in cm zwischen Sonar Auslesen (100ms Rate und MaxDiff = 50 bedeutet max 5m / s)</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>snr_land</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Google Übersetzung (Ich versteh noch nicht worum es geht)
+Dies hilft bei der Landung Sonar, indem oberen Gaslimit den aktuellen Gas. - Passen von den Bäume!</Description>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>vbatmaxcellvoltage</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>maximum voltage per cell, used for auto-detecting battery voltage in 0.1V units, default is 43 (4.3V)</Description>
+    <Updated>2013-06-26T11:43:31.0476095+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>vbatmincellvoltage</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>minimum voltage per cell, this triggers battery out alarms, in 0.1V units, default is 33 (3.3V)</Description>
+    <Updated>2013-06-26T11:43:34.1225094+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>al_barolr</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Das ist einfach die generelle Autolandegeschwindigkeit.
+Sie ist dimensionslos, mehr ist schneller landen.</Description>
+    <Updated>2013-06-18T13:45:07.9792201+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>mag_oldcalib</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>0 = extended calibration (better)
+1 = old hard iron calibration</Description>
+    <Updated>2013-06-26T11:42:23.8446011+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_ph_settlespeed</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Ist die Zielgeschwindigkeit für die Wurzelbremse,  Eher als Zahl betrachten, nicht als tatsächliche Geschwindigkeit.</Description>
+    <Updated>2013-06-18T13:46:39.1176905+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_rtl_mindist</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Distanz in Metern 0 - 50 - 0 = Schaltet die Funktion ab (ist nicht getestet),
+Sinn: Wenn der Abstand zum Startpunkt kleiner als diese Meterzahl ist, wird kein RTL ausgeführt, sondern nur eine Autolandung mit PH. Wenn jemand den Failsafe scharf hat und eine gps_rtl_minhight von 20 Metern hat und bei anlaufenden Motoren die Funke aus geht o.ä steigt ihm der Copter ins Gesicht.</Description>
+    <Updated>2013-06-18T13:45:25.9055591+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_rtl_flyaway</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>Distanz in Metern 0 - 100 - 0 = Schaltet die Funktion ab (ist noch nicht getestet).
+Sinn: Bei Einschalten des RTL wird die aktuelle Entfernung zum Ziel gespeichert, wenn diese jetzt, warum auch immer, gösser, statt kleiner wird, wird ab x Metern von einer schweren Fehlfunktion ausgegangen und eine Autolandung ausgeführt.</Description>
+    <Updated>2013-06-18T13:46:06.4574311+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>mag_oldctime</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description>1 - 5 Time in MINUTES for old calibration. 
+Use this together with mag_oldcalib = 1 if you have a monster of a copter</Description>
+    <Updated>2013-06-26T11:42:03.5006617+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>alt_hold_throttle_neutral</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>Crashpilot: A little deadband will not harm our crappy RC</Description>
+    <Updated>2013-06-26T13:44:42.5817178+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_adddb</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>Additional Deadband for all GPS functions</Description>
+    <Updated>2013-06-26T13:45:18.9560388+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>minthrottle</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>passmotor</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>mincommand</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>mincheck</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>failsafe_throttle</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>decent default which should always be below hover throttle for people.</Description>
+    <Updated>2013-06-26T13:43:49.099211+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>failsafe_deadpilot</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>DONT USE, EXPERIMENTAL Time in sec when FS is engaged after idle on THR/YAW/ROLL/PITCH, 0 disables max 250</Description>
+    <Updated>2013-06-26T13:35:36.8545937+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>failsafe_justph</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>Does just PH&amp;Autoland an not RTL, use this in difficult areas with many obstacles to avoid RTL crash into something</Description>
+    <Updated>2013-06-26T13:35:50.5616342+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>failsafe_ignoreSNR</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>When snr_land is set to 1, it is possible to ignore that on Failsafe, because FS over a tree could turn off copter</Description>
+    <Updated>2013-06-26T13:35:56.2924538+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>spektrum_hires</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>spektrum high-resolution y/n (1024/2048bit)</Description>
+    <Updated>2013-06-26T13:58:50.1874551+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>power_adc_channel</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>tri_yaw_middle</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>tri_yaw_min</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>tri_yaw_max</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>pitch_direction_l</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>pitch_direction_r</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>roll_direction_l</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>roll_direction_r</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>al_snrlr</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>You can specify different landingfactor here on sonar contact, because sonar land maybe too fast...</Description>
+    <Updated>2013-06-26T14:00:57.5333494+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>al_lndthr</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>This is the absolute throttle that kicks off the "has landed timer" if it is "0" or too low cfg.minthrottle is taken.</Description>
+    <Updated>2013-06-26T14:01:09.6079375+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>al_debounce</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>(0-20%) 0 Disables. Defines a Throttlelimiter on Autoland. This percentage defines the maximum deviation of assumed hoverthrottle during Autoland</Description>
+    <Updated>2013-06-26T14:01:23.0785026+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>al_tobaro</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>Timeout in ms (100 - 5000) before shutoff on autoland. "al_lndthr" must be undershot for that timeperiod</Description>
+    <Updated>2013-06-26T14:01:32.4769159+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>al_tosnr</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>Timeout in ms (100 - 5000) If sonar aided land is wanted (snr_land = 1) you can choose a different timeout here</Description>
+    <Updated>2013-06-26T14:03:03.4700208+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>align_gyro_x</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>align_gyro_y</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>align_gyro_z</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>align_acc_x</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>align_acc_y</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>align_acc_z</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>align_mag_x</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>align_mag_y</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>align_mag_z</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>acc_lpf_factor</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>Set the Low Pass Filter factor for ACC. Increasing this value would reduce ACC noise (visible in GUI), but would increase ACC lag time. Zero = no filter</Description>
+    <Updated>2013-06-26T14:03:58.9729405+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>acc_ins_lpf</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>acc_trim_pitch</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>acc_trim_roll</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gyro_cmpf_factor</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>accz_vel_cf</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>accz_alt_cf</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>baro_lag</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>Lag of Baro</Description>
+    <Updated>2013-06-26T14:05:00.4239846+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>barodownscale</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>Scale downmovement down</Description>
+    <Updated>2013-06-26T14:05:24.9766727+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>baro_debug</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>1 = Debug Barovalues</Description>
+    <Updated>2013-06-26T14:05:32.269502+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>moron_threshold</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_ins_vel</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>Crashpilot GPS INS The LOWER the value the closer to gps speed // Dont go to high here</Description>
+    <Updated>2013-06-26T13:46:07.8498528+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_ins_mdl</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>NOTE: KEEP THIS TO "1" FOR NOW because other models work like shit currently. GPS ins model. 1 = Based on lat/lon, 2 = based on Groundcourse &amp; speed, 3 = based on ublx velned</Description>
+    <Updated>2013-06-26T13:46:20.1882843+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_lag</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>GPS Lag in ms</Description>
+    <Updated>2013-06-26T13:46:34.0796854+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_phase</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>+- 30 Degree Make a phaseshift of GPS output for whatever reason you might want that (frametype etc)</Description>
+    <Updated>2013-06-26T13:48:51.2465011+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_ph_brakemaxangle</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>1 - 45 Degree Maximal 5 Degree Overspeedbrake</Description>
+    <Updated>2013-06-26T13:51:17.5909299+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_ph_minbrakepercent</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>1 - 99% minimal percent of "brakemaxangle" left over for braking. Example brakemaxangle = 6 so 50 Percent is 3..</Description>
+    <Updated>2013-06-26T13:51:32.2995945+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_ph_forcetimeout</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>1000 - 10000ms (1-10s) Time in ms when absolute PH is forced</Description>
+    <Updated>2013-06-26T13:51:48.207422+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_wp_radius</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>if we are within this distance to a waypoint then we consider it reached (distance is in cm)</Description>
+    <Updated>2013-06-26T13:54:39.860403+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_rtl_minhight</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>Minimal RTL hight in m, 0 disable</Description>
+    <Updated>2013-06-26T13:54:04.6696849+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_yaw</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>Thats the MAG P during GPS functions, substitute for "cfg.P8[PIDMAG]"</Description>
+    <Updated>2013-06-26T13:55:05.6054149+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>nav_speed_min</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>10 - 200 cm/s don't set higher than nav_speed_max! That dumbness is not covered.</Description>
+    <Updated>2013-06-26T13:38:01.7982684+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>nav_approachdiv</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>2 - 10 This is the divisor for approach speed for wp_distance. Example: 400cm / 3 = 133cm/s if below nav_speed_min it will be adjusted</Description>
+    <Updated>2013-06-26T13:41:19.8154515+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>nav_tiltcomp</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>0 - 100 Only arducopter really knows. Default was 54. This is some kind of a hack of them to reach actual nav_speed_max. 54 was default, 0 disables</Description>
+    <Updated>2013-06-26T13:38:05.7787269+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>nav_slew_rate</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_pos_p</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_pos_i</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_pos_d</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_posr_p</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_posr_i</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_posr_d</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_nav_p</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_nav_i</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_nav_d</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>mainpidctrl</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>mainpt1cut</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gpspt1cut</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>LED_invert</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>LED_Toggle_Delay1</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>slow down LED_Pattern</Description>
+    <Updated>2013-06-26T13:34:30.3918159+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>LED_Toggle_Delay2</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>slow down LED_Pattern</Description>
+    <Updated>2013-06-26T13:34:32.1157917+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>LED_Toggle_Delay3</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>slow down LED_Pattern</Description>
+    <Updated>2013-06-26T13:34:49.5237123+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>p_mag</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>p_velocity</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>i_velocity</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>d_velocity</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>p_roll</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>i_roll</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>d_roll</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>p_Pitch</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>i_Pitch</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>d_Pitch</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>p_Yaw</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>i_Yaw</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>d_Yaw</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>p_Alt</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>i_Alt</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>d_Alt</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>p_Level</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>i_Level</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>d_Level</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>rc_expo</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>rc_rate</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>thr_mid</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>thr_expo</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>roll_pitch_rate</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>yawrate</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>deadband</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>Crashpilot: A little deadband will not harm our crappy RC</Description>
+    <Updated>2013-06-26T13:44:01.9006907+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>yawdeadband</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>maxthrottle</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>maxcheck</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>retarded_arm</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>killswitchtime</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>failsafe_delay</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>in 0.1s (10 = 1sec)</Description>
+    <Updated>2013-06-26T13:43:15.8007401+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>failsafe_off_delay</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>in 0.1s (200 = 20sec)</Description>
+    <Updated>2013-06-26T13:43:26.210966+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>motor_pwm_rate</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>servo_pwm_rate</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>yaw_direction</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>Crashpilot: A little deadband will not harm our crappy RC</Description>
+    <Updated>2013-06-26T13:45:11.8547925+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>wing_left_min</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>wing_left_mid</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>wing_left_max</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>wing_right_min</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>wing_right_mid</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>wing_right_max</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gimbal_pitch_gain</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gimbal_roll_gain</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gimbal_pitch_min</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gimbal_pitch_max</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gimbal_pitch_mid</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gimbal_roll_min</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gimbal_roll_max</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gimbal_roll_mid</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>al_barolr</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>Temporary value "64" increase to increase Landingspeed</Description>
+    <Updated>2013-06-26T14:00:38.7929043+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>mag_oldcalib</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>mag_oldctime</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_ph_minsat</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>Minimal Satcount for PH, PH on RTL is still done with 5Sats or more</Description>
+    <Updated>2013-06-26T13:49:01.2782803+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_ph_settlespeed</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>1 - 200 cm/s PH settlespeed in cm/s</Description>
+    <Updated>2013-06-26T13:51:06.5718188+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_maxangle</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>10 - 45 Degree Maximal over all GPS bank angle</Description>
+    <Updated>2013-06-26T13:46:38.1320235+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_rtl_mindist</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>Minimal distance for RTL, otherwise it will just autoland, prevent Failsafe jump in your face, when arming copter and turning off TX</Description>
+    <Updated>2013-06-26T13:53:56.64563+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_rtl_flyaway</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>nav_rtl_lastturn</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>1 = when copter gets to home position it rotates it's head to takeoff direction independend of nav_controls_heading</Description>
+    <Updated>2013-06-26T13:42:10.7227075+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>nav_speed_max</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>50 - 2000 cm/s don't set lower than nav_speed_min! That dumbness is not covered.</Description>
+    <Updated>2013-06-26T13:42:34.1625488+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>nav_controls_heading</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>1 = Nav controls YAW during WP ONLY</Description>
+    <Updated>2013-06-26T13:41:47.5155035+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>nav_tail_first</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>1 = Copter comes back with ass first (only works with nav_controls_heading = 1)</Description>
+    <Updated>2013-06-26T13:42:44.8052411+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>looptime</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>snr_type</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>0 = PWM56 
+1 = RC78
+2 = I2C (DaddyWalross)
+3 = MBPWM56
+4=MBRC78</Description>
+    <Updated>2013-06-26T13:58:06.3412458+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>snr_min</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>Valid Sonar minimal range in cm (5-200)</Description>
+    <Updated>2013-06-26T13:56:45.5488214+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>snr_max</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>Valid Sonar maximal range in cm (50-700)</Description>
+    <Updated>2013-06-26T13:57:26.2763115+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>snr_debug</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>1 Sets Sonardata within snr_min/max in debug[0]</Description>
+    <Updated>2013-06-26T13:56:22.2485856+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>snr_tilt</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>Somehow copter tiltrange in degrees (not exactly) in wich Sonar is possible</Description>
+    <Updated>2013-06-26T13:56:37.6201645+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>snr_cf</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>snr_diff</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description>Maximal allowed difference in cm between sonar readouts (100ms rate and maxdiff = 50 means max 5m/s)</Description>
+    <Updated>2013-06-26T13:56:12.7864848+02:00</Updated>
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>snr_land</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_pos_p</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_pos_i</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_posr_p</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_posr_i</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_posr_d</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_nav_p</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_nav_i</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_nav_d</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>p_mag</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>p_velocity</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>i_velocity</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>d_velocity</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>alt_hold_throttle_neutral</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_adddb</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>midrc</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>minthrottle</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>passmotor</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>mincommand</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>mincheck</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>failsafe_throttle</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>failsafe_deadpilot</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>failsafe_justph</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>failsafe_ignoreSNR</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>spektrum_hires</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>vbatscale</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>vbatmaxcellvoltage</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>vbatmincellvoltage</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>power_adc_channel</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>tri_yaw_middle</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>tri_yaw_min</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>tri_yaw_max</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>pitch_direction_l</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>pitch_direction_r</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>roll_direction_l</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>roll_direction_r</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>al_snrlr</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>al_lndthr</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>al_debounce</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>al_tobaro</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>al_tosnr</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>align_gyro_x</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>align_gyro_y</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>align_gyro_z</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>align_acc_x</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>align_acc_y</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>align_acc_z</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>align_mag_x</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>align_mag_y</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>align_mag_z</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>acc_lpf_factor</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>acc_ins_lpf</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>acc_trim_pitch</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>acc_trim_roll</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gyro_cmpf_factor</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>accz_vel_cf</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>accz_alt_cf</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>baro_lag</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>barodownscale</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>baro_debug</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>moron_threshold</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>mag_declination</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_ins_vel</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_ins_mdl</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_lag</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_phase</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_ph_brakemaxangle</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_ph_minbrakepercent</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_ph_forcetimeout</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_wp_radius</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_rtl_minhight</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_yaw</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>nav_speed_min</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>nav_approachdiv</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>nav_tiltcomp</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>nav_slew_rate</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_pos_d</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>mainpidctrl</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>mainpt1cut</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gpspt1cut</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>LED_invert</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>LED_Toggle_Delay1</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>LED_Toggle_Delay2</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>LED_Toggle_Delay3</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>thr_exporoll_max</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>thr_exporoll_max</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>INFLIGHT_ACC_CAL</Item>
+    <Type>2</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>GYRO_SMOOTHING</Item>
+    <Type>2</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>TELEMETRY</Item>
+    <Type>2</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>POWERMETER</Item>
+    <Type>2</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>LCD</Item>
+    <Type>2</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>INFLIGHT_ACC_CAL</Item>
+    <Type>2</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>GYRO_SMOOTHING</Item>
+    <Type>2</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>POWERMETER</Item>
+    <Type>2</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>LCD</Item>
+    <Type>2</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>CUSTOM</Item>
+    <Type>3</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>CUSTOM</Item>
+    <Type>3</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+</NewDataSet>

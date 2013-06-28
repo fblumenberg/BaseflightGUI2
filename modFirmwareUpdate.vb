@@ -42,7 +42,7 @@
         frmMain.lblFWSuccessful.Visible = False
         If frmMain.chkFWSendR.Checked = True Then
             If serialPort.IsOpen = False Then
-                serialPort.PortName = frmMain.cmbCOMPort.Text
+                serialPort.PortName = frmMain.cmbCOMPort.ComboBox.SelectedValue
                 serialPort.BaudRate = CInt(frmMain.cmbCOMSpeed.Text)
                 serialPort.Open()
                 serialPort.ReadExisting()
@@ -96,19 +96,17 @@
                 frmMain.lblFWError.Visible = True
             End If
         Catch ex As Exception
-
+            MessageBox.Show(frmMain, ex.ToString, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             If Not (myProcess Is Nothing) Then
                 myProcess.Dispose()
             End If
         End Try
-        System.Threading.Thread.Sleep(5000)
         frmMain.LoadingCircle.Visible = False
         frmMain.LoadingCircle.Active = False
-
-        connectCOM()
-        readBaseflightBasics()
-        'readSettings()
+        disconnectCOM()
+        System.Threading.Thread.Sleep(5000)
+        frmMain.tabMain.SelectedIndex = 0
     End Sub
 
 End Module

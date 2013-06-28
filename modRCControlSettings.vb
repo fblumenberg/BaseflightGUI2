@@ -172,14 +172,19 @@
 
     Public Sub set_aux_panel()
         For iCheckBoxItem As Integer = 0 To iCheckBoxItems - 1
-            Dim bit As Integer = 0
-            For aux_channel As Integer = 0 To boxAUX_CHANNELS - 1
-                For chkLMH As Byte = 0 To 2
-                    aux(aux_channel, chkLMH, iCheckBoxItem).Checked = If((mw_params.activation(iCheckBoxItem) And (1 << bit)) = 0, False, True)
-                    aux(aux_channel, chkLMH, iCheckBoxItem).BackColor = Color.Transparent
-                    bit += 1
+            Try
+                Dim id As Integer = iBoxIdents(iCheckBoxItem)
+                Dim bit As Integer = 0
+                For aux_channel As Integer = 0 To boxAUX_CHANNELS - 1
+                    For chkLMH As Byte = 0 To 2
+                        aux(aux_channel, chkLMH, iCheckBoxItem).Checked = If((mw_params.activation(iCheckBoxItem) And (1 << bit)) = 0, False, True)
+                        aux(aux_channel, chkLMH, iCheckBoxItem).BackColor = Color.Transparent
+                        bit += 1
+                    Next
                 Next
-            Next
+            Catch ex As Exception
+
+            End Try
         Next
         Application.DoEvents()
     End Sub
@@ -187,6 +192,7 @@
     Public Sub read_aux_panel()
         For iCheckBoxItem As Integer = 0 To iCheckBoxItems - 1
             Try
+                Dim id As Integer = iBoxIdents(iCheckBoxItem)
                 mw_params.activation(iCheckBoxItem) = 0
                 For chkLMH As Byte = 0 To 2
                     Dim bit As Integer = 0
@@ -198,6 +204,7 @@
                     Next
                 Next
             Catch
+
             End Try
         Next
     End Sub

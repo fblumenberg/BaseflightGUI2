@@ -62,7 +62,7 @@
         curve_mag_yaw = myPane.AddCurve("mag_yaw", list_mag_yaw, Color.DarkGoldenrod, ZedGraph.SymbolType.None)
 
         list_alt = New ZedGraph.RollingPointPairList(300)
-        curve_alt = myPane.AddCurve("alt", list_alt, Color.White, ZedGraph.SymbolType.None)
+        curve_alt = myPane.AddCurve("alt", list_alt, Color.Maroon, ZedGraph.SymbolType.None)
 
         list_head = New ZedGraph.RollingPointPairList(300)
         curve_head = myPane.AddCurve("head", list_head, Color.Orange, ZedGraph.SymbolType.None)
@@ -176,7 +176,11 @@
     End Sub
 
     Public Sub updateTPRealtime()
-
+        'If fcTimeOut < 120 Then
+        '    frmMain.lblRealtimeWarning.Visible = False
+        '    frmMain.lblMapWarning.Visible = False
+        '    frmMain.lblRCWarning.Visible = False
+        'End If
         If frmMain.chk_acc_roll.Checked Then
             list_acc_roll.Add(CDbl(xTimeStamp), mw_gui.ax)
         End If
@@ -328,8 +332,9 @@
         frmMain.ctrlHEADING.SetHeadingIndicatorParameters(mw_gui.heading)
         frmMain.ctrlHORIZON.SetArtificalHorizon(-mw_gui.angy, -mw_gui.angx)
 
-        frmMain.ctrlGPS.SetGPSIndicatorParameters(mw_gui.GPS_directionToHome, mw_gui.GPS_distanceToHome, mw_gui.GPS_numSat, Convert.ToBoolean(mw_gui.GPS_fix), True, Convert.ToBoolean(mw_gui.GPS_update))
+        frmMain.ctrlGPS.SetGPSIndicatorParameters(mw_gui.GPS_directionToHome, mw_gui.GPS_distanceToHome, mw_gui.GPS_numSat, Convert.ToBoolean(mw_gui.GPS_fix), mw_gui.GPS_home_pos, Convert.ToBoolean(mw_gui.GPS_update))
         frmMain.Motor.SetMotorsIndicatorParameters(mw_gui.motors, mw_gui.servos, mw_gui.multiType)
+
     End Sub
 
 
