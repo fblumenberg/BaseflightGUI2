@@ -16,7 +16,7 @@
     Public ThrottleMID As Byte
     Public ThrottleEXPO As Byte
 
-    Public activation As UInteger()
+    Public activation As UInt32()
 
     Public PowerTrigger As Integer
 
@@ -27,6 +27,9 @@
     Public pidnames As String()
     Private iPIDItems As Integer, iCheckBoxItems As Integer
     Private iSwVer As Integer
+
+    Public pMeterSum As Integer
+    Public vBat As Byte
 
     'Commands
     Const MSP_IDENT As Integer = 100
@@ -106,11 +109,11 @@
             'Write RC_TUNING
             checksum = 0
             bptr = 0
-            buffer(bptr) = CByte(AscW("$"c))
+            buffer(bptr) = Convert.ToByte("$"c)
             bptr += 1
-            buffer(bptr) = CByte(AscW("M"c))
+            buffer(bptr) = Convert.ToByte("M"c)
             bptr += 1
-            buffer(bptr) = CByte(AscW("<"c))
+            buffer(bptr) = Convert.ToByte("<"c)
             bptr += 1
             buffer(bptr) = 7
             bptr += 1
@@ -141,15 +144,15 @@
             'Write PID's 
             checksum = 0
             bptr = 0
-            buffer(bptr) = CByte(AscW("$"c))
+            buffer(bptr) = Convert.ToByte("$"c)
             bptr += 1
-            buffer(bptr) = CByte(AscW("M"c))
+            buffer(bptr) = Convert.ToByte("M"c)
             bptr += 1
-            buffer(bptr) = CByte(AscW("<"c))
+            buffer(bptr) = Convert.ToByte("<"c)
             bptr += 1
-            buffer(bptr) = CByte(3 * iPIDItems)
+            buffer(bptr) = Convert.ToByte(3 * iPIDItems)
             bptr += 1
-            buffer(bptr) = CByte(MSP_SET_PID)
+            buffer(bptr) = Convert.ToByte(MSP_SET_PID)
             bptr += 1
             For i As Integer = 0 To iPIDItems - 1
                 buffer(bptr) = pidP(i)
@@ -169,25 +172,26 @@
             'Then write checkboxitems
             checksum = 0
             bptr = 0
-            buffer(bptr) = CByte(AscW("$"c))
+            buffer(bptr) = Convert.ToByte("$"c)
             bptr += 1
-            buffer(bptr) = CByte(AscW("M"c))
+            buffer(bptr) = Convert.ToByte("M"c)
             bptr += 1
-            buffer(bptr) = CByte(AscW("<"c))
+            buffer(bptr) = Convert.ToByte("<"c)
             bptr += 1
-            buffer(bptr) = CByte(cfgBoxWidth * iCheckBoxItems)
+            buffer(bptr) = Convert.ToByte(cfgBoxWidth * iCheckBoxItems)
             bptr += 1
-            buffer(bptr) = CByte(MSP_SET_BOX)
+            buffer(bptr) = Convert.ToByte(MSP_SET_BOX)
             bptr += 1
-            For i As Integer = 0 To iCheckBoxItems - 1
-                buffer(bptr) = CByte(activation(i) And &HFF)
+            For iCheckBoxItem As Integer = 0 To iCheckBoxItems - 1
+                Dim id As Integer = iBoxIdents(iCheckBoxItem)
+                buffer(bptr) = Convert.ToByte(activation(iCheckBoxItem) And &HFF)
                 bptr += 1
-                buffer(bptr) = CByte((activation(i) >> 8) And &HFF)
+                buffer(bptr) = Convert.ToByte((activation(iCheckBoxItem) >> 8) And &HFF)
                 bptr += 1
                 If cfgBoxWidth = 4 Then
-                    buffer(bptr) = CByte((activation(i) >> 16) And &HFF)
+                    buffer(bptr) = Convert.ToByte((activation(iCheckBoxItem) >> 16) And &HFF)
                     bptr += 1
-                    buffer(bptr) = CByte((activation(i) >> 24) And &HFF)
+                    buffer(bptr) = CByte((activation(iCheckBoxItem) >> 24) And &HFF)
                     bptr += 1
                 End If
             Next
@@ -201,11 +205,11 @@
             'then the rest
             checksum = 0
             bptr = 0
-            buffer(bptr) = CByte(AscW("$"c))
+            buffer(bptr) = Convert.ToByte("$"c)
             bptr += 1
-            buffer(bptr) = CByte(AscW("M"c))
+            buffer(bptr) = Convert.ToByte("M"c)
             bptr += 1
-            buffer(bptr) = CByte(AscW("<"c))
+            buffer(bptr) = Convert.ToByte("<"c)
             bptr += 1
             buffer(bptr) = CByte(2)
             bptr += 1
@@ -228,9 +232,9 @@
             Dim o As Byte()
             o = New Byte(9) {}
             ' with checksum 
-            o(0) = CByte(AscW("$"c))
-            o(1) = CByte(AscW("M"c))
-            o(2) = CByte(AscW("<"c))
+            o(0) = Convert.ToByte("$"c)
+            o(1) = Convert.ToByte("M"c)
+            o(2) = Convert.ToByte("<"c)
             o(3) = CByte(0)
             c = c Xor o(3)
             'no payload 
@@ -277,7 +281,7 @@
         tw.WriteEndElement()
         tw.WriteStartElement("THMID value=""" & ThrottleMID & """")
         tw.WriteEndElement()
-        tw.WriteStartElement("THEXPO value=""" & ThrottleMID & """")
+        tw.WriteStartElement("THEXPO value=""" & ThrottleEXPO & """")
         tw.WriteEndElement()
         tw.WriteStartElement("ROLLPITCHRATE value=""" & RollPitchRate & """")
         tw.WriteEndElement()
@@ -361,10 +365,10 @@
                 End Select
             End While
         Catch e As System.InvalidOperationException
-            MessageBox.Show(e.Message, "Version mismatch", MessageBoxButtons.OK, MessageBoxIcon.[Error])
+            MessageBox.Show(frmMain, e.Message, "Version mismatch", MessageBoxButtons.OK, MessageBoxIcon.[Error])
             Return (False)
         Catch
-            MessageBox.Show("Options file contains invalid data around Line : " + reader.LineNumber, "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.[Stop])
+            MessageBox.Show(frmMain, "Options file contains invalid data around Line : " + reader.LineNumber, "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.[Stop])
             Return (False)
         Finally
 

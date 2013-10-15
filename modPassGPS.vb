@@ -1,12 +1,13 @@
 ﻿Module modPassGPS
     Public isPASSGPS As Boolean = False
+    Public ExitPASSGPS As String = "######"
 
     Public Sub endPassGPS()
         isPASSGPS = False
         isCLI = True
         If serialPort.IsOpen Then
             Dim strExit As String = StrDup(21, "@")
-            serialPort.Write(strExit & vbCrLf)
+            serialPort.Write(ExitPASSGPS & vbCrLf)
             sleep(250)
         End If
     End Sub

@@ -195,6 +195,34 @@ Public Class IniReader
     Public Function ReadLong(ByVal key As String) As Long
         Return ReadLong(key, 0)
     End Function
+    ''' <summary>Reads a Double from the specified key of the specified section.</summary>
+    ''' <param name="section">The section to search in.</param>
+    ''' <param name="key">The key from which to return the value.</param>
+    ''' <param name="defVal">The value to return if the specified key isn't found.</param>
+    ''' <returns>Returns the value of the specified section/key pair, or returns the default value if the specified section/key pair isn't found in the INI file.</returns>
+    Public Function ReadDouble(ByVal section As String, ByVal key As String, ByVal defVal As Double) As Double
+        Return Double.Parse(ReadString(section, key, defVal.ToString()))
+    End Function
+    ''' <summary>Reads a Double from the specified key of the specified section.</summary>
+    ''' <param name="section">The section to search in.</param>
+    ''' <param name="key">The key from which to return the value.</param>
+    ''' <returns>Returns the value of the specified section/key pair, or returns 0 if the specified section/key pair isn't found in the INI file.</returns>
+    Public Function ReadDouble(ByVal section As String, ByVal key As String) As Double
+        Return ReadDouble(section, key, 0)
+    End Function
+    ''' <summary>Reads a Double from the specified key of the active section.</summary>
+    ''' <param name="key">The key from which to return the value.</param>
+    ''' <param name="defVal">The section to search in.</param>
+    ''' <returns>Returns the value of the specified key, or returns the default value if the specified key isn't found in the active section of the INI file.</returns>
+    Public Function ReadDouble(ByVal key As String, ByVal defVal As Double) As Double
+        Return ReadDouble(Section, key, defVal)
+    End Function
+    ''' <summary>Reads a Double from the specified key of the active section.</summary>
+    ''' <param name="key">The key from which to return the value.</param>
+    ''' <returns>Returns the value of the specified Key, or returns 0 if the specified Key isn't found in the active section of the INI file.</returns>
+    Public Function ReadDouble(ByVal key As String) As Double
+        Return ReadDouble(key, 0)
+    End Function
     ''' <summary>Reads a Byte array from the specified key of the specified section.</summary>
     ''' <param name="section">The section to search in.</param>
     ''' <param name="key">The key from which to return the value.</param>
@@ -246,6 +274,14 @@ Public Class IniReader
     ''' <param name="value">The value to write.</param>
     ''' <returns>Returns true if the function succeeds, false otherwise.</returns>
     Public Function Write(ByVal section As String, ByVal key As String, ByVal value As Integer) As Boolean
+        Return Write(section, key, value.ToString())
+    End Function
+    ''' <summary>Writes an Double to the specified key in the specified section.</summary>
+    ''' <param name="section">The section to write in.</param>
+    ''' <param name="key">The key to write to.</param>
+    ''' <param name="value">The value to write.</param>
+    ''' <returns>Returns true if the function succeeds, false otherwise.</returns>
+    Public Function Write(ByVal section As String, ByVal key As String, ByVal value As Double) As Boolean
         Return Write(section, key, value.ToString())
     End Function
     ''' <summary>Writes an Integer to the specified key in the active section.</summary>

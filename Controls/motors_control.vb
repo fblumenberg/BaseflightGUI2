@@ -52,10 +52,8 @@ Namespace BaseflightGUIControls
         Shared coord_vtail As Integer(,) = {{95, 170, 70}, {120, 80, 70}, {50, 170, 70}, {20, 80, 70}}
 
         Shared CopterTypeToDraw As CopterType = CopterType.QuadP
-        Private Shared motorvals As Integer() = {1500, 1500, 1500, 1500, 1500, 1500, _
-            1500, 1500}
-        Private Shared servovals As Integer() = {1500, 1500, 1500, 1500, 1500, 1500, _
-            1500, 1500}
+        Private Shared motorvals As Integer() = {1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500}
+        Private Shared servovals As Integer() = {1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500}
 
         Private l As Integer
         Private i As Integer
@@ -198,10 +196,10 @@ Namespace BaseflightGUIControls
                         pe.Graphics.DrawString([String].Format("{0:0}", motorvals(i)), drawFont, drawBrush, coord_bi(i, 0) + 12, coord_bi(i, 1) - 10)
                     Next
                     For i As Integer = 0 To 1
-                        l = CInt(Math.Truncate((servovals(i) - 900) * CSng(coord_bi(2 + i, 2) / 1200.0F)))
+                        l = CInt(Math.Truncate((servovals(i + 4) - 900) * CSng(coord_bi(2 + i, 2) / 1200.0F)))
                         pe.Graphics.FillRectangle(drawBrushGreen, coord_bi(2 + i, 0), coord_bi(2 + i, 1) - 10, l, 10)
                         '??? is servo 0 in new gui also?
-                        pe.Graphics.DrawString([String].Format("{0:0}", servovals(i)), drawFont, drawBrush, coord_bi(2 + i, 0), coord_bi(2 + i, 1))
+                        pe.Graphics.DrawString([String].Format("{0:0}", servovals(i + 4)), drawFont, drawBrush, coord_bi(2 + i, 0), coord_bi(2 + i, 1))
                     Next
                     Exit Select
                 Case CopterType.Hex6
@@ -236,9 +234,9 @@ Namespace BaseflightGUIControls
                     pe.Graphics.FillRectangle(drawBrushGreen, coord_wing(0, 0), coord_wing(0, 1) - bar, 10, bar)
                     pe.Graphics.DrawString([String].Format("{0:0}", motorvals(0)), drawFont, drawBrush, coord_wing(0, 0) + 12, coord_wing(0, 1) - 10)
                     For i As Integer = 1 To 2
-                        Dim h As Integer = CInt(Math.Truncate((servovals(i) - 900) * CSng(coord_wing(i, 2) / 1200.0F)))
+                        Dim h As Integer = CInt(Math.Truncate((servovals(i - 1) - 900) * CSng(coord_wing(i, 2) / 1200.0F)))
                         pe.Graphics.FillRectangle(drawBrushGreen, coord_wing(i, 0), coord_wing(i, 1) - h, 10, h)
-                        pe.Graphics.DrawString([String].Format("{0:0}", servovals(i)), drawFont, drawBrush, coord_wing(i, 0) + 12, coord_wing(i, 1) - 10)
+                        pe.Graphics.DrawString([String].Format("{0:0}", servovals(i - 1)), drawFont, drawBrush, coord_wing(i, 0) + 12, coord_wing(i, 1) - 10)
                     Next
                     Exit Select
                 Case CopterType.Octo8Coax
@@ -306,8 +304,10 @@ Namespace BaseflightGUIControls
                     pe.Graphics.FillRectangle(drawBrushGreen, coord_airplane(3, 0), coord_airplane(3, 1) - hval, 10, hval)
                     pe.Graphics.DrawString([String].Format("{0:0}", servovals(6)), drawFont, drawBrush, coord_airplane(3, 0) + 12, coord_airplane(3, 1) - 12)
 
-                    hval = CInt(Math.Truncate((servovals(7) - 900) * CSng(coord_airplane(4, 2) / 1200.0F)))
+                    hval = CInt(Math.Truncate((motorvals(0) - 900) * CSng(coord_airplane(4, 2) / 1200.0F)))
+                    'hval = CInt(Math.Truncate((servovals(7) - 900) * CSng(coord_airplane(4, 2) / 1200.0F)))
                     'Throttle
+
                     pe.Graphics.FillRectangle(drawBrushGreen, coord_airplane(4, 0), coord_airplane(4, 1) - hval, 10, hval)
                     pe.Graphics.DrawString([String].Format("{0:0}", servovals(7)), drawFont, drawBrush, coord_airplane(4, 0) + 12, coord_airplane(4, 1) - 10)
                     Exit Select
@@ -327,7 +327,6 @@ Namespace BaseflightGUIControls
                         pe.Graphics.DrawString([String].Format("{0:0}", servovals(3 + i)), drawFont, drawBrush, coord_heli120(i, 0), coord_heli120(i, 1) + 10)
                     Next
                     Exit Select
-
                 Case CopterType.Heli90
                     bmpHeli90.MakeTransparent(Color.Yellow)
                     pe.Graphics.DrawRectangle(maskPen, 0, 0, bmpHeli90.Width, bmpHeli90.Height)
@@ -344,7 +343,6 @@ Namespace BaseflightGUIControls
                         pe.Graphics.DrawString([String].Format("{0:0}", servovals(3 + i)), drawFont, drawBrush, coord_heli90(i, 0), coord_heli120(i, 1) + 10)
                     Next
                     Exit Select
-
             End Select
 
             'Disposing graph objects

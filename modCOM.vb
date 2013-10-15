@@ -340,6 +340,7 @@
         'ToDo Servos must be done
         frmMain.updateStatus()
 
+        frmMain.lblVParameterBaseflightVersion.Text = ""
         MSPquery(MSP_FIRMWARE)
         readCOM()
         If comError = True Then Exit Sub

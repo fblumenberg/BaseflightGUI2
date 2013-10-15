@@ -56,9 +56,6 @@ Namespace BaseflightGUIControls
         Protected Overrides Sub OnPaint(pe As PaintEventArgs)
             ' Calling the base class OnPaint
             MyBase.OnPaint(pe)
-
-
-
             Dim drawRedPen As New Pen(Color.Red, 2)
 
             Dim drawFont As New System.Drawing.Font(FontFamily.GenericMonospace, 8.0F)

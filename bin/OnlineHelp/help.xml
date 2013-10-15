@@ -3050,4 +3050,284 @@ Use this together with mag_oldcalib = 1 if you have a monster of a copter</Descr
     <Language>US</Language>
     <Description />
   </OnlineHelp>
+  <OnlineHelp>
+    <Item>tele_prot</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>tele_prot</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gyro_cmpfm_factor</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gyro_cmpfm_factor</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_ph_brkacc</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_ph_brkacc</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_ph_abstub</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>gps_ph_abstub</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>nav_ctrkgain</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>nav_ctrkgain</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>floppy_mode</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>floppy_mode</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>stat_clear</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>stat_clear</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>newpidimax</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>newpidimax</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>LED_RING</Item>
+    <Type>2</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>LED_RING</Item>
+    <Type>2</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>VARIO</Item>
+    <Type>2</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>VARIO</Item>
+    <Type>2</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>3D</Item>
+    <Type>2</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>3D</Item>
+    <Type>2</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>deadband3d_low</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>deadband3d_low</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>deadband3d_high</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>deadband3d_high</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>neutral3d</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>neutral3d</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>deadband3d_throttle</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>deadband3d_throttle</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>pid_controller</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>pid_controller</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>failsafe_detect_threshold</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>failsafe_detect_threshold</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>baro_tab_size</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>baro_tab_size</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>baro_noise_lpf</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>baro_noise_lpf</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>baro_cf</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>DE</Language>
+    <Description />
+  </OnlineHelp>
+  <OnlineHelp>
+    <Item>baro_cf</Item>
+    <Type>1</Type>
+    <URL />
+    <Language>US</Language>
+    <Description />
+  </OnlineHelp>
 </NewDataSet>

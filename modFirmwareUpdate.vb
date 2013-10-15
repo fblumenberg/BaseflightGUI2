@@ -2,6 +2,8 @@
 
     Public firmwareFile As String = ""
     Public STMFlashLoader As String = ""
+    Public StartFWUpdate As String = "RRR"
+
 
     Public Sub initFirmwareUpdate()
         If isStartup = True Then Exit Sub
@@ -47,7 +49,7 @@
                 serialPort.Open()
                 serialPort.ReadExisting()
             End If
-            serialPort.Write("R")
+            serialPort.Write(StartFWUpdate)
             System.Threading.Thread.Sleep(2000)
         End If
         If serialPort.IsOpen = True Then

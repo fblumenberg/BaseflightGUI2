@@ -3,6 +3,9 @@
     Public isCLI As Boolean = False
     Public cliBuffer As String = ""
 
+    Public cliEntry As String = "###"
+
+
     Public Function filterIncomingBuffer(ByVal value As String) As String
         Dim result As String = ""
         result = value.Replace(Chr(32) & "[1D", "")
@@ -22,15 +25,31 @@
     End Sub
 
     Public Sub startCLI()
+        frmMain.Refresh()
         If serialPort.IsOpen = True Then
-            System.Threading.Thread.Sleep(1000)
-            Do While serialPort.BytesToRead > 0
-                serialPort.ReadExisting()
-            Loop
+            Debug.Write(vbCrLf)
+            isCLI = False
             serialPort.ReadExisting()
             serialPort.DiscardInBuffer()
-            isCLI = True
-            serialPort.Write("#")
+            serialPort.Write(cliEntry)
+            'System.Threading.Thread.Sleep(1000)
+            Dim counter As Integer = 0
+            Do While isCLI = False
+                Dim tmp As Integer = serialPort.ReadChar
+                Debug.Write(Chr(tmp))
+                If tmp = 13 Then
+                    isCLI = True
+                    'frmMain.txtCLIResult.Text = ""
+                    Exit Do
+                End If
+                counter += 1
+                If counter = 20 Then
+                    serialPort.ReadExisting()
+                    serialPort.DiscardInBuffer()
+                    serialPort.Write(cliEntry)
+                    counter = 0
+                End If
+            Loop
         End If
         frmMain.txtCLICommand.Focus()
     End Sub

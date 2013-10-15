@@ -111,6 +111,13 @@
         guiDefaultSerialSpeed = ini.ReadString("COM", "DefaultSerialSpeed", "115200")
         USBTimeout = ini.ReadInteger("COM", "USBTimeout", 15)
         BluetoothTimeout = ini.ReadInteger("COM", "BluetoothTimeout", 30)
+        cliEntry = ini.ReadString("CLI", "StartCLI", cliEntry)
+        ExitPASSGPS = ini.ReadString("GUI", "ExitPASSGPS", ExitPASSGPS)
+        StartFWUpdate = ini.ReadString("GUI", "StartFWUpdate", StartFWUpdate)
+        'write back to by sure it's in the INI file
+        ini.Write("CLI", "StartCLI", cliEntry)
+        ini.Write("GUI", "ExitPASSGPS", ExitPASSGPS)
+        ini.Write("GUI", "StartFWUpdate", StartFWUpdate)
 
         comTimeOut = ini.ReadString("COM", "ComTimeout", "500")
         Timeout = ini.ReadString("COM", "FCTimeout", "10")
@@ -129,6 +136,9 @@
         ini.Write("COM", "DefaultPort", guiDefaultPort)
         ini.Write("COM", "DefaultSerialSpeed", guiDefaultSerialSpeed)
         ini.Write("GUI", "DefaultRate", guiDefaultRate)
+        ini.Write("CLI", "StartCLI", cliEntry)
+        ini.Write("GUI", "ExitPASSGPS", ExitPASSGPS)
+        ini.Write("GUI", "StartFWUpdate", StartFWUpdate)
     End Sub
 
     Public Sub versionCheck()
@@ -144,22 +154,33 @@
                 Dim currentversion As String = Application.ProductVersion
                 Dim newI() As String = newestversion.Split(".")
                 Dim curI() As String = currentversion.Split(".")
-                If CInt(newI(0)) > CInt(curI(0)) Then
-                    isNew = True
-                Else
-                    If CInt(newI(1)) > CInt(curI(1)) Then
+                If CInt(newI(0)) >= CInt(curI(0)) Then
+                    If CInt(newI(0)) > CInt(curI(0)) Then
                         isNew = True
                     Else
-                        If CInt(newI(2)) > CInt(curI(2)) Then
-                            isNew = True
-                        Else
-                            If CInt(newI(3)) > CInt(curI(3)) Then
+                        If CInt(newI(1)) >= CInt(curI(1)) Then
+                            If CInt(newI(1)) > CInt(curI(1)) Then
                                 isNew = True
+                            Else
+                                If CInt(newI(2)) >= CInt(curI(2)) Then
+                                    If CInt(newI(2)) > CInt(curI(2)) Then
+                                        isNew = True
+                                    Else
+                                        If CInt(newI(3)) > CInt(curI(3)) Then
+                                            isNew = True
+                                        End If
+                                    End If
+                                Else
+                                'Current Version is newer
                             End If
+                            End If
+                        Else
+                            'Current Version is newer
                         End If
                     End If
+                Else
+                    'Current Version is newer
                 End If
-
                 If isNew = True Then
                     Dim msg As String
                     Dim title As String

@@ -5077,6 +5077,8 @@ Partial Class frmMain
         '
         'gbNAV_SVINFO
         '
+        Me.gbNAV_SVINFO.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.gbNAV_SVINFO.Controls.Add(Me.lblSatID)
         Me.gbNAV_SVINFO.Controls.Add(Me.pbChn01)
         Me.gbNAV_SVINFO.Controls.Add(Me.pbChn02)
@@ -5131,6 +5133,8 @@ Partial Class frmMain
         '
         'pbChn01
         '
+        Me.pbChn01.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pbChn01.BarColor1 = System.Drawing.Color.DarkGray
         Me.pbChn01.BarColor2 = System.Drawing.Color.LightGray
         Me.pbChn01.Location = New System.Drawing.Point(46, 37)
@@ -5141,6 +5145,8 @@ Partial Class frmMain
         '
         'pbChn02
         '
+        Me.pbChn02.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pbChn02.BarColor1 = System.Drawing.Color.DarkGray
         Me.pbChn02.BarColor2 = System.Drawing.Color.LightGray
         Me.pbChn02.Location = New System.Drawing.Point(46, 58)
@@ -5151,6 +5157,8 @@ Partial Class frmMain
         '
         'pbChn03
         '
+        Me.pbChn03.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pbChn03.BarColor1 = System.Drawing.Color.DarkGray
         Me.pbChn03.BarColor2 = System.Drawing.Color.LightGray
         Me.pbChn03.Location = New System.Drawing.Point(46, 79)
@@ -5161,6 +5169,7 @@ Partial Class frmMain
         '
         'lblVnumCh
         '
+        Me.lblVnumCh.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblVnumCh.AutoSize = True
         Me.lblVnumCh.Location = New System.Drawing.Point(220, 19)
         Me.lblVnumCh.Name = "lblVnumCh"
@@ -5170,6 +5179,8 @@ Partial Class frmMain
         '
         'pbChn04
         '
+        Me.pbChn04.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pbChn04.BarColor1 = System.Drawing.Color.DarkGray
         Me.pbChn04.BarColor2 = System.Drawing.Color.LightGray
         Me.pbChn04.Location = New System.Drawing.Point(46, 100)
@@ -5180,6 +5191,7 @@ Partial Class frmMain
         '
         'lblnumCh
         '
+        Me.lblnumCh.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblnumCh.AutoSize = True
         Me.lblnumCh.Location = New System.Drawing.Point(162, 19)
         Me.lblnumCh.Name = "lblnumCh"
@@ -5189,6 +5201,8 @@ Partial Class frmMain
         '
         'pbChn05
         '
+        Me.pbChn05.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pbChn05.BarColor1 = System.Drawing.Color.DarkGray
         Me.pbChn05.BarColor2 = System.Drawing.Color.LightGray
         Me.pbChn05.Location = New System.Drawing.Point(46, 121)
@@ -5208,6 +5222,8 @@ Partial Class frmMain
         '
         'pbChn06
         '
+        Me.pbChn06.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pbChn06.BarColor1 = System.Drawing.Color.DarkGray
         Me.pbChn06.BarColor2 = System.Drawing.Color.LightGray
         Me.pbChn06.Location = New System.Drawing.Point(46, 142)
@@ -5218,6 +5234,8 @@ Partial Class frmMain
         '
         'pbChn07
         '
+        Me.pbChn07.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pbChn07.BarColor1 = System.Drawing.Color.DarkGray
         Me.pbChn07.BarColor2 = System.Drawing.Color.LightGray
         Me.pbChn07.Location = New System.Drawing.Point(46, 163)
@@ -5237,6 +5255,8 @@ Partial Class frmMain
         '
         'pbChn08
         '
+        Me.pbChn08.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pbChn08.BarColor1 = System.Drawing.Color.DarkGray
         Me.pbChn08.BarColor2 = System.Drawing.Color.LightGray
         Me.pbChn08.Location = New System.Drawing.Point(46, 184)
@@ -5256,6 +5276,8 @@ Partial Class frmMain
         '
         'pbChn09
         '
+        Me.pbChn09.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pbChn09.BarColor1 = System.Drawing.Color.DarkGray
         Me.pbChn09.BarColor2 = System.Drawing.Color.LightGray
         Me.pbChn09.Location = New System.Drawing.Point(46, 205)
@@ -5275,6 +5297,8 @@ Partial Class frmMain
         '
         'pbChn10
         '
+        Me.pbChn10.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pbChn10.BarColor1 = System.Drawing.Color.DarkGray
         Me.pbChn10.BarColor2 = System.Drawing.Color.LightGray
         Me.pbChn10.Location = New System.Drawing.Point(46, 226)
@@ -5294,6 +5318,8 @@ Partial Class frmMain
         '
         'pbChn11
         '
+        Me.pbChn11.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pbChn11.BarColor1 = System.Drawing.Color.DarkGray
         Me.pbChn11.BarColor2 = System.Drawing.Color.LightGray
         Me.pbChn11.Location = New System.Drawing.Point(46, 247)
@@ -5313,6 +5339,8 @@ Partial Class frmMain
         '
         'pbChn12
         '
+        Me.pbChn12.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pbChn12.BarColor1 = System.Drawing.Color.DarkGray
         Me.pbChn12.BarColor2 = System.Drawing.Color.LightGray
         Me.pbChn12.Location = New System.Drawing.Point(46, 268)
@@ -5332,6 +5360,8 @@ Partial Class frmMain
         '
         'pbChn13
         '
+        Me.pbChn13.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pbChn13.BarColor1 = System.Drawing.Color.DarkGray
         Me.pbChn13.BarColor2 = System.Drawing.Color.LightGray
         Me.pbChn13.Location = New System.Drawing.Point(46, 289)
@@ -5351,6 +5381,8 @@ Partial Class frmMain
         '
         'pbChn14
         '
+        Me.pbChn14.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pbChn14.BarColor1 = System.Drawing.Color.DarkGray
         Me.pbChn14.BarColor2 = System.Drawing.Color.LightGray
         Me.pbChn14.Location = New System.Drawing.Point(46, 310)
@@ -5370,6 +5402,8 @@ Partial Class frmMain
         '
         'pbChn15
         '
+        Me.pbChn15.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pbChn15.BarColor1 = System.Drawing.Color.DarkGray
         Me.pbChn15.BarColor2 = System.Drawing.Color.LightGray
         Me.pbChn15.Location = New System.Drawing.Point(46, 331)
@@ -5389,6 +5423,8 @@ Partial Class frmMain
         '
         'pbChn16
         '
+        Me.pbChn16.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pbChn16.BarColor1 = System.Drawing.Color.DarkGray
         Me.pbChn16.BarColor2 = System.Drawing.Color.LightGray
         Me.pbChn16.Location = New System.Drawing.Point(46, 352)
@@ -5462,7 +5498,6 @@ Partial Class frmMain
         '
         'gbNAV_VELNED
         '
-        Me.gbNAV_VELNED.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.gbNAV_VELNED.Controls.Add(Me.Label48)
         Me.gbNAV_VELNED.Controls.Add(Me.Label24)
         Me.gbNAV_VELNED.Controls.Add(Me.Label47)
